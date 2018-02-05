@@ -1,11 +1,8 @@
 #include <iostream>
 #include <string>
-//#include "libsqlite.hpp"
-#include <ncurses.h>
+#include "libsqlite.hpp"
 using namespace std;
 bool login(){
-    //int rc;
-    //rc = sqlite3_open("dungeonCrawler.db", &db);
     cout<< "em desenvolvimento"<<endl;
     return true;
     
@@ -20,7 +17,7 @@ bool regist(){
     string password2 = "";
     bool check = true;
     
-    //sqlite::sqlite db( "dungeonCrawler.db" ); // open database
+    sqlite::sqlite db( "dungeonCrawler.db" ); // open database
     
     cout<< "type yout username"<< endl;
     cin >> username;
@@ -37,9 +34,9 @@ bool regist(){
             check = false;
         }
     }
-    //auto cur = db.get_statement(); // create query
-    //cur->set_sql( "INSERT INTO users(username, password, gold) VALUES (username, password, 100);" );
-    //cur->prepare(); // run query
+    auto cur = db.get_statement(); // create query
+    cur->set_sql( "INSERT INTO users(username, password, gold) VALUES (username, password, 100);" );
+    cur->prepare(); // run query
     
     
 }
