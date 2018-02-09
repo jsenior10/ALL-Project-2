@@ -2,7 +2,7 @@
 #include <ctime>
 using namespace std;
 
-const int mazeSize = 15; //number can be changed to make some big sweaty mazes making it an even number makes it act a bit weird sometimes so its better to use an odd number
+const int mazeSize = 31; //number can be changed to make some big sweaty mazes making it an even number makes it act a bit weird sometimes so its better to use an odd number
 int blockedSquare = 1;
 bool foundExit = false;
 int maze[mazeSize][mazeSize] = {0};
@@ -197,7 +197,7 @@ void printMaze(int m[mazeSize][mazeSize])
                 cout << "  ";
                 break;
             case 1:
-                cout << "1 ";
+                cout << "▓▓";
                 break;
             case 2:
                 cout << "  ";

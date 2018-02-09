@@ -1,4 +1,4 @@
 all:
 	echo "Be more specific please"
 movement :
-	g++ movement.cpp --std=c++14 -lcurses -Wall -o game.o
+	g++ --std=c++14 movement.cpp -lcurses -o movement.o
