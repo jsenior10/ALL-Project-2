@@ -13,20 +13,21 @@ bool login(){
         cin >> username;
         cout << "Please type the magic word !" << endl;
         cin >> password;
-        cur->set_sql("SELECT * FROM users WHERE username=? AND password=? LIMIT 1");
+        cur->set_sql("SELECT password FROM users WHERE username=? LIMIT 1");
         cur->prepare(); // run query
-        cur->bind( 1, username );
-        cur->bind( 2, password );
-        if (cur->step()!= 0){
+        cur->bind(1, username);
+        cur->step();
+        if (password.compare(cur -> get_text(0)) == 0){
             cout << "done"<< endl;
+        }
+        else{
+            cout<<"wrong credentials " << endl;
         }
          
     }catch(sqlite::exception e){
         std::cerr << e.what() << std::endl;
-        return true;
+        return false;
     }
-    
-    
     return true;
 }
 bool regist(){
@@ -45,7 +46,7 @@ bool regist(){
             cout << "Set your magic word !" << endl; //receive the password and replace by *
             cin >> password;
 
-            cout << "Reset that !" << endl;   //receive the password2 and replace by *
+            cout << "Type your magic word again !" << endl;   //receive the password2 and replace by *
             cin >> password2;
 
             if(password == password2){
@@ -53,13 +54,14 @@ bool regist(){
                     
                 check = false;
                 auto cur = db.get_statement(); // create query
-                cur->set_sql("INSERT INTO users(username,password,level,gold) VALUES (?,?,0,?);");
+                cur->set_sql("INSERT INTO users(username,password,level,gold) VALUES (?,?,0,100);");
                 cur->prepare(); // run query
                 cur->bind( 1, username );
                 cur->bind( 2, password );
-                cur->bind()
                 cur->step();
                 return true;
+            }else{
+                cout << "password doesn't match. " << endl;
             }
 
         }
