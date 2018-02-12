@@ -1,17 +1,18 @@
 #include <iostream>
-#include <Windows.h>
+#include <curses.h>
+
 using namespace std;
 
 bool running = true;
 int playerX = 2; // sets player starting position
-int playerY = 2; // sets player starting position
+int playerY = 2;
 
 char map[12][13] =  //draws a small map with an array in order to test movement and collision etc
 {
 	"            ",
 	" 1111111111 ",
 	" 1        1 ",
-	" 111 4  1 1 ",
+	" 111    1 1 ",
 	" 1  1 1   1 ",
 	" 1  1  1  1 ",
 	" 1  1  1  1 ",
@@ -22,66 +23,79 @@ char map[12][13] =  //draws a small map with an array in order to test movement 
 	"            "
 
 };
-
-void main()
+// Draw Map
+//
+void drawMap()
 {
-	while (running == true)
-	{
-		
-		for (int i = 0; i < 12; i++)
-		{
-			cout << map[i] << endl;
-		}
+  for (int i = 0; i < 12; i++) {
+    // addstr is nCurses equiv
+    // of cout or print
+    addstr(map[i]);
+    addstr("\n");
+    }
+}
 
-		system("pause>nul");
-		if (GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState(0x53)) //0x53 is the S key
-		{
-			system("cls");
-			int playerY2 = playerY + 1;  //works by adding and subtracting from the x and y coordinates 
-			if (map[playerY2][playerX] == ' ') {
-				map[playerY][playerX] = ' ';
-				playerY++;
-				map[playerY][playerX] = 'x';
-			}
-			else if (map[playerY2][playerX] == '4') { // This checks what the next character is in the array in the direction of the button that was pressed
-				map[playerY][playerX] = ' ';          // if the number below it is a 4, it runs the else if code, can be applied to other things
-				map[playerY][playerX] = 'x';
-				map[playerY2][playerX] = ' ';
-				cout << "whip";
-			}
-		}
 
-		if (GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57))//0x57 is the W key
-		{
-			system("cls");
-			int playerY2 = playerY - 1;
-			if (map[playerY2][playerX] == ' ') {
-				map[playerY][playerX] = ' ';
-				playerY--;
-				map[playerY][playerX] = 'x';
-			}
-		}
+// Detect Char input
+// and move player in direction
+void getUserInput()
+{
+char userInput = getch();
+  if (userInput == 'w') {
+    int playerY2 = playerY - 1;
+    if (map[playerY2][playerX] == ' ') {
+      map[playerY][playerX] = ' ';
+      playerY--;
+      map[playerY][playerX] = 'x';
+    }
+  }
+  if (userInput == 'a') {
+    int playerX2 = playerX - 1;
+    if (map[playerY][playerX2] == ' ') {
+      map[playerY][playerX] = ' ';
+      playerX--;
+      map[playerY][playerX] = 'x';
+    }
+  }
+  if (userInput == 's') {
+    int playerY2 = playerY + 1;
+    if (map[playerY2][playerX] == ' ') {
+      map[playerY][playerX] = ' ';
+      playerY++;
+      map[playerY][playerX] = 'x';
+    }
+  }
+  if (userInput == 'd') {
+    int playerX2 = playerX + 1;
+    if (map[playerY][playerX2] == ' ') {
+      map[playerY][playerX] = ' ';
+      playerX++;
+      map[playerY][playerX] = 'x';
+    }
+  }
+}
 
-		if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(0x44)) //0x44 is the D key
-		{
-			system("cls");
-			int playerX2 = playerX + 1;
-			if (map[playerY][playerX2] == ' ') {
-				map[playerY][playerX] = ' ';
-				playerX++;
-				map[playerY][playerX] = 'x';
-			}
-		}
+// Main game update
+// Runs through all functions required
+void update()
+{
+  getUserInput();
+  clear();
+  drawMap();
+  refresh();
+}
 
-		if (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(0x41)) //0x41 is the A key
-		{
-			system("cls");
-			int playerX2 = playerX - 1;
-			if (map[playerY][playerX2] == ' ') {
-				map[playerY][playerX] = ' ';
-				playerX--;
-				map[playerY][playerX] = 'x';
-			}
-		}
-	}
+
+//
+//
+int main()
+{
+  // Initate nCurses display
+  initscr();
+  while( true ) {
+    update();
+  }
+  // End nCurses display
+  endwin();
+  return 0;
 }
