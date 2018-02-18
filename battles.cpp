@@ -2,6 +2,10 @@
 #include <string>
 #include <stdlib.h>
 //#include "libsqlite.hpp"
+//
+//  g++ --std=c++14 battles.cpp -lncurses -o battles
+//
+//
 #include <ncurses.h>
 #include <unistd.h> //for usleep stuff
 using namespace std;
