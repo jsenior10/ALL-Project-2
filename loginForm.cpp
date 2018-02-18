@@ -5,29 +5,33 @@ using namespace std;
 bool login(){
     string username;
     string password;
-    try{
-        sqlite::sqlite db( "dungeonCrawler.db" ); // open database
-        
-        auto cur = db.get_statement(); // create query
-        cout << "Who are you ?" << endl;
-        cin >> username;
-        cout << "Please type the magic word !" << endl;
-        cin >> password;
-        cur->set_sql("SELECT password FROM users WHERE username=? LIMIT 1");
-        cur->prepare(); // run query
-        cur->bind(1, username);
-        cur->step();
-        if (password.compare(cur -> get_text(0)) == 0){
-            cout << "done"<< endl;
+    bool checking = false;
+    while(checking != true){ //the code will run untill the user type the correct passsword
+        try{
+            sqlite::sqlite db( "dungeonCrawler.db" ); // open database
+            auto cur = db.get_statement(); // create query
+            cout << "Who are you ?" << endl;
+            cin >> username;
+            cout << "Please type the magic word !" << endl;
+            cin >> password;
+            cur->set_sql("SELECT password FROM users WHERE username=? LIMIT 1");
+            cur->prepare(); // run query
+            cur->bind(1, username);
+            cur->step();
+            if (password.compare(cur -> get_text(0)) == 0){
+                cout << "done"<< endl;
+                checking = true;
+            }
+            else{
+                cout<<"wrong credentials " << endl;
+            }
+
+        }catch(sqlite::exception e){
+            std::cerr << e.what() << std::endl;
+            return false;
         }
-        else{
-            cout<<"wrong credentials " << endl;
-        }
-         
-    }catch(sqlite::exception e){
-        std::cerr << e.what() << std::endl;
-        return false;
     }
+        
     return true;
 }
 bool regist(){
@@ -42,7 +46,6 @@ bool regist(){
         cout<< "Who you wanna be ?"<< endl;
         cin >> username;
         while (check){   //will run untill both passwords match 
-
             cout << "Set your magic word !" << endl; //receive the password and replace by *
             cin >> password;
 
