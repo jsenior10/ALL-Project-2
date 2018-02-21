@@ -7,31 +7,32 @@ bool login(){
     string password;
     bool checking = false;
     while(checking != true){ //the code will run untill the user type the correct passsword
-        try{
-            sqlite::sqlite db( "dungeonCrawler.db" ); // open database
-            auto cur = db.get_statement(); // create query
+        sqlite::sqlite db( "dungeonCrawler.db" ); // open database
+        auto cur = db.get_statement(); // create query
+        bool checkUsername = false;
+        bool checkPass = false;
+        while(checkUsername != true){
             cout << "Who are you ?" << endl;
             cin >> username;
+            cur->set_sql("SELECT * FROM users WHERE username=? LIMIT 1"); //query
+            cur->prepare(); // run query
+            cur->bind(1, username); //fill the placeholders
+            if(cur->step()){
+                checkUsername = true;
+            }
+        }
+        while(checkPass != true){
             cout << "Please type the magic word !" << endl;
             cin >> password;
-            cur->set_sql("SELECT password FROM users WHERE username=? LIMIT 1");
-            cur->prepare(); // run query
-            cur->bind(1, username);
-            cur->step();
-            if (password.compare(cur -> get_text(0)) == 0){
-                cout << "done"<< endl;
+            if (password.compare(cur -> get_text(2)) == 0){
+                cout << "\ndone"<< endl;
+                checkPass = true;
                 checking = true;
+            }else{
+                cout<<"Wrong password !" << endl;
             }
-            else{
-                cout<<"wrong credentials " << endl;
-            }
-
-        }catch(sqlite::exception e){
-            std::cerr << e.what() << std::endl;
-            return false;
         }
     }
-        
     return true;
 }
 bool regist(){
@@ -42,19 +43,15 @@ bool regist(){
     
     try {
         sqlite::sqlite db( "dungeonCrawler.db" ); // open database
-
         cout<< "Who you wanna be ?"<< endl;
         cin >> username;
         while (check){   //will run untill both passwords match 
             cout << "Set your magic word !" << endl; //receive the password and replace by *
             cin >> password;
-
             cout << "Type your magic word again !" << endl;   //receive the password2 and replace by *
             cin >> password2;
-
             if(password == password2){
                 cout<<"done"<< username << password << endl;
-                    
                 check = false;
                 auto cur = db.get_statement(); // create query
                 cur->set_sql("INSERT INTO users(username,password,level,gold) VALUES (?,?,0,100);");
@@ -77,16 +74,24 @@ bool regist(){
     
 }
 int main(){
-    
     int choice;
-    
-    cout << "1-login"<< endl;
-    cout << "2-regist" << endl;
-    cin >> choice;
-    if (choice == 1){
-        login();
-    }else{
-        regist();
+    bool checking =false;
+    while (checking != true){
+        cout << "1-login \n"<< endl;
+        cout << "2-regist" << endl; 
+        cin >> choice;
+        if (choice == 1){
+            checking = true;
+            login();
+        }
+        else if(choice == 2){
+            checking = true;
+            regist();
+        }
+        else{
+            cout << "Please type an available choice" << endl;
+            checking = false;
+        }
     }
     return 0;
 }
