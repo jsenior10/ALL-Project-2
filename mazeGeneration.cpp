@@ -15,7 +15,6 @@ void generateMaze(int m[mazeSize][mazeSize], int r, int c);
 int findStart();
 void printMaze(int m[mazeSize][mazeSize]);
 
-
 int main()
 {
     srand(time(0));
@@ -63,8 +62,6 @@ void generateMaze(int m[mazeSize][mazeSize], int r, int c)
             made = true;
 
     }
-
-    printMaze(m);
 }
 
 
@@ -109,7 +106,11 @@ void solve(int m[mazeSize][mazeSize], int &r, int &c) //solves maze through with
         switch(direction)
         {
             case 3:
-                if(c + 1 <= mazeSize - 1 && m[r][c + 2] == blockedSquare && m[r-1][c+1] == blockedSquare && m[r+1][c+1] == blockedSquare && m[r][c + 1] == blockedSquare)
+                if(c + 1 <= mazeSize - 1 &&
+				   m[r][c + 2] == blockedSquare &&
+				   m[r-1][c+1] == blockedSquare &&
+				   m[r+1][c+1] == blockedSquare &&
+				   m[r][c + 1] == blockedSquare)
                 {
                     if(c == mazeSize - 2 && foundExit == true)
                         ; //do nothing
@@ -121,21 +122,36 @@ void solve(int m[mazeSize][mazeSize], int &r, int &c) //solves maze through with
                 }
                 break;
             case 6:
-                if(r + 1 <= mazeSize - 2 && m[r + 2][c] == blockedSquare && m[r+1][c+1] == blockedSquare && m[r+1][c-1] == blockedSquare && m[r + 1][c] == blockedSquare && c != 0 && c != mazeSize - 1)
+                if(r + 1 <= mazeSize - 2 &&
+				   m[r + 2][c] == blockedSquare &&
+				   m[r+1][c+1] == blockedSquare &&
+				   m[r+1][c-1] == blockedSquare &&
+				   m[r + 1][c] == blockedSquare &&
+				   c != 0 && c != mazeSize - 1)
                 {
                     r++;
                     foundSolution = true;
                 }
                 break;
             case 9:
-                if(c - 1 >= 0 && m[r][c - 2] == blockedSquare && m[r-1][c-1] == blockedSquare && m[r+1][c-1] == blockedSquare && m[r][c - 1] == blockedSquare && c - 1 != 0)
+                if(c - 1 >= 0 &&
+				   m[r][c - 2] == blockedSquare &&
+				   m[r-1][c-1] == blockedSquare &&
+				   m[r+1][c-1] == blockedSquare &&
+				   m[r][c - 1] == blockedSquare &&
+				   c - 1 != 0)
                 {
                     c--;
                     foundSolution = true;
                 }
                 break;
             case 12:
-                if(r - 1 >= 1 && m[r - 2][c] == blockedSquare && m[r-1][c+1] == blockedSquare && m[r-1][c-1] == blockedSquare && m[r - 1][c] == blockedSquare && c != 0 && c != mazeSize - 1)
+                if(r - 1 >= 1 &&
+				   m[r - 2][c] == blockedSquare &&
+				   m[r-1][c+1] == blockedSquare &&
+				   m[r-1][c-1] == blockedSquare &&
+				   m[r - 1][c] == blockedSquare &&
+				   c != 0 && c != mazeSize - 1)
                 {
                     r--;
                     foundSolution = true;
@@ -153,11 +169,20 @@ bool canSolve(int m[mazeSize][mazeSize], int r, int c) //if an adjacent square c
 {
     bool solvable = false;
 
-    if(r <= mazeSize - 3 && m[r + 2][c] == blockedSquare && m[r+1][c+1] == blockedSquare && m[r+1][c-1] == blockedSquare && m[r + 1][c] == blockedSquare && c != 0 && c != mazeSize - 1) //if adjacent space can be moved to 
+    if(r <= mazeSize - 3 &&
+	   m[r + 2][c] == blockedSquare &&
+	   m[r+1][c+1] == blockedSquare &&
+	   m[r+1][c-1] == blockedSquare &&
+	   m[r + 1][c] == blockedSquare &&
+	   c != 0 && c != mazeSize - 1) //if adjacent space can be moved to 
     {
         solvable = true;
     }
-    else if(c <= mazeSize - 2 && m[r][c + 2] == blockedSquare && m[r-1][c+1] == blockedSquare && m[r+1][c+1] == blockedSquare && m[r][c + 1] == blockedSquare)
+    else if(c <= mazeSize - 2 &&
+			m[r][c + 2] == blockedSquare &&
+			m[r-1][c+1] == blockedSquare &&
+			m[r+1][c+1] == blockedSquare &&
+			m[r][c + 1] == blockedSquare)
     {
         if(c == mazeSize - 2 && foundExit == true)
             ; //do nothing
@@ -166,11 +191,22 @@ bool canSolve(int m[mazeSize][mazeSize], int r, int c) //if an adjacent square c
             solvable = true;
         }
     }
-    else if(r >= 2 && m[r - 2][c] == blockedSquare && m[r - 1][c + 1] == blockedSquare && m[r-1][c-1] == blockedSquare && m[r - 1][c] == blockedSquare && c != 0 && c != mazeSize - 1) //if not on extreme left or right
+    else if(r >= 2 &&
+			m[r - 2][c] == blockedSquare &&
+			m[r - 1][c + 1] == blockedSquare &&
+			m[r-1][c-1] == blockedSquare &&
+			m[r - 1][c] == blockedSquare &&
+			c != 0 &&
+			c != mazeSize - 1) //if not on extreme left or right
     {
         solvable = true;
     }
-    else if(c >= 1 && m[r][c - 2] == blockedSquare && m[r-1][c-1] == blockedSquare && m[r+1][c-1] == blockedSquare && m[r][c - 1] == blockedSquare && c - 1 != 0)
+    else if(c >= 1 &&
+            m[r][c - 2] == blockedSquare &&
+            m[r-1][c-1] == blockedSquare &&
+            m[r+1][c-1] == blockedSquare &&
+            m[r][c - 1] == blockedSquare &&
+            c - 1 != 0)
     {
         solvable = true;
     }
