@@ -58,7 +58,7 @@ bool regist(){
                 cur->prepare(); // run query
                 cur->bind( 1, username );
                 cur->bind( 2, password );
-                cur->step(); 
+                cur->step();  
                 return true;
             }else{
                 cout << "password doesn't match. " << endl;
