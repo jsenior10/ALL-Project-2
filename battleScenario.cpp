@@ -67,8 +67,8 @@ int hunter(){
 }
 int main()
 { 
-    cout << warrior() << endl;
     cout << mage() << endl;
-    cout << babe() << endl;
+    cout << warrior() << endl;
+    cout << hunter() << endl;
     return 0;
 }
