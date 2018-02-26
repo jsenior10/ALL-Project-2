@@ -21,7 +21,9 @@ vector< vector<char> > Level::getMap() {
 vector< vector<char> > Level::getMapWithEntities() {
     vector< vector<char> > entityMap = map;
     entityMap[player->yPos][player->xPos] = 'P';
-    
+    for(int i=0; i<chests.size(); i++) {
+        entityMap[chests[i].yPos][chests[i].xPos] = 'C';
+    }
     return entityMap;
 }
 
@@ -121,6 +123,8 @@ void Level::generateMap() {
 		if(isValid) {
 		    //Add stuff
 		    if(Utility::randomProbability() < enemyProbability) {
+            Chest chest(room[0] + 2, room[1] + 2, 10, 10);
+			chests.push_back(chest);
 		    }
 		    rooms.push_back(room);
 		    openings.push_back({x, y});
@@ -212,6 +216,7 @@ void Level::movePlayerTo(int x, int y) {
     player->xPos = x;
     player->yPos = y;
 }
+
 
 bool Level::isEntity(int x, int y) {
     if(x == player->xPos && y == player->yPos) {
