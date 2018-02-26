@@ -14,8 +14,9 @@ private:
        (space) - open ground
        # - wall
        P - player
+       C - chest
     */
-
+    vector<Chest> chests;
 
     void movePlayerTo(int, int); //Move the player to any location
     
