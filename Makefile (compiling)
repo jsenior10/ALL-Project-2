@@ -1,10 +1,8 @@
 all:
 	echo "Be more specific please"
-movement :
-	g++ --std=c++14 movement.cpp -lcurses -o movement.o
+please-work :
+	g++ -std=c++14 main.cpp level.cpp display.cpp player.cpp utils.cpp -o please-work
 battle :
 	g++ --std=c++14 battles.cpp -lncurses -o battles.o -lsqlite3
-mazeGeneration :
-	g++ --std=c++14 mazeGeneration.cpp -o mazeGeneration.o
 battleScenario :
 	g++ --std=c++14 battleScenario.cpp -o battleScenario.o
