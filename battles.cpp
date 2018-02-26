@@ -15,7 +15,6 @@ int main(){
 	sqlite::sqlite db("dungeonCrawler.db");//open database
 	auto cur = db.get_statement();//create query
     srand(time(0));
-	
     initscr();
     int something;
     addstr(" Wait until your opponent get ready \n");
@@ -25,20 +24,24 @@ int main(){
     addstr("Let's get started \n");
     refresh();
     getch();
-    int num = rand() % 5;
+    cur->set_sql("SELECT COUNT(idMonster) FROM monsters");
+    cur->prepare();
+    cur->step();
+    int numOfMonsters = cur->get_int(0);
+    int num = rand() % numOfMonsters;
     cout << num << endl;
-	cur->set_sql("SELECT * FROM monsters WHERE idMonster = num"); // 0-idOnster . 1-name . 2-health . 3-attack . 4-counterattack   
+	cur->set_sql("SELECT * FROM monsters WHERE idMonster =?"); // 0-idOnster . 1-name . 2-health . 3-attack . 4-counterattack   
 	cur->prepare();
-    if (cur->step()){
+    cur->bind(1,num);
+    cur->step();
+    if (num > 0){
         cout << "You will fight against :" << endl;
         refresh();
     }else{
         cout<<"not ok"<<endl;
+        refresh();
     }
-	
-    
     //load mosnter variables about random number
-    
     refresh();
     getch();
     endwin();
