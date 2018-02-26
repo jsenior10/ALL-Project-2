@@ -26,15 +26,19 @@ bool getUserInput(char key, Level &level, Display &display) { //Returns true if 
     string currentFocus = display.getFocus(); // player movement is handled in level.cpp
     if(currentFocus == "level") {
 	switch(key) {
+        case 65:
 	    case 'w': 
 		if(level.playerMove('U')) { return true; }
 		break;
+        case 68:
 	    case 'a':
 		if(level.playerMove('L')) { return true; }
 		break;
+        case 66:
 	    case 's':
 		if(level.playerMove('D')) { return true; }
 		break;
+        case 67:
 	    case 'd':
 		if(level.playerMove('R')) { return true; }
 		break;
