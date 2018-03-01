@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "libsqlite.hpp"
+#include "logTableFunction.h"
 using namespace std;
 bool login(){
     string username;
@@ -24,12 +25,14 @@ bool login(){
         while(checkPass != true){
             cout << "Please type the magic word !" << endl;
             cin >> password;
-            if (password.compare(cur -> get_text(2)) == 0){
+            if (password.compare(cur->get_text(2)) == 0){
                 cout << "\ndone"<< endl;
                 checkPass = true;
                 checking = true;
+                int id = cur->get_int(0); 
+                insertLogTable(id,"Log in");
             }else{
-                cout<<"Wrong password !" << endl;
+                cout<<"Wrong password !"<< endl;
             }
         }
     }
@@ -58,7 +61,14 @@ bool regist(){
                 cur->prepare(); // run query
                 cur->bind( 1, username );
                 cur->bind( 2, password );
-                cur->step();  
+                cur->step();
+                cur = db.get_statement();
+                cur->set_sql("SELECT idUser FROM users WHERE username=?");
+                cur->prepare();
+                cur->bind(1,username);
+                cur->step();
+                int id2 = cur->get_int(0);
+                insertLogTable(id2,"Log in");
                 return true;
             }else{
                 cout << "password doesn't match. " << endl;

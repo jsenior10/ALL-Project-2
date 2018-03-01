@@ -121,15 +121,3 @@ addstr( "              |=|  |=|\n");
 addstr( "             `''`  `''`\n");
     return 0;
 }
-//int main()
-//{ 
-   //cout << mage() << endl;
-//<<<<<<< HEAD
-    //cout << dragQueen()<<endl;
-    //cout << hunter() <<endl;
-//=======
-    //cout << warrior() << endl;
-    //cout << hunter() << endl;
-//>>>>>>> 2cdd4f3bb24af17b78b8f56b56929222eb1baa4d
-   // return 0;
-//}
