@@ -9,8 +9,8 @@ public:
   Maze();
   Maze(int mazeSize);
   ~Maze();
-  void generateMaze(int row, int col);
-  void move(int *row, int *col);
+  void generateMaze(int &row, int &col);
+  void move(int &row, int &col);
   bool canMove(int row, int col);
   void findPath(int &row, int &col);
   bool canFindPath(int row, int col);
