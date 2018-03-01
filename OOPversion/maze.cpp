@@ -18,7 +18,6 @@ Maze::Maze(int mazeSize)
     this->_maze.push_back(tempRow);
     for (int j = 0; j < mazeSize; j++) {
       this->_maze[i].push_back(1);
-      std::cout << i << " " << j << std::endl;
     }
   }
   this->_foundExit = false;
@@ -27,30 +26,21 @@ Maze::Maze(int mazeSize)
   int _row = findStart();
   this->_maze[_row][_col] = 0;
 
-
-
-
-
-
   generateMaze(_row, _col);
+  //this->_maze[_row][_col] = 2;
 }
 
 Maze::~Maze() {}
 
-void Maze::generateMaze(int row, int col)
+void Maze::generateMaze(int &row, int &col)
 {
 
   bool made = false;
   while(made == false)
-  {
-    std::cout<<"FOUND EXIT BOOL: "<<this->_foundExit<<std::endl;
-    std::cout<<"Doing Gen Maze"<<std::endl;
-    std::cout<<col<<std::endl;
+    {
     if(col == this->_mazeSize - 1) {
-      std::cout<<"FOUND EXIT"<<std::endl;
       this->_foundExit = true;
     }
-
     if(canFindPath(row, col)) {
       findPath(row, col);
     }
@@ -58,45 +48,46 @@ void Maze::generateMaze(int row, int col)
       //2 means you can't move from that square,
       //setting any lower stops maze from being made
       this->_maze[row][col] = 2;
-      std::cout<<"moving at :"<<col<<std::endl;
       //move to first open space that can be found
-      move(&row, &col);
+      move(row, col);
     }
     else {
       made = true;
-      std::cout<<"FINISHED YO"<<std::endl;
     }
   }
 }
 
-void Maze::move(int *row, int *col)
+void Maze::move(int &row, int &col)
 {
-  if(this->_maze[*row][*col+1] == 0)
-    *col = *col + 1;
-  else if(this->_maze[*row+1][*col] == 0)
-    *row = *row + 1;
-  else if(this->_maze[*row][*col-1] == 0)
-    *col = *col - 1;
-  else if(this->_maze[*row-1][*col] == 0)
-    *row = *row - 1;
+  if(this->_maze[row][col+1] == 0)
+    col = col + 1;
+  else if(this->_maze[row+1][col] == 0)
+    row = row + 1;
+  else if(this->_maze[row][col-1] == 0)
+    col = col - 1;
+  else if(this->_maze[row-1][col] == 0)
+    row = row - 1;
   else
     //if maze cant be solved it generates a
     //new one so the player doesnt have something
     //that is impossible to solve
-    std::cout<<"I failed :("<<std::endl;
-    generateMaze(*row, *col);
+    generateMaze(row, col);
 
 }
 
 bool Maze::canMove(int row, int col)
 {
-  if(this->_maze[row][col+1] == 0)
+  if(this->_maze[row][col+1] == 0 &&
+     col < this->_mazeSize-1)
     return true;
-  else if(this->_maze[row+1][col] == 0)
+  else if(this->_maze[row+1][col] == 0 &&
+          row < this->_mazeSize-1)
     return true;
-  else if(this->_maze[row][col-1] == 0)
+  else if(this->_maze[row][col-1] == 0 &&
+          col > 0)
     return true;
-  else if(this->_maze[row-1][col] == 0)
+  else if(this->_maze[row-1][col] == 0 &&
+          row > 0)
     return true;
   else
     return false;
@@ -161,7 +152,6 @@ void Maze::findPath(int &row, int &col)
       break;
     }
   }
-  std::cout<<foundSolution<<std::endl;
   this->_maze[row][col] = 0;
 }
 
@@ -210,7 +200,6 @@ bool Maze::canFindPath(int row, int col)
          col - 1 != 0) {
    solvable = true;
  }
-  std::cout<<solvable<<std::endl;
   return solvable;
 }
 
