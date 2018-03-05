@@ -12,6 +12,7 @@ void Utility::printMap(vector< vector<int> > map) {
 	for(int j=0; j<map[i].size(); j++) {
 	    cout << map[i][j] << " ";
 	}
+    
 	cout << endl;
     }
 }

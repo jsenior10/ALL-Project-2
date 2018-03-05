@@ -9,16 +9,19 @@
 // it just seemed like a better idea
 using namespace std;
 
-Level::Level(Player* p, int width, int height) {
+Level::Level(Player* p, int width, int height) 
+{
     player = p;
     map.resize(height, vector<char>(width, ' ')); //basically sets the level properly, removig this specific line gives a segmentation fault
 }
 
-vector< vector<char> > Level::getMap() {
+vector< vector<char> > Level::getMap() 
+{
     return map;
 }
 
-vector< vector<char> > Level::getMapWithEntities() {
+vector< vector<char> > Level::getMapWithEntities() 
+{
     vector< vector<char> > entityMap = map;
     entityMap[player->yPos][player->xPos] = 'P';
     for(int i=0; i<chests.size(); i++) {
@@ -34,7 +37,7 @@ void Level::generateMap() {
     int mapWidth = map[0].size();
     int mapHeight = map.size();
     int mapSize = mapWidth * mapHeight;
-    int roomDensity = 75; //How many squares are needed for a room to spawn (low number -> many rooms), setting this too low makes it take too long to generate a level, i did some testing with this and it seems a room desnity between 50 and 100 is good
+    int roomDensity = 60; //How many squares are needed for a room to spawn (low number -> many rooms), setting this too low makes it take too long to generate a level, i did some testing with this and it seems a room desnity between 50 and 100 is good
     int numRooms = mapSize / roomDensity;
     int avgRoomWidth = 6; //Average room width
     int avgRoomHeight = 8;// its best not to vhange the height or width as it can take ages to make the level
@@ -54,7 +57,8 @@ void Level::generateMap() {
 	room[1] = Utility::randomNumber(0, mapHeight-1);
 	room[2] = Utility::randomNumber(minRoomWidth, maxRoomWidth);
 	room[3] = Utility::randomNumber(minRoomHeight, maxRoomHeight);
-	if(room[0] + room[2] < mapWidth && room[1] + room[3] < mapHeight) { //Not outside map
+	if(room[0] + room[2] < mapWidth 
+       && room[1] + room[3] < mapHeight) { //Not outside map
 	    rooms.push_back(room);
 	    break;
 	}
@@ -115,7 +119,8 @@ void Level::generateMap() {
 		    isValid = false;
 	       	}
 	        for(int j=0; j<rooms.size(); j++) {
-		    if((Utility::isFieldOverlapping({room[0], room[0] + room[2] - 1}, {rooms[j][0], rooms[j][0] + rooms[j][2] - 1})) && (Utility::isFieldOverlapping({room[1], room[1] + room[3] - 1}, {rooms[j][1], rooms[j][1] + rooms[j][3] - 1}))) { //Uses -1 so room edges touching does not count
+		    if((Utility::isFieldOverlapping({room[0], room[0] + room[2] - 1}, {rooms[j][0], rooms[j][0] + rooms[j][2] - 1})) 
+               && (Utility::isFieldOverlapping({room[1], room[1] + room[3] - 1}, {rooms[j][1], rooms[j][1] + rooms[j][3] - 1}))) { //Uses -1 so room edges touching does not count
 			isValid = false;
 			break;
 		    }
@@ -123,7 +128,7 @@ void Level::generateMap() {
 		if(isValid) {
 		    //Add stuff
 		    if(Utility::randomProbability() < enemyProbability) {
-            Chest chest(room[0] + 2, room[1] + 2, 10, 10);
+            Chest chest(room[0] + 2, room[1] + 3, 1, 1);
 			chests.push_back(chest);
 		    }
 		    rooms.push_back(room);
@@ -195,14 +200,15 @@ vector< vector<int> > Level::getDistanceMap(int x, int y, int distance) { //dist
 	for(int i=1; i<=distance; i++) {
 	    for(int j=0; j<distanceMap.size(); j++) { //Height
 		for(int k=0; k<distanceMap[0].size(); k++) { //Width
-		    if(distanceMap[j][k] == -1) { 
+		    if(distanceMap[j][k] == -1) 
+            { 
 		        up = (j==0) ? -2 : distanceMap[j-1][k];
-			left = (k==0) ? -2 : distanceMap[j][k-1];
-			down = (j==distanceMap.size()-1) ? -2: distanceMap[j+1][k];
-			right = (k==distanceMap[0].size()-1) ? -2 : distanceMap[j][k+1];
-			if(up >= 0 || left >= 0 || down >= 0 || right >= 0) { 
-			    newDistanceMap[j][k] = i;
-			}
+                left = (k==0) ? -2 : distanceMap[j][k-1];
+                down = (j==distanceMap.size()-1) ? -2: distanceMap[j+1][k];
+                right = (k==distanceMap[0].size()-1) ? -2 : distanceMap[j][k+1];
+                if(up >= 0 || left >= 0 || down >= 0 || right >= 0) { 
+                    newDistanceMap[j][k] = i;
+                }
 		    }
 		}
 	    }
