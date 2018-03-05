@@ -23,7 +23,7 @@ char getKey() {
 }
 
 bool getUserInput(char key, Level &level, Display &display) { //Returns true if handled succsesfully
-    string currentFocus = display.getFocus(); // player movement is handled in level.cpp
+    string currentFocus = display.getFocus(); // player movement is handled in level.cpp. but the controls are handled here
     if(currentFocus == "level") {
 	switch(key) {
         case 65:

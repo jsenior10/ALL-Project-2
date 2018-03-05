@@ -45,8 +45,8 @@ void Display::displayLevel(Level level) {
     system("clear");
     nextScreen[0][0] = ' ';
     for(int i=1; i<=map[0].size(); i++) {
-	nextScreen[0][i] = ' ';
-    }
+	nextScreen[0][i] = ' '; //cant have more than one char in this is it references i, which is linked to the map vector which is a CHAR
+    }                       //same for any other lines that say nextScreen[0][i], nextScreen[0][0] is fine
     nextScreen[0][nextScreen[0].size()-1] = ' ';
     for(int i=1; i<=map.size(); i++) {
 	nextScreen[i][0] = ' ';

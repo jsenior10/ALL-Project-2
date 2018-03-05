@@ -3,6 +3,7 @@
 using namespace std;
 
 #include "player.h"
+#include "chest.h"
 
 class Level {
 
@@ -14,7 +15,6 @@ private:
        (space) - open ground
        # - wall
        P - player
-       C - chest
     */
     vector<Chest> chests;
 
