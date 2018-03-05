@@ -1,4 +1,4 @@
-#include <iostream>
+ #include <iostream>
 #include <string>
 #include <stdlib.h> 
 #include "libsqlite.hpp"
@@ -9,10 +9,11 @@ using namespace std;
 int waitAbit(int sec){
     usleep(sec * 1000000); //the parameter works in micro-seconds 
 }
+
 class Battles{
+    public:
     int idMonster;
     int idUser;
-    public:
     void printWeapons(){
         //function to print all the weapons the user has
         int counter = 2;
@@ -34,14 +35,27 @@ class Battles{
         refresh();
     }
     int userAttack(int weaponToAttack){
-        
         //function that receives the id of the weapon to attack
+        
         return 0;
     }
     int monsterAttack(){
         return 0;
     }
 };
+int battle(int id_user, int id_monster, int id_weapon){
+    //set the monsters and users variables
+    sqlite::sqlite db("dungeonCrawler.db");//open database
+    auto cur_battle = db.get_statement();//create query
+    cur_battle->set_sql("SELECT u.maxHealth, u.armor, u.damage, u.attack, m.health, m.attack, m.counterAttack FROM users u, monsters m WHERE (u.idUser==? AND m.id_monster=?)");
+    //0-user health . 1-user armor . 2-user damage . 3-user attack . 4-monster health . 5-monster attack . 6 . monster counterattack
+    cur->prepare();
+    cur->bind(1,id_user);
+    cur->bind(2,id_monster);
+    int user_health = cur->get_int(0);
+    int user_health = cur->get_int(0);
+    
+}
 int main(){
 	sqlite::sqlite db("dungeonCrawler.db");//open database
 	auto cur = db.get_statement();//create query
@@ -82,7 +96,9 @@ int main(){
         refresh();
     }
     //load mosnter variables about random number
+    cur = db.get_statement();//clean the one used before to create query
     Battles var;
+    var.idUser = 1;
     var.printWeapons(); //print all the weapons the user has
     getch();
     endwin();

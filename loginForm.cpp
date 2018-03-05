@@ -43,7 +43,6 @@ bool regist(){
     string password = "";
     string password2 = "";
     bool check = true;
-    
     try {
         sqlite::sqlite db( "dungeonCrawler.db" ); // open database
         cout<< "Who you wanna be ?"<< endl;
@@ -57,31 +56,28 @@ bool regist(){
                 cout<<"done"<< username << password << endl;
                 check = false;
                 auto cur = db.get_statement(); // create query
-                cur->set_sql("INSERT INTO users(username,password,level,gold) VALUES (?,?,0,100);");
+                cur->set_sql("INSERT INTO users(username,password,level,gold,maxHealth,armor,damage,attack) VALUES (?,?,0,100,100,0,0,0);");
                 cur->prepare(); // run query
                 cur->bind( 1, username );
                 cur->bind( 2, password );
                 cur->step();
-                cur = db.get_statement();
-                cur->set_sql("SELECT idUser FROM users WHERE username=?");
-                cur->prepare();
-                cur->bind(1,username);
-                cur->step();
-                int id2 = cur->get_int(0);
-                insertLogTable(id2,"Log in");
+                auto cur2 = db.get_statement();
+                cur2->set_sql("SELECT idUser FROM users WHERE username=?");
+                cur2->prepare();
+                cur2->bind(1,username);
+                cur2->step();
+                int id2 = cur2->get_int(0);
+                insertLogTable(id2,"New user");
                 return true;
             }else{
                 cout << "password doesn't match. " << endl;
             }
-
         }
     }catch (sqlite::exception e){
         std::cerr << e.what() << std::endl;
         return true;
     }
-    return false;
-    
-    
+    return false; 
 }
 int main(){
     int choice;
