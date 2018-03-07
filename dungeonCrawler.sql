@@ -4,12 +4,11 @@ CREATE TABLE users(
 idUser INTEGER PRIMARY KEY AUTOINCREMENT,
 username TEXT NOT NULL,
 password TEXT NOT NULL,
+type text NOT NULL,
 level INT DEFAULT 0,
 gold INTEGER NOT NULL,
 maxHealth INTEGER DEFAULT 100,
-armor INTEGER DEFAULT 0,
-damage INTEGER NOT NULL, 
-attack INTEGER NOT NULL
+armor INTEGER NOT NULL
 );
 CREATE TABLE logTable(
 idLog INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,6 +18,7 @@ time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 INSERT INTO "logTable" VALUES(1,0,'Log in','2018-03-01 19:06:21');
 INSERT INTO "logTable" VALUES(2,0,'Log in','2018-03-01 19:08:27');
+INSERT INTO "logTable" VALUES(3,0,'New user','2018-03-01 19:15:04');
 CREATE TABLE weapon(
 idWeapon INTEGER PRIMARY KEY AUTOINCREMENT,
 type TEXT NOT NULL,
@@ -31,7 +31,6 @@ INSERT INTO "weapon" VALUES(1,'Shotgun',1.2,15,20,40);
 INSERT INTO "weapon" VALUES(2,'Rifle',1.2,7,35,60);
 INSERT INTO "weapon" VALUES(3,'Pistol',1.2,25,12,20);
 INSERT INTO "weapon" VALUES(4,'sniper',1.2,1,50,100);
-
 CREATE TABLE monsters(
 idMonster INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
@@ -45,9 +44,11 @@ INSERT INTO "monsters" VALUES(3,'Hunter',80,70,5);
 INSERT INTO "monsters" VALUES(4,'Drag Queen',80,60,10);
 CREATE TABLE weapons_user(
 idWeapon INTEGER NOT NULL,
-idUser INTEGER NOT NULL,
-duration INTEGER DEFAULT 0);
+idUser INTEGER NOT NULL
+, duration INTEGER DEFAULT 0);
+INSERT INTO "weapons_user" VALUES(2,1,6);
 DELETE FROM sqlite_sequence;
 INSERT INTO "sqlite_sequence" VALUES('monsters',4);
-INSERT INTO "sqlite_sequence" VALUES('logTable',2);
+INSERT INTO "sqlite_sequence" VALUES('logTable',3);
+INSERT INTO "sqlite_sequence" VALUES('users',1);
 COMMIT;
