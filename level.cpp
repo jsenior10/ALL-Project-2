@@ -23,9 +23,9 @@ vector< vector<char> > Level::getMap()
 vector< vector<char> > Level::getMapWithEntities() 
 {
     vector< vector<char> > entityMap = map;
-    entityMap[player->yPos][player->xPos] = 'P';
+    entityMap[player->yPos][player->xPos] = 'X';
     for(int i=0; i<chests.size(); i++) {
-        entityMap[chests[i].yPos][chests[i].xPos] = 'C';
+        entityMap[chests[i].yPos][chests[i].xPos] = '?';
     }
     return entityMap;
 }
