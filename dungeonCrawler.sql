@@ -47,8 +47,20 @@ idWeapon INTEGER NOT NULL,
 idUser INTEGER NOT NULL
 , duration INTEGER DEFAULT 0);
 INSERT INTO "weapons_user" VALUES(2,1,6);
+CREATE TABLE puzzle(
+num integer primary key autoincrement,
+question text not null,
+answer text not null);
+INSERT INTO "puzzle" VALUES(1,'what is 9^(3/2)','27');
+INSERT INTO "puzzle" VALUES(2,'what continent is zimbabwae in?','africa');
+INSERT INTO "puzzle" VALUES(3,'are you going to JJs tonight?!?','yes');
+INSERT INTO "puzzle" VALUES(4,'is darts a sport?','no');
+INSERT INTO "puzzle" VALUES(5,'differentiate: 3x^3 + 12x^2 + 7x','x^2 + 6x + 7');
+INSERT INTO "puzzle" VALUES(6,'who is cooler, anir or angus?','angus');
+INSERT INTO "puzzle" VALUES(7,'who said -if i can see further than others it is because i have been able to stand on the shoulders of giants-','isaac newton');
 DELETE FROM sqlite_sequence;
 INSERT INTO "sqlite_sequence" VALUES('monsters',4);
 INSERT INTO "sqlite_sequence" VALUES('logTable',3);
 INSERT INTO "sqlite_sequence" VALUES('users',1);
+INSERT INTO "sqlite_sequence" VALUES('puzzle',7);
 COMMIT;
