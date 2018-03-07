@@ -3,22 +3,29 @@
 #include "libsqlite.hpp"
 #include "logTableFunction.h"
 #include "md5.h" //file downloaded from  http://www.zedwood.com/article/cpp-md5-function and md5.cpp as well
+
 using namespace std;
+
 string haskMd5(string password){ //function to hash the password
     return md5(password);
 }
 class BuildUser{
     public:
-        int setValues(string username,string password, int gold, int armor, string type){
+        string username, password, type;
+        int gold, armor;
+        BuildUser(){};
+        int setValues(string username, string password, int gold, int armor, string type){
             sqlite::sqlite db( "dungeonCrawler.db" ); // open database
             auto cur_regist = db.get_statement(); // create query
-            cur_regist->set_sql("INSERT INTO users(username,password,level,gold,maxHealth,armor) VALUES (?,?,0,?,100,?);");
+            cur_regist->set_sql("INSERT INTO users(username,password,type,level,gold,maxHealth,armor) VALUES (?,?,?,0,?,100,?);");
             cur_regist->prepare();
             cur_regist->bind(1, username);
             cur_regist->bind(2,password);
-            cur_regist->bind(3,gold);
-            cur_regist->bind(4,armor);
+            cur_regist->bind(3,type);
+            cur_regist->bind(4,gold);
+            cur_regist->bind(5,armor);
             cur_regist->step();
+            cout<<"go on"<<endl;
             auto cur2 = db.get_statement();
             cur2->set_sql("SELECT idUser FROM users WHERE username=?");
             cur2->prepare();
@@ -26,58 +33,70 @@ class BuildUser{
             cur2->step();
             int id2 = cur2->get_int(0);
             insertLogTable(id2,"New user"); // function to insert data into log table
+            //db.close();
             return 0;
         }
 };
-class Witch: public BuildUser{
+
+class Witch : public BuildUser{
     public:
-        string username;
-        string password;
-        int armor = 0;
-        int gold = 120; 
-        string type = "Witch";
-        void setValues(string username,string password,int gold,int armor,string type)
+        Witch()
         {
-          BuildUser::setValues(username, password, gold, armor, type);
+            armor = 0;
+            gold = 120;
+            type = "Witch";
         }
-        
+        //string username;
+        //string passwordWitch;
+        void set()
+        {
+            setValues(username, password, gold, armor, type);
+        }
 };
+
 class Soldier: public BuildUser{
     public:
-        string username;
-        string password;
-        int armor = 100;
-        int gold = 100;
-        string type = "Soldier";
-        void setValues(string username,string password,int gold,int armor,string type)
+        Soldier()
         {
-          BuildUser::setValues(username, password, gold, armor, type);
+            armor = 100;
+            gold=100;
+            type="Soldier";
+        }
+        //string usernameSoldier;
+        //string passwordSoldier;
+        void set()
+        {
+            setValues(username, password, gold, armor, type);
         }
         
 };
 class Fighter: public BuildUser{
     public:
-        string username;
-        string password;
-        int armor = 0;
-        int gold = 100;
-        string type = "Fighter";  
-        void setValues(string username,string password,int gold,int armor,string type)
+        Fighter()
         {
-          BuildUser::setValues(username, password, gold, armor, type);
+            armor = 0;
+            gold = 100;
+            type = "Fighter";
         }
+        void set()
+        {
+            setValues(username, password, gold, armor, type);
+        }
+        //setValues(usernameFighter, passwordFighter, goldFighter, armorFighter ,typeFighter);
 };
 class Rogue: public BuildUser{
     public:
-        string username;
-        string password;
-        int armor = 0;
-        int gold = 100;
-        string type = "Rogue";  
-        void setValues(string username,string password,int gold,int armor,string type)
+        Rogue()
         {
-          BuildUser::setValues(username, password, gold, armor, type);
+            armor = 0;
+            gold = 100;
+            type = "Rogue";
         }
+        void set()
+        {
+            setValues(username, password, gold, armor, type);
+        }
+        
 };  
 bool login(){
     string username;
@@ -143,33 +162,33 @@ bool regist(){
                         if(characterChoice > 0 && characterChoice < 5){
                             switch(characterChoice){
                                 case 1:
-                                    Witch var;
-                                    var.username = username;
-                                    var.password = haskMd5(password);
-                                    var.setValues();
+                                    {Witch witch;
+                                    witch.username = username;
+                                    witch.password = haskMd5(password);
+                                    witch.set();
                                     checkCharacter = false;
-                                    break;
+                                    break;}
                                 case 2:
-                                    Soldier var;
-                                    var.username = username;
-                                    var.password = haskMd5(password);
-                                    var.setValues();
+                                    {Soldier soldier;
+                                    soldier.username = username;
+                                    soldier.password = haskMd5(password);
+                                    soldier.set();
                                     checkCharacter = false;
-                                    break;
+                                    break;}
                                 case 3:
-                                    Fighter var;
-                                    var.username = username;
-                                    var.password = haskMd5(password);
-                                    var.setValues();
+                                    {Fighter fighter;
+                                    fighter.username = username;
+                                    fighter.password = haskMd5(password);
+                                    fighter.set();
                                     checkCharacter = false;
-                                    break;
+                                    break;}
                                 case 4:
-                                    Rogue var;
-                                    var.username = username;
-                                    var.password = haskMd5(password);
-                                    var.setValues();
+                                    {Rogue rogue;
+                                    rogue.username = username;
+                                    rogue.password = haskMd5(password);
+                                    rogue.set();
                                     checkCharacter = false;
-                                    break;
+                                    break;}
                             }
                         }else{
                             cout<<"you should type a number between 1-4"<<endl;
