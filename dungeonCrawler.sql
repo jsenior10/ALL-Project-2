@@ -58,9 +58,35 @@ INSERT INTO "puzzle" VALUES(4,'is darts a sport?','no');
 INSERT INTO "puzzle" VALUES(5,'differentiate: 3x^3 + 12x^2 + 7x','x^2 + 6x + 7');
 INSERT INTO "puzzle" VALUES(6,'who is cooler, anir or angus?','angus');
 INSERT INTO "puzzle" VALUES(7,'who said -if i can see further than others it is because i have been able to stand on the shoulders of giants-','isaac newton');
+CREATE TABLE powerups(
+idPowerUp INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT NOT NULL,
+effectOnArmor INTEGER NOT NULL,
+effectOnDamage INTEGER NOT NULL,
+effectOnGold INTEGER NOT NULL);
+CREATE TABLE armourpotions(
+IDPotion INTEGER PRIMARY KEY AUTOINCREMENT,
+Price INTEGER NOT NULL,
+Size TEXT NOT NULL,
+Value INTEGER NOT NULL
+);
+INSERT INTO "armourpotions" VALUES(1,10,'small',40);
+INSERT INTO "armourpotions" VALUES(2,15,'medium',70);
+INSERT INTO "armourpotions" VALUES(3,20,'medium',150);
+CREATE TABLE durationpotions(
+IDPotion INTEGER PRIMARY KEY AUTOINCREMENT,
+Price INTEGER NOT NULL,
+Size TEXT NOT NULL,
+Value INTEGER NOT NULL
+);
+INSERT INTO "durationpotions" VALUES(1,15,'small',3);
+INSERT INTO "durationpotions" VALUES(2,25,'medium',6);
+INSERT INTO "durationpotions" VALUES(3,65,'large',20);
 DELETE FROM sqlite_sequence;
 INSERT INTO "sqlite_sequence" VALUES('monsters',4);
 INSERT INTO "sqlite_sequence" VALUES('logTable',3);
 INSERT INTO "sqlite_sequence" VALUES('users',1);
 INSERT INTO "sqlite_sequence" VALUES('puzzle',7);
+INSERT INTO "sqlite_sequence" VALUES('armourpotions',3);
+INSERT INTO "sqlite_sequence" VALUES('durationpotions',3);
 COMMIT;
