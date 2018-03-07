@@ -9,5 +9,6 @@ class Chest {
     int maxHealth;
     bool isOpen;
     Chest(int, int, int, int);
+	puzzle(int,int,int,int);
 };
 #endif
