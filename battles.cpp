@@ -97,7 +97,7 @@ int main(){
         //load mosnter variables about random number
         cur = db.get_statement();//clean the one used before to create query
         Battles var;  // create the object
-        var.idUser = 1;            //CHANGEEEE, THIS VALUE IS ONLY FOr TESTING REASONS
+        var.idUser = globalUserID;            //CHANGEEEE, THIS VALUE IS ONLY FOr TESTING REASONS
         var.idMonster = idMonster;
         var.printMonsterStatus();//print the monster status
         var.printWeapons(); //print all the weapons the user has
@@ -108,7 +108,7 @@ int main(){
         cur_battle->set_sql("SELECT u.maxHealth, u.armor, u.level, m.health, m.attack, m.counterAttack FROM users u, monsters m WHERE u.idUser==? AND m.idMonster=?");
         //0-user health . 1-user armor . 2-user level . 3-monster health . 4-monster attack . 5-monster counterattack  all int
         cur_battle->prepare();
-        cur_battle->bind(1,1);         // HERE AS WELLLLL, CHANGEE
+        cur_battle->bind(1,globalUserID);  
         cur_battle->bind(2,idMonster);
         cur_battle->step();
         int user_health = cur_battle->get_int(0);
@@ -124,7 +124,7 @@ int main(){
             cur_battle->set_sql("SELECT w.type, w.damage, w.attack, wu.duration FROM weapon w, weapons_user wu  WHERE (wu.idUser=? AND w.idWeapon =? AND wu.duration > 0 )");
             //0-weapon type(text) . 1-weapon damage(int) . 2- weapon attack(int) . 3-weapon-user duration(int) 
             cur_battle->prepare();
-            cur_battle->bind(1,1);      //ANDD HEREEE AS WELLLL THE idUSer
+            cur_battle->bind(1,globalUserID);
             cur_battle->bind(2,weaponToUSe);
             cur_battle->step();
             attackW = cur_battle->get_int(2);

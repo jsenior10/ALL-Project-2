@@ -101,8 +101,13 @@ int maxhealthlarge() {
 
 
 int main(){
-    healthincsmall();
-    healthincmedium();
+    
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur = db.get_statement(); 
+    cur->set_sql("SELECT armour FROM users WHERE ")
+    
+  healthincsmall();
+  healthincmedium();
   healthinclarge();
   damageinclow();
   damageincmedium();
@@ -115,6 +120,9 @@ int main(){
   maxhealthmedium();
   maxhealthlarge();
 	
+    
+    
+    
     return 0;
 }
 
