@@ -3,12 +3,16 @@
 #include <vector>
 class Chest {
     public:
+    
     int xPos;
     int yPos;
     int Health;
     int maxHealth;
     bool isOpen;
-    Chest(int, int, int, int);
-	puzzle(int,int,int,int);
+    
+    private:
+    
+    int box(int,int,int,int);
+	int puzzle(int,int,int,int);
 };
 #endif

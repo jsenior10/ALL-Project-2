@@ -12,7 +12,7 @@
 using namespace std;
 
 char getKey() {
-    struct termios old_tio, new_tio;
+    struct termios old_tio, new_tio;   //template
     tcgetattr(STDIN_FILENO, &old_tio);
     new_tio = old_tio;
     new_tio.c_lflag &=(~ICANON & ~ECHO);

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <cstdlib>
 #include "level.h"
 #include "utils.h"
 // i chose an approach that generates smaller rooms and then put them into  a larger map becausewith the maze
@@ -88,7 +89,7 @@ void Level::generateMap() {
 		}
 	    }
 	    if(side != ' ') { //Check if on wall
-		//makes what is placed here rnadom
+		//makes what is placed here random
 
 		//Generate the room location and size
 		room[2] = Utility::randomNumber(minRoomWidth, maxRoomWidth);
@@ -127,10 +128,23 @@ void Level::generateMap() {
 		}
 		if(isValid) {
 		    //Add stuff
-		    if(Utility::randomProbability() < enemyProbability) {
-            Chest chest(room[0] + 2, room[1] + 3, 1, 1);
-			chests.push_back(chest);
-		    }
+		    if(Utility::randomProbability() < enemyProbability)
+            {
+              while(Utility::randomProbability() < enemyProbability)
+              {
+                tempValue = rand() % 10 + 1;
+                if tempValue <= 5
+                    {
+                    Chest box(room[0] + 2, room[1] + 3, 1, 1);
+                    chests.push_back(box);
+                    }
+                else
+                    {
+                    Chest puzzle(room[0] + 2, room[1] + 3, 1, 1);
+                    chests.push_back(puzzle);
+                    }
+              }
+            }    
 		    rooms.push_back(room);
 		    openings.push_back({x, y});
 		    break;
