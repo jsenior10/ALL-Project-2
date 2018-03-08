@@ -4,6 +4,7 @@ using namespace std;
 
 #include "player.h"
 #include "chest.h"
+#include "puzzle.h"
 
 class Level {
 
@@ -17,6 +18,7 @@ private:
        P - player
     */
     vector<Chest> chests;
+    vector<Puzzle> puzzles;
 
     void movePlayerTo(int, int); //Move the player to any location
     

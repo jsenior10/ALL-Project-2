@@ -2,10 +2,9 @@
 #define CHEST_H
 #include "entity.h"
 #include <vector>
-class Chest : Entity{
+class Puzzle : Entity{
     public:
-    bool isOpen;
-    Chest(int, int);
+    bool encountered;
+    Puzzle(int,int);
 };
-
 #endif

@@ -3,6 +3,9 @@
 #include <cmath>
 #include "level.h"
 #include "utils.h"
+#include "chest.h"
+#include "puzzle.h"
+#include "entity.h"
 // i chose an approach that generates smaller rooms and then put them into  a larger map becausewith the maze
 // it seemed like people would just try trace their way to the exit and with this approach we could set up
 // conditions where the player may only be able to complete the level once all enemies are dead or something
@@ -26,6 +29,9 @@ vector< vector<char> > Level::getMapWithEntities()
     entityMap[player->yPos][player->xPos] = 'X';
     for(int i=0; i<chests.size(); i++) {
         entityMap[chests[i].yPos][chests[i].xPos] = '?';
+    }
+    for(int i=0; i<puzzles.size(); i++) {
+    entityMap[puzzles[i].yPos][puzzles[i].xPos] = '?';
     }
     return entityMap;
 }
@@ -228,7 +234,12 @@ bool Level::isEntity(int x, int y) {
     if(x == player->xPos && y == player->yPos) {
 	return true;
     }
-
+    for(int i = 0; i<chests.size(); ++i ){
+        if(x == chests[i].xPos
+          && y == chests[i].yPos){
+            return true;
+        }
+    }
     return false;
 }
 
