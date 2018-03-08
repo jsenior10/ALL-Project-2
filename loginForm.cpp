@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
 #include "libsqlite.hpp"
-#include "logTableFunction.h"
+#include "logtablefunction.h"
 #include "md5.h" //file downloaded from  http://www.zedwood.com/article/cpp-md5-function and md5.cpp as well
+#include "main.h"
 
 using namespace std;
 
@@ -25,13 +26,13 @@ class BuildUser{
             cur_regist->bind(4,gold);
             cur_regist->bind(5,armor);
             cur_regist->step();
-            cout<<"go on"<<endl;
             auto cur2 = db.get_statement();
             cur2->set_sql("SELECT idUser FROM users WHERE username=?");
             cur2->prepare();
             cur2->bind(1,username);
             cur2->step();
             int id2 = cur2->get_int(0);
+            globalUserID = id2;
             insertLogTable(id2,"New user"); // function to insert data into log table
             //db.close();
             return 0;
@@ -125,6 +126,8 @@ bool login(){
                 checkPass = true;
                 checking = true;
                 int id = cur->get_int(0); 
+                //global variable here
+                globalUserID = id;
                 insertLogTable(id,"Log in");
             }else{
                 cout<<"Wrong password !"<< endl;
@@ -212,8 +215,10 @@ int main(){
     int choice;
     bool checking =false;
     while (checking != true){
-        cout << "1-login \n"<< endl;
-        cout << "2-regist" << endl; 
+        cout<<"*----------*"<<endl;
+        cout<<"| 1-login  |"<< endl;
+        cout<<"| 2-regist |"<< endl; 
+        cout<<"*----------*"<<endl;
         cin >> choice;
         if (choice == 1){
             checking = true;
