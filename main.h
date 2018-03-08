@@ -3,4 +3,4 @@
 
 using namespace std;
 
-int globalUserID = 0;
+extern int globalUserID = 0;
