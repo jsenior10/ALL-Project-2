@@ -6,7 +6,6 @@ using namespace std;
 #include <string>
 #include "libsqlite.hpp"
 int insertLogTable(int id, string actionValue){
-    cout<<"i am here"<<endl;
     sqlite::sqlite db( "dungeonCrawler.db" ); // open database
     auto cur2 = db.get_statement(); // create query
     cur2->set_sql("INSERT INTO logTable(idUser, action) VALUES(?, ?)");
@@ -20,3 +19,5 @@ int insertLogTable(int id, string actionValue){
         return 1;
     }
 }
+
+#endif

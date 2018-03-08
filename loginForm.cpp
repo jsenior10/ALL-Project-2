@@ -6,7 +6,7 @@
 #include "main.h"
 
 using namespace std;
-
+int globalUserID; //.cpp definition of globalUserID
 string haskMd5(string password){ //function to hash the password
     return md5(password);
 }
@@ -121,7 +121,7 @@ bool login(){
         while(checkPass != true){
             cout << "Please type the magic word !" << endl;
             cin >> password;
-            if (password.compare(cur->get_text(2)) == 0){
+            if (md5(password).compare(cur->get_text(2)) == 0){
                 cout << "\ndone"<< endl;
                 checkPass = true;
                 checking = true;

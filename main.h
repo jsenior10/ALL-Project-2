@@ -4,3 +4,5 @@
 using namespace std;
 
 extern int globalUserID;
+
+#endif
