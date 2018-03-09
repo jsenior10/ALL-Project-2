@@ -10,6 +10,7 @@ int waitAbit(int sec){
 }
 int globalUserID = 2;  //dont forget to remove the assign by 2
 class Battles{
+	
     public:
     int idUser;
     int idMonster;
@@ -24,7 +25,7 @@ class Battles{
         cur->prepare();
         cur->bind(1,idUser);
         cout<<"Your weapons:"<<endl;
-        cout<<"0- Punch"<<"   "<<"10"<<endl;
+        cout<<"0 = Punch"<<"   "<<"10"<<endl;
         while(cur->step()){
             int totalDamage = cur->get_int(2)*cur->get_int(3);
             //example output weapon(duration) attack%
@@ -41,8 +42,8 @@ class Battles{
         cur_monster->prepare();
         cur_monster->bind(1,idMonster);
         cur_monster->step();
-        cout<<"Health("<<cur_monster->get_int(2)<<") "<<"Attack("<<cur_monster->get_int(3)+(3*levelUser)<<"Counter Attack("<<cur_monster->get_int(4)<<")"<<endl;
-        cout<<"-----------------------------------------------------------------"<<endl;
+        cout<<"Health("<<cur_monster->get_int(2)<<") "<<"Attack("<<cur_monster->get_int(3)+(3*levelUser)<<") Counter Attack("<<cur_monster->get_int(4)<<")"<<endl;
+        cout<<"---------------------------------------------------------"<<endl;
     }
     int setUserVariables(){
         
@@ -76,15 +77,15 @@ int main(){
 	auto cur = db.get_statement();//create query
     auto cur2 = db.get_statement();
     
-    cout<<" Wait until your opponent get ready"<<endl;
+    cout<<"Your opponent is getting ready..."<<endl;
     waitAbit(1);
     cout <<"."<<endl;
-    waitAbit(1);
-    //system("cls"); 
-    cout<<"The opponent is cutting his nails"<<endl;
     waitAbit(2);
-    cout<<"Let's get started"<<endl;
-    cur->set_sql("SELECT COUNT(idMonster) FROM monsters");//to get the number os monsters that exist
+	cout<<"Let's get started!"<<endl;
+    waitAbit(1);
+	cout << "\033[2J";
+	
+    cur->set_sql("SELECT COUNT(idMonster) FROM monsters");//to get the number of monsters that exist
     cur->prepare();
     cur->step();
     int numOfMonsters = cur->get_int(0);
@@ -95,18 +96,9 @@ int main(){
     cur2->prepare();
     cur2->bind(1,idMonster);
     cur2->step();
-    cout<<"You will fight against: "<< cur2->get_text(1)<<endl;
+    cout<<"You will fight a: "<< cur2->get_text(1)<<endl;
     bool stopGame = false;
-    if (idMonster==1)
-        warrior();
-    else if (idMonster==2)
-        mage();
-    else if (idMonster==3)
-        hunter();
-    else if (idMonster==4)
-        dragQueen();
-    else
-        cout<<"you are not lucky today"<<endl;
+	
     auto cur_battle = db.get_statement();//create query
     //query to load user and monster variables
     cur_battle->set_sql("SELECT u.maxHealth, u.armor, u.level, m.health, m.attack, m.counterAttack FROM users u, monsters m WHERE u.idUser==? AND m.idMonster=?");
@@ -121,18 +113,40 @@ int main(){
     int monster_health = cur_battle->get_int(3);
     int monster_attack = cur_battle->get_int(4);
     int monster_counterattack = cur_battle->get_int(5);
-    //load mosnter variables about random number
+    //load monster variables about random number
     cur = db.get_statement();//clean the one used before to create query
     Battles var;  // create the object
     var.idUser = globalUserID;            //CHANGEEEE, THIS VALUE IS ONLY FOr TESTING REASONS
     var.idMonster = idMonster;
+	
     while(stopGame != true){
+		
+		if (idMonster==1)
+			warrior();
+		else if (idMonster==2)
+			mage();
+		else if (idMonster==3)
+			hunter();
+		else if (idMonster==4)
+			dragQueen();
+		
+		cout << "                                " << endl;
         var.printMonsterStatus(user_level);//print the monster status
+		cout << "                                " << endl;
         var.printWeapons(); //print all the weapons the user has
+		cout << "                                " << endl;
         bool checkWeapon = false;
         while(checkWeapon != true){
             int weaponToUSe;
             cin >> weaponToUSe;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
             if(weaponExist(weaponToUSe) || weaponToUSe==0){
                 //-----user turn
                 if (weaponToUSe > 0){ 
@@ -152,6 +166,7 @@ int main(){
                     //when the user choose to punch
                     attackW = 10;
                     damageW = 1;
+					cout << "\033[2J";
                 }
             }
             
@@ -163,7 +178,7 @@ int main(){
         }
         //--------------
         //------monster turn
-        cout<<"Monster's turn"<<endl;
+        cout<<"Enemy's turn"<<endl;
         int totalMonsterDamage = monster_attack * user_level;
         if (user_armor > 0){
             user_armor = user_armor-(0.75*totalMonsterDamage);
@@ -174,11 +189,11 @@ int main(){
         cout<<user_health<<endl;
         cout<<monster_health<<endl;
         if(monster_health <= 0){
-            cout<<"YOU WON"<<endl;
+            cout<<"You won"<<endl;
             stopGame = true;
         }
         if(user_health <= 0){
-            cout<<"YOU LOSS"<<endl;
+            cout<<"You lost"<<endl;
             stopGame = true;
         }
     }
