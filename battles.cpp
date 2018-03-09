@@ -174,7 +174,7 @@ int main(){
         
         monster_health = monster_health - (attackW * damageW);//decrease the mosnter health multiplying the attack by damage
         if (monster_counterattack > 0){
-            user_armor = user_armor - monster_counterattack;
+            user_health = user_health - monster_counterattack;
         }
         //--------------
         //------monster turn

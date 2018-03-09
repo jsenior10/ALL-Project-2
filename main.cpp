@@ -8,9 +8,13 @@
 #include "entity.h"
 #include "display.h"
 #include "utils.h"
+#include "intro.h";
 
 using namespace std;
 
+int wait(int sec){
+    usleep(sec * 1000000); //the parameter works in micro-seconds 
+}
 char getKey() {
     struct termios old_tio, new_tio;   //template
     tcgetattr(STDIN_FILENO, &old_tio);
@@ -60,6 +64,8 @@ bool getUserInput(char key, Level &level, Display &display) { //Returns true if 
     }
 }
 int main () {
+    intro();
+    wait(3);
     Player player(1, 1);
     Player* playerptr;
     playerptr = &player;

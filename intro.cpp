@@ -30,7 +30,3 @@ cout<<"                               |$$  | $$                                 
 cout<<"                              |  $$$$$$|                                                                                                       "<<endl;
 cout<<"                               |______|  "<<endl;                                                                                                     
 }
-int main(){
-    intro();
-    return 0;
-}
