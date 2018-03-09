@@ -18,7 +18,7 @@ class BuildUser{
         int setValues(string username, string password, int gold, int armor, string type){
             sqlite::sqlite db( "dungeonCrawler.db" ); // open database
             auto cur_regist = db.get_statement(); // create query
-            cur_regist->set_sql("INSERT INTO users(username,password,type,level,gold,maxHealth,armor) VALUES (?,?,?,0,?,100,?);");
+            cur_regist->set_sql("INSERT INTO users(username,password,type,level,gold,maxHealth,armor) VALUES (?,?,?,1,?,100,?);");
             cur_regist->prepare();
             cur_regist->bind(1, username);
             cur_regist->bind(2,password);
