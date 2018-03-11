@@ -3,7 +3,9 @@
 using namespace std;
 
 #include "player.h"
+#include "entity.h"
 #include "chest.h"
+#include "enemy.h"
 #include "puzzle.h"
 
 class Level {
@@ -16,8 +18,10 @@ private:
        (space) - open ground
        # - wall
        P - player
+       C - chest
     */
     vector<Chest> chests;
+    vector<Enemy> enemies;
     vector<Puzzle> puzzles;
 
     void movePlayerTo(int, int); //Move the player to any location
@@ -34,5 +38,11 @@ public:
     bool isEntity(int, int); //Checks if there is an entity at the specified location
     Entity* getEntityAtPosition(int, int); //Gets a pointer to the entity at a given location
     void cleanUp(); //Removes all dead shit and items from the map when picked up etc
+    bool isChest(int, int);
+    bool openChest(char);
+    bool isEnemy(int, int);
+    bool startBattle(char);
+    bool isPuzzle(int, int);
+    bool startPuzzle(char);
 };
 #endif
