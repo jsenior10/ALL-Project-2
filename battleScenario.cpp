@@ -1,6 +1,5 @@
-#include <iostream>
-using namespace std;
-int mage(){
+#include "battleScenario.h"
+int battleScenario::mage(){
 cout<<"\n                  o"<<endl;
 cout<<"                   O       ||`-.__"<<endl ;
 cout<<"                          |  |·'^|" <<endl;
@@ -33,7 +32,7 @@ cout<<"           ``'''`.              .'     `'^  `''---'^"<<endl ;
 cout<<"                  `-..______..-'"<<endl;
 return 0;
 }
-int warrior()
+int battleScenario::warrior()
 {                           
 cout<<"\n                   (    )"<<endl;
 cout<<"                  ((((()))"<<endl;
@@ -59,33 +58,33 @@ cout<<"                            / /"<<endl;
 cout<<"                          _/,/'"<<endl;
 cout<<"                          /,/,"<<endl;
 }
-int hunter(){                           
-cout<<"                                    /) "; 
-cout<<"                                   /| "; 
-cout<<"                 __*_             /| "; 
-cout<<"              |-(____)           /| "; 
-cout<<"             ||||- -||          /| "; 
-cout<<"          ,____o% -,_          /| "; 
-cout<<"         |  ||   |||  ;       /| "; 
-cout<<"        |____|....::.||      /| "; 
-cout<<"       _|__|#|_ _,,_|--|    /| "; 
-cout<<"       |___|######## ||""-(|<| "; 
-cout<<"      _|__| '#######  ""^(|<| "; 
-cout<<"    __| |   ,)))=:=(,    || "; 
-cout<<"   |,--|   |Q...... |.  (|) "; 
-cout<<"    |      .Q......|..| "; 
-cout<<"          |.Q ....|...| "; 
-cout<<"         |.......|.....| "; 
-cout<<"         |.....|  |.....| ";
-cout<<"         |_.._.|   |.._.| ";
-cout<<"          (` )      (` ) "; 
-cout<<"          | |        | | "; 
-cout<<"          '(          )' "; 
-cout<<"         |+|          |+|"; 
-cout<<"         |,|          |,| "; 
+int battleScenario::hunter(){                           
+cout<<"                                    /) "<<endl; 
+cout<<"                                   /| "<<endl; 
+cout<<"                 __*_             /| "<<endl; 
+cout<<"              |-(____)           /| "<<endl; 
+cout<<"             ||||- -||          /| "<<endl; 
+cout<<"          ,____o% -,_          /| "<<endl; 
+cout<<"         |  ||   |||  ;       /| "<<endl; 
+cout<<"        |____|....::.||      /| "<<endl; 
+cout<<"       _|__|#|_ _,,_|--|    /| "<<endl; 
+cout<<"       |___|######## ||""-(|<| "<<endl; 
+cout<<"      _|__| '#######  ""^(|<| "<<endl; 
+cout<<"    __| |   ,)))=:=(,    || "<<endl; 
+cout<<"   |,--|   |Q...... |.  (|) "<<endl; 
+cout<<"    |      .Q......|..| "<<endl; 
+cout<<"          |.Q ....|...| "<<endl; 
+cout<<"         |.......|.....| "<<endl; 
+cout<<"         |.....|  |.....| "<<endl;
+cout<<"         |_.._.|   |.._.| "<<endl;
+cout<<"          (` )      (` ) "<<endl; 
+cout<<"          | |        | | "<<endl; 
+cout<<"          '(          )' "<<endl; 
+cout<<"         |+|          |+|"<<endl; 
+cout<<"         |,|          |,| "<<endl; 
     return 0;
 }
-int dragQueen(){  
+int battleScenario::dragQueen(){  
 cout<<"\n          _(,__           __),"<<endl;
 cout<<"    (_,d888888888b,d888888888b"<<endl;
 cout<<"     d888888888888|888888888888b_)"<<endl;
@@ -117,9 +116,5 @@ cout<<"               | || |"<<endl;
 cout<<"               | | | |"<<endl;
 cout<<"              |=|  |=|"<<endl;
 cout<<"             `''`  `''`"<<endl;
-    return 0;
-}
-int main(){
-    dragQueen();
     return 0;
 }
