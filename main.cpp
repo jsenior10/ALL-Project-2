@@ -13,8 +13,10 @@
 
 using namespace std;
 
+Intro welcome; //declaring welcome of type Intro
+
 int wait(int sec){
-    usleep(sec * 1000000); //the parameter works in micro-seconds 
+    usleep(sec * 1000000); //the parameter works in micro-seconds
 }
 
 char getKey() { //this be copy and pasted from somewhere i dont understand this
@@ -65,7 +67,7 @@ bool getUserInput(char key, Level &level, Display &display) { //Returns true if 
     }
 }
 int main () {
-    intro();
+    welcome.intro();
     wait(3);
     Player player(1, 1, 2);
     Player* playerptr;
