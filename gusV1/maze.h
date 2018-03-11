@@ -19,7 +19,6 @@ public:
 
   int getTileAt(int x, int y);
   void setTileAt(int x, int y, int value);
-  // Arrays start at 0 you fucking autstic cunt.
   std::vector<std::vector<int>> getMaze();
 
 private:
