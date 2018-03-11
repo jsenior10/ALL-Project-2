@@ -41,12 +41,11 @@ void Display::displayLevel(Level level) {
     vector< vector<char> > map = level.getMapWithEntities(); // getMapWithEntities set up for later when there are enemies and other things to dsiplay, right now it just prints the level without any enemies oe anythiong
     vector< vector<char> > nextScreen(map.size()+2, vector<char>(map[0].size()+2, ' ')); //Contains what we will show
     //Set level up into nextScreen
-    //cout << string(50, '\n');
-    system("clear");
+    cout << string(50, '\n');
     nextScreen[0][0] = ' ';
     for(int i=1; i<=map[0].size(); i++) {
-	nextScreen[0][i] = ' '; //cant have more than one char in this is it references i, which is linked to the map vector which is a CHAR
-    }                       //same for any other lines that say nextScreen[0][i], nextScreen[0][0] is fine
+	nextScreen[0][i] = ' ';
+    }
     nextScreen[0][nextScreen[0].size()-1] = ' ';
     for(int i=1; i<=map.size(); i++) {
 	nextScreen[i][0] = ' ';
