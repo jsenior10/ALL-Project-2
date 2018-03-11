@@ -3,4 +3,6 @@
 class Intro {
     public:
     void intro();
-}
+};
+
+#endif

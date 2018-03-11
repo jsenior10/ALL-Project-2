@@ -9,7 +9,7 @@
 #include "display.h"
 #include "utils.h"
 #include "battles.h"
-#include "intro.h";
+#include "intro.h"
 
 using namespace std;
 
