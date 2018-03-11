@@ -3,7 +3,8 @@
 #include "utils.h"
 #include "puzzle.h"
 
-Puzzle::Puzzle(int x,int y, bool encountered)
-{
-    bool encountered = false;
-};
+Puzzle::Puzzle(int x, int y, int HP) {
+    xPos = x;
+    yPos = y;
+    currentHealth = HP;
+}
