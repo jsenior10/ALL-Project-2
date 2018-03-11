@@ -1,60 +1,17 @@
- #include <iostream>
+#include <iostream>
 #include <string>
 #include <stdlib.h> 
 #include "libsqlite.hpp"
 #include "battleScenario.h"
+#include "battles.h"
 #include <unistd.h> //for usleep stuff
 using namespace std;
+battleScenario battle;
 int waitAbit(int sec){
     usleep(sec * 1000000); //the parameter works in micro-seconds 
 }
 int globalUserID = 2;  //dont forget to remove the assign by 2
-class Battles{
-	
-    public:
-    int idUser;
-    int idMonster;
-    void printWeapons(){
-        //function to print all the weapons the user has
-        int counter = 2;
-        sqlite::sqlite db( "dungeonCrawler.db" ); // open database
-        auto cur = db.get_statement(); // create query
-        //join query between weapon and weaponds_user
-        cur->set_sql("SELECT w.idWeapon, w.type, w.damage, w.attack, wu.duration FROM weapon w, weapons_user wu  WHERE (idUser=? AND w.idWeapon = wu.idWeapon)"); 
-        //0-id weapon . 1-type. 2-damage. 3-attack. 4-duration from weapons_user. 
-        cur->prepare();
-        cur->bind(1,idUser);
-        cout<<"Your weapons:"<<endl;
-        cout<<"0 = Punch"<<"   "<<"10"<<endl;
-        while(cur->step()){
-            int totalDamage = cur->get_int(2)*cur->get_int(3);
-            //example output weapon(duration) attack%
-            cout<<cur->get_int(0)<<"- "<<cur->get_text(1)<<"("<<cur->get_int(4)<<") "<<totalDamage<<"%"<<endl;
-            counter = counter +1;
-        }
 
-    }
-    void printMonsterStatus(int levelUser){
-        sqlite::sqlite db( "dungeonCrawler.db" ); // open database
-        auto cur_monster = db.get_statement(); // create query
-        cur_monster->set_sql("SELECT * FROM monsters WHERE idMonster=?");
-        //0-id monster(int) . 1-name(text) . 2-health(int) . 3-attack(int) . 4-counter attack(int)
-        cur_monster->prepare();
-        cur_monster->bind(1,idMonster);
-        cur_monster->step();
-        cout<<"Health("<<cur_monster->get_int(2)<<") "<<"Attack("<<cur_monster->get_int(3)+(3*levelUser)<<") Counter Attack("<<cur_monster->get_int(4)<<")"<<endl;
-        cout<<"---------------------------------------------------------"<<endl;
-    }
-    int setUserVariables(){
-        
-        //function to set user status between turns
-        
-        return 0;
-    }
-    int monsterAttack(){
-        return 0;
-    }
-};
 bool weaponExist(int weaponId){
     sqlite::sqlite db("dungeonCrawler.db");//open database
     auto cur = db.get_statement();//create query
@@ -70,11 +27,55 @@ bool weaponExist(int weaponId){
     }
     
 }
-int main(){
+
+    void Battles::printWeapons(){
+        //function to print all the weapons the user has
+        int counter = 2;
+        sqlite::sqlite db( "dungeonCrawler.db" ); // open database
+        auto cur = db.get_statement(); // create query
+        //join query between weapon and weaponds_user
+        cur->set_sql("SELECT w.idWeapon, w.type, w.damage, w.attack, wu.duration FROM weapon w, weapons_user wu  WHERE (idUser=? AND w.idWeapon = wu.idWeapon)"); 
+        //0-id weapon . 1-type. 2-damage. 3-attack. 4-duration from weapons_user. 
+        cur->prepare();
+        cur->bind(1,idUser);
+        cout<<"Your weapons:"<<endl;
+        cout<<"0 = Punch"<<"   "<<"10"<<endl;
+        while(cur->step()){
+            int totalDamage = cur->get_int(2)*cur->get_int(3);
+            //example output weapon(duration) attack%
+            cout<<cur->get_int(0)<<"- "<<cur->get_text(1)<<"("<<cur->get_int(4)<<") "<<totalDamage<<"&"<<endl;
+            counter = counter +1;
+        }
+
+    }
+
+    void Battles::printMonsterStatus(int levelUser){
+        sqlite::sqlite db( "dungeonCrawler.db" ); // open database
+        auto cur_monster = db.get_statement(); // create query
+        cur_monster->set_sql("SELECT * FROM monsters WHERE idMonster=?");
+        //0-id monster(int) . 1-name(text) . 2-health(int) . 3-attack(int) . 4-counter attack(int)
+        cur_monster->prepare();
+        cur_monster->bind(1,idMonster);
+        cur_monster->step();
+        cout<<"Health("<<cur_monster->get_int(2)<<") "<<"Attack("<<cur_monster->get_int(3)+(3*levelUser)<<") Counter Attack("<<cur_monster->get_int(4)<<")"<<endl;
+        cout<<"---------------------------------------------------------"<<endl;
+    }
+
+    int Battles::setUserVariables(){
+        
+        //function to set user status between turns
+        
+        return 0;
+    }
+
+    int Battles::monsterAttack(){
+        return 0;
+    }
+
+
+int Battles::startBattle(){
     int attackW;
     int damageW;
-    int durationW;
-    int counterWeapon = 0;
 	sqlite::sqlite db("dungeonCrawler.db");//open database
 	auto cur = db.get_statement();//create query
     auto cur2 = db.get_statement();
@@ -118,19 +119,19 @@ int main(){
     //load monster variables about random number
     cur = db.get_statement();//clean the one used before to create query
     Battles var;  // create the object
-    var.idUser = globalUserID;            //CHANGEEEE, THIS VALUE IS ONLY FOr TESTING REASONS
+    //var.idUser = globalUserID;            //CHANGEEEE, THIS VALUE IS ONLY FOr TESTING REASONS
     var.idMonster = idMonster;
 	
     while(stopGame != true){
 		
 		if (idMonster==1)
-			warrior();
+			battle.warrior();
 		else if (idMonster==2)
-			mage();
+			battle.mage();
 		else if (idMonster==3)
-			hunter();
+			battle.hunter();
 		else if (idMonster==4)
-			dragQueen();
+			battle.dragQueen();
 		
 		cout << "                                " << endl;
         var.printMonsterStatus(user_level);//print the monster status
@@ -138,23 +139,19 @@ int main(){
         var.printWeapons(); //print all the weapons the user has
 		cout << "                                " << endl;
         bool checkWeapon = false;
-        
         while(checkWeapon != true){
             int weaponToUSe;
             cin >> weaponToUSe;
-            if (counterWeapon==0){
-                cout << " " << endl;
-                cout << " " << endl;
-                cout << " " << endl;
-                cout << " " << endl;
-                cout << " " << endl;
-                cout << " " << endl;
-                cout << " " << endl;
-                cout << " " << endl;
-            }
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << " " << endl;
             if(weaponExist(weaponToUSe) || weaponToUSe==0){
                 //-----user turn
-                counterWeapon = 0;
                 if (weaponToUSe > 0){ 
                     checkWeapon = true;
                     cur_battle = db.get_statement();//create query
@@ -167,7 +164,6 @@ int main(){
                     cur_battle->step();
                     attackW = cur_battle->get_int(2);
                     damageW = cur_battle->get_int(1);
-                    durationW = cur_battle->get_int(3);
                 }else{
                     checkWeapon = true;
                     //when the user choose to punch
@@ -175,8 +171,6 @@ int main(){
                     damageW = 1;
 					cout << "\033[2J";
                 }
-            }else{
-                counterWeapon +=1;
             }
             
         }
@@ -201,7 +195,7 @@ int main(){
             cout<<"You won"<<endl;
             stopGame = true;
         }
-        if(user_health < 0){
+        if(user_health <= 0){
             cout<<"You lost"<<endl;
             stopGame = true;
         }
