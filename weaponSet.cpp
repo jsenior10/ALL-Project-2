@@ -5,8 +5,6 @@ using namespace std;
 class Weapons{
     public:
     bool assignWeapon(int idUser){
-        
-        
         return true;
     }
     void printWeapons(){

@@ -29,7 +29,7 @@ class Battles{
         while(cur->step()){
             int totalDamage = cur->get_int(2)*cur->get_int(3);
             //example output weapon(duration) attack%
-            cout<<cur->get_int(0)<<"- "<<cur->get_text(1)<<"("<<cur->get_int(4)<<") "<<totalDamage<<"&"<<endl;
+            cout<<cur->get_int(0)<<"- "<<cur->get_text(1)<<"("<<cur->get_int(4)<<") "<<totalDamage<<"%"<<endl;
             counter = counter +1;
         }
 
@@ -73,6 +73,8 @@ bool weaponExist(int weaponId){
 int main(){
     int attackW;
     int damageW;
+    int durationW;
+    int counterWeapon = 0;
 	sqlite::sqlite db("dungeonCrawler.db");//open database
 	auto cur = db.get_statement();//create query
     auto cur2 = db.get_statement();
@@ -136,19 +138,23 @@ int main(){
         var.printWeapons(); //print all the weapons the user has
 		cout << "                                " << endl;
         bool checkWeapon = false;
+        
         while(checkWeapon != true){
             int weaponToUSe;
             cin >> weaponToUSe;
-			cout << " " << endl;
-			cout << " " << endl;
-			cout << " " << endl;
-			cout << " " << endl;
-			cout << " " << endl;
-			cout << " " << endl;
-			cout << " " << endl;
-			cout << " " << endl;
+            if (counterWeapon==0){
+                cout << " " << endl;
+                cout << " " << endl;
+                cout << " " << endl;
+                cout << " " << endl;
+                cout << " " << endl;
+                cout << " " << endl;
+                cout << " " << endl;
+                cout << " " << endl;
+            }
             if(weaponExist(weaponToUSe) || weaponToUSe==0){
                 //-----user turn
+                counterWeapon = 0;
                 if (weaponToUSe > 0){ 
                     checkWeapon = true;
                     cur_battle = db.get_statement();//create query
@@ -161,6 +167,7 @@ int main(){
                     cur_battle->step();
                     attackW = cur_battle->get_int(2);
                     damageW = cur_battle->get_int(1);
+                    durationW = cur_battle->get_int(3);
                 }else{
                     checkWeapon = true;
                     //when the user choose to punch
@@ -168,6 +175,8 @@ int main(){
                     damageW = 1;
 					cout << "\033[2J";
                 }
+            }else{
+                counterWeapon +=1;
             }
             
         }
@@ -192,7 +201,7 @@ int main(){
             cout<<"You won"<<endl;
             stopGame = true;
         }
-        if(user_health <= 0){
+        if(user_health < 0){
             cout<<"You lost"<<endl;
             stopGame = true;
         }
