@@ -5,33 +5,115 @@
 
 using namespace std;
 
-
+//Gold decrease when bronze armour brought
+int golddecarmourbronze() {
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold-20 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
+}
 //Armour bronze - 20 points
-int armourbronze(int armour) {
-	armour = armour + 20;
-	cout << armour << endl;
-    //insert to db
+int armourbronze() {
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET armor=armor+20 WHERE idUser =?;");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
+}
+
+
+
+
+
+//Gold decrease when silver armour brought
+int golddecarmoursilver() {
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold-40 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
 }
 //Armour silver - 60 points
-int armoursilver(int armour) {
-	armour = armour + 60;
-	cout << armour << endl;
-    //insert to db
+int armoursilver() {
+	sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET armor=armor+60 WHERE idUser =?;");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
+}
+
+
+
+
+//Gold decrease when gold armour brought
+int golddecarmourgold() {
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold-60 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
 }
 //Armour gold - 100 points
-int armourgold(int armour) {
-	armour = armour + 100;
-	cout << armour << endl;
-    //insert to db
+int armourgold() {
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET armor=armor+100 WHERE idUser =?;");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
 }
 
+
+
+
+
+//Gold decrease when large duration brought
+int golddecleveljump() {
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold-200 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
+}
 //Level jump - 1 level
 int leveljump() {
-  int level = 0;
-	level = level + 1;
-	cout << level << endl;
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET level=level+1 WHERE idUser=?;");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
 }
 
+
+
+
+
+//Gold decrease when small duration brought
+int golddecdurationsmall() {
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold-10 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
+}
 //Duration increase - up 3
 int durincsmall() {
     sqlite::sqlite db( "dungeonCrawler.db" ); 
@@ -42,7 +124,22 @@ int durincsmall() {
     cur2->step();
     return 0;
 }
-//Duration increase - up 6
+
+
+
+
+
+//Gold decrease when medium duration brought
+int golddecdurationmedium() {
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold-30 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
+}
+//Duration increase - up 6 - medium
 int durincmedium() {
     sqlite::sqlite db( "dungeonCrawler.db" ); 
     auto cur2 = db.get_statement(); 
@@ -52,7 +149,22 @@ int durincmedium() {
     cur2->step();
     return 0;
 }
-//Duration increase - up 20
+
+
+
+
+
+//Gold decrease when large duration brought
+int golddecdurationlarge() {
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold-80 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,2); //change by global variable here
+    cur2->step();
+    return 0;
+}
+//Duration increase - up 20 - large
 int durinclarge() {
     sqlite::sqlite db( "dungeonCrawler.db" ); 
     auto cur2 = db.get_statement(); 
@@ -62,6 +174,8 @@ int durinclarge() {
     cur2->step();
     return 0;
 }
+
+
 
 int armourcall(){ 
     sqlite::sqlite db( "dungeonCrawler.db" ); 
@@ -75,42 +189,145 @@ int armourcall(){
 }
 
 
+
+
+int goldamountcall(){
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur = db.get_statement();   
+    cur->set_sql("SELECT gold FROM users WHERE idUser=?;");
+    cur->prepare();
+    cur->bind(1,2); //change by global variable here
+    cur->step();
+    int goldamount = cur->get_int(0);
+    cout << goldamount << endl;
+}
+
+
+int testfunctioninfunction(){
+    goldamountcall();
+}
+
 int main(){   
-      
-    armourcall();
-
-    int test;
-    cout << "Do you want to use a (1) small, (2) medium or (3) large potion. Type the corresponding number to buy it." << endl;
-    cin >> test;
-
-    if(test == 1)
+    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    auto cur = db.get_statement();   
+    cur->set_sql("SELECT gold FROM users WHERE idUser=?;");
+    cur->prepare();
+    cur->bind(1,2); //change by global variable here
+    cur->step();
+    int goldamount = cur->get_int(0);
+    
+    int broughtitem;
+    cout << "Your current gold amount is: " << goldamount << endl;
+    cout << "+-------------+---------------------------------+------------+----------+" << endl;
+    cout << "| Item number |             Item                |    Value   |   Cost   |" << endl;
+    cout << "+-------------+---------------------------------+------------+----------+" << endl;
+    cout << "|           1 | Bronze armour potion            | 20 points  | 20 gold  |" << endl;
+    cout << "|           2 | Silver armour Potion            | 60 points  | 40 gold  |" << endl;
+    cout << "|           3 | Gold armour potion              | 100 points | 60 gold  |" << endl;
+    cout << "|           4 | Small weapon duration increase  | 3 points   | 10 gold  |" << endl;
+    cout << "|           5 | Medium weapon duration increase | 6 points   | 30 gold  |" << endl;
+    cout << "|           6 | Large weapon duration increase  | 20 points  | 80 gold  |" << endl;
+    cout << "|           7 | Level Jump                      | 1 level    | 100 gold |" << endl;
+    cout << "+-------------+---------------------------------+------------+----------+" << endl;
+    cout << "Please enter your choice: " << endl;
+    cin >> broughtitem;
+    
+    
+   if (broughtitem==1)
+           //run armour increase bronze
+        if (goldamount>=20) 
+        {
+            golddecarmourbronze();
+            armourbronze();
+        }    
+        else
+        {
+            cout << "You don't have enough gold" << endl;
+        } 
+        else if (broughtitem==2)
     {
-        durincsmall();
-        cout << "small done" << endl;
+            //run armour increase silver
+        if (goldamount>=40 )
+        {
+            golddecarmoursilver();
+            armoursilver();
+        }    
+        else
+        {
+            cout << "You don't have enough gold" << endl;
+        }
     }
-    else if(test == 2)
+    else if (broughtitem==3)
     {
-        durincmedium();
-        cout << "medium done" << endl;
+        //run armour increase gold
+        if (goldamount>=60) 
+        {
+            golddecarmourgold();
+            armourgold();
+        }    
+        else
+        {
+            cout << "You don't have enough gold" << endl;
+        }
     }
-    else if(test == 3)
+    else if (broughtitem==4)
     {
-        durinclarge();
-        cout << "large done" << endl;
-        
+        //run weapon duration increase small
+        if (goldamount>=10) 
+        {
+            golddecdurationsmall();
+            durincsmall();
+        }    
+        else
+        {
+            cout << "You don't have enough gold" << endl;
+        }
+    }
+    else if (broughtitem==5)
+    {
+        if (goldamount>=30) 
+        {
+            golddecdurationmedium();
+            durincmedium();
+        }    
+        else
+        {
+            cout << "You don't have enough gold" << endl;
+        }
+    }
+    else if (broughtitem==6)
+    {
+        //run weapon duration increase large
+        if (goldamount>=80) 
+        {
+            golddecdurationlarge();
+            durinclarge();
+        }    
+        else
+        {
+            cout << "You don't have enough gold" << endl;
+        }
+    }
+    else if (broughtitem==7)
+    {
+            //run level increase
+        if (goldamount>=200) 
+        {
+            leveljump();
+            golddecleveljump();
+        }    
+        else
+        {
+            cout << "You don't have enough gold" << endl;
+        }
     }
     else
     {
-	cout << "Something has gone seriously wrong here!";
+        cout << "something is wrong" << endl;
     }
     
-    //durincsmall();
-    //durincmedium();
-    //durinclarge();
-
-    //leveljump();
     
     return 0;
 }
-//user id 2 called thor
+
   
