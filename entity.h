@@ -9,6 +9,11 @@ class Entity { // this is the enitity properties like enemy position etc
 public:
     int xPos;
     int yPos;
+    int currentHealth;
+    int maxHealth;
+    bool isDead = false; // this will also be used for when a chest opens or something to avoid redundant variables
+    
+    void hasInteracted(int);
 };
 
 #endif
