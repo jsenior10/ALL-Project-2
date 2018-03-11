@@ -6,4 +6,5 @@ battleScenario:
 	g++ --std=c++14  battleScenario.cpp -o battleScenario.o
 loginForm:
 	g++ --std=c++14 loginForm.cpp md5.cpp -o HAS -lsqlite3 -o loginForm
-
+shop:
+	g++ --std=c++14 anir.cpp -o anir.o -lsqlite3
