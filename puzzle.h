@@ -1,10 +1,11 @@
-#ifndef CHEST_H
-#define CHEST_H
-#include "entity.h"
+#ifndef PUZZLE_H
+#define PUZZLE_H
+
 #include <vector>
-class Puzzle : Entity{
+#include "entity.h"
+
+class Puzzle : public Entity {
     public:
-    bool encountered;
-    Puzzle(int,int);
+    Puzzle(int, int, int);
 };
 #endif
