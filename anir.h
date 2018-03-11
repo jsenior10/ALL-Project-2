@@ -229,7 +229,7 @@ int main(){
     cout << "Please enter your choice: " << endl;
     cin >> broughtitem;
     
-    
+   /*
    if (broughtitem=='1')
    {  //error
            //run armour increase bronze
@@ -326,8 +326,7 @@ int main(){
     {
         cout << "something is wrong" << endl;
     }
-    
-    
+    */
     
     
     
@@ -335,7 +334,7 @@ int main(){
     
     
     //antonio's solution
-    /*
+    cout<<goldamount<<endl;
     switch(broughtitem){
         case '1':
             //run armour increase bronze
@@ -348,9 +347,10 @@ int main(){
             {
                 cout << "You don't have enough gold" << endl;
             }
+            break;
         case '2':
             //run armour increase silver
-            if (goldamount>=40 )
+            if (goldamount > 39 )
             {
                 golddecarmoursilver();
                 armoursilver();
@@ -359,6 +359,8 @@ int main(){
             {
                 cout << "You don't have enough gold" << endl;
             }
+            break;
+            
         case '3':
             //run armour increase gold
             if (goldamount>=60) 
@@ -370,6 +372,7 @@ int main(){
             {
                 cout << "You don't have enough gold" << endl;
             }
+            break;
         case '4':
             //run weapon duration increase small
             if (goldamount>=10) 
@@ -381,6 +384,7 @@ int main(){
             {
                 cout << "You don't have enough gold" << endl;
             }
+            break;
         case '5':
             if (goldamount>=30) 
             {
@@ -391,6 +395,7 @@ int main(){
             {
                 cout << "You don't have enough gold" << endl;
             }
+            break;
         case '6':
             //run weapon duration increase large
             if (goldamount>=80) 
@@ -402,6 +407,7 @@ int main(){
             {
                 cout << "You don't have enough gold" << endl;
             }
+            break;
         case '7':
             //run level increase
             if (goldamount>=200) 
@@ -413,10 +419,10 @@ int main(){
             {
                 cout << "You don't have enough gold" << endl;
             }
+            break;
         default:
             cout<<"Something wrong"<<endl;
     }
-    */
     return 0;
 }
 
