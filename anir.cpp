@@ -27,6 +27,9 @@ int armourbronze() {
 }
 
 
+
+
+
 //Gold decrease when silver armour brought
 int golddecarmoursilver() {
     sqlite::sqlite db( "dungeonCrawler.db" ); 
@@ -213,7 +216,7 @@ int main(){
     cur->step();
     int goldamount = cur->get_int(0);
     
-    char broughtitem;
+    int broughtitem;
     cout << "Your current gold amount is: " << goldamount << endl;
     cout << "+-------------+---------------------------------+------------+----------+" << endl;
     cout << "| Item number |             Item                |    Value   |   Cost   |" << endl;
@@ -229,24 +232,23 @@ int main(){
     cout << "Please enter your choice: " << endl;
     cin >> broughtitem;
     
-   /*
-   if (broughtitem=='1')
-   {  //error
+    
+   if (broughtitem==1)
+   {    
            //run armour increase bronze
         if (goldamount>=20) 
         {
             golddecarmourbronze();
             armourbronze();
+            
         }    
         else
         {
             cout << "You don't have enough gold" << endl;
         } 
-    
-   }//error
-    
-   else if (broughtitem=='2')
-   {//error
+   }
+   else if (broughtitem==2)
+   {
             //run armour increase silver
         if (goldamount>=40 )
         {
@@ -257,9 +259,9 @@ int main(){
         {
             cout << "You don't have enough gold" << endl;
         }
-    }
-    else if (broughtitem=='3')
-    {
+   }
+   else if (broughtitem==3)
+   {
         //run armour increase gold
         if (goldamount>=60) 
         {
@@ -270,9 +272,9 @@ int main(){
         {
             cout << "You don't have enough gold" << endl;
         }
-    }
-    else if (broughtitem=='4')
-    {
+   }
+   else if (broughtitem==4)
+   {
         //run weapon duration increase small
         if (goldamount>=10) 
         {
@@ -283,9 +285,9 @@ int main(){
         {
             cout << "You don't have enough gold" << endl;
         }
-    }
-    else if (broughtitem=='5')
-    {
+   }
+   else if (broughtitem==5)
+   {
         if (goldamount>=30) 
         {
             golddecdurationmedium();
@@ -295,9 +297,9 @@ int main(){
         {
             cout << "You don't have enough gold" << endl;
         }
-    }
-    else if (broughtitem=='6')
-    {
+   }
+   else if (broughtitem==6)
+   {
         //run weapon duration increase large
         if (goldamount>=80) 
         {
@@ -308,124 +310,28 @@ int main(){
         {
             cout << "You don't have enough gold" << endl;
         }
-    }
-    else if (broughtitem=='7')
-    {
+   }
+   else if (broughtitem==7)
+   {
             //run level increase
         if (goldamount>=200) 
         {
             leveljump();
             golddecleveljump();
+            
         }    
         else
         {
             cout << "You don't have enough gold" << endl;
         }
-    }
-    else
-    {
+   }
+   else
+   {
         cout << "something is wrong" << endl;
-    }
-    */
+   }
     
     
-    
-    
-    
-    
-    //antonio's solution
-    cout<<goldamount<<endl;
-    switch(broughtitem){
-        case '1':
-            //run armour increase bronze
-            if (goldamount>=20) 
-            {
-                golddecarmourbronze();
-                armourbronze();
-            }    
-            else
-            {
-                cout << "You don't have enough gold" << endl;
-            }
-            break;
-        case '2':
-            //run armour increase silver
-            if (goldamount > 39 )
-            {
-                golddecarmoursilver();
-                armoursilver();
-            }    
-            else
-            {
-                cout << "You don't have enough gold" << endl;
-            }
-            break;
-            
-        case '3':
-            //run armour increase gold
-            if (goldamount>=60) 
-            {
-                golddecarmourgold();
-                armourgold();
-            }    
-            else
-            {
-                cout << "You don't have enough gold" << endl;
-            }
-            break;
-        case '4':
-            //run weapon duration increase small
-            if (goldamount>=10) 
-            {
-                golddecdurationsmall();
-                durincsmall();
-            }    
-            else
-            {
-                cout << "You don't have enough gold" << endl;
-            }
-            break;
-        case '5':
-            if (goldamount>=30) 
-            {
-                golddecdurationmedium();
-                durincmedium();
-            }    
-            else
-            {
-                cout << "You don't have enough gold" << endl;
-            }
-            break;
-        case '6':
-            //run weapon duration increase large
-            if (goldamount>=80) 
-            {
-                golddecdurationlarge();
-                durinclarge();
-            }    
-            else
-            {
-                cout << "You don't have enough gold" << endl;
-            }
-            break;
-        case '7':
-            //run level increase
-            if (goldamount>=200) 
-            {
-                leveljump();
-                golddecleveljump();
-            }    
-            else
-            {
-                cout << "You don't have enough gold" << endl;
-            }
-            break;
-        default:
-            cout<<"Something wrong"<<endl;
-    }
     return 0;
 }
 
   
-
-
