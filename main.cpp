@@ -8,6 +8,7 @@
 #include "entity.h"
 #include "display.h"
 #include "utils.h"
+#include "battles.h"
 #include "intro.h";
 
 using namespace std;
@@ -15,8 +16,9 @@ using namespace std;
 int wait(int sec){
     usleep(sec * 1000000); //the parameter works in micro-seconds 
 }
-char getKey() {
-    struct termios old_tio, new_tio;   //template
+
+char getKey() { //this be copy and pasted from somewhere i dont understand this
+    struct termios old_tio, new_tio;
     tcgetattr(STDIN_FILENO, &old_tio);
     new_tio = old_tio;
     new_tio.c_lflag &=(~ICANON & ~ECHO);
@@ -27,38 +29,37 @@ char getKey() {
 }
 
 bool getUserInput(char key, Level &level, Display &display) { //Returns true if handled succsesfully
-    string currentFocus = display.getFocus(); // player movement is handled in level.cpp. but the controls are handled here
+    string currentFocus = display.getFocus(); // player movement is handled in level.cpp
     if(currentFocus == "level") {
 	switch(key) {
         case 65:
 	    case 'w': 
 		if(level.playerMove('U')) { return true; }
+        else if(level.startBattle('U')) {Battles battle; battle.startBattle();}
+        else if(level.openChest('U')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+        else if(level.startPuzzle('U')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
 		break;
         case 68:
 	    case 'a':
 		if(level.playerMove('L')) { return true; }
-		break;
+        else if(level.startBattle('L')) {Battles battle; battle.startBattle();}
+        else if(level.openChest('L')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+		else if(level.startPuzzle('L')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+        break;
         case 66:
 	    case 's':
 		if(level.playerMove('D')) { return true; }
-		break;
+        else if(level.startBattle('D')) {Battles battle; battle.startBattle();}   
+        else if(level.openChest('D')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+		else if(level.startPuzzle('D')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+        break;
         case 67:
 	    case 'd':
 		if(level.playerMove('R')) { return true; }
-		break;
-	}
-	return false;
-    }
-    else if(currentFocus == "death_screen") {
-	switch(key) {
-	    case 'a':
-		display.moveSelection('L');
-		return true;
-		break;
-	    case 'd':
-		display.moveSelection('R');
-		return true;
-		break;
+        else if(level.startBattle('R')) {Battles battle; battle.startBattle();} 
+        else if(level.openChest('R')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+		else if(level.startPuzzle('R')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+        break;
 	}
 	return false;
     }
@@ -66,7 +67,7 @@ bool getUserInput(char key, Level &level, Display &display) { //Returns true if 
 int main () {
     intro();
     wait(3);
-    Player player(1, 1);
+    Player player(1, 1, 2);
     Player* playerptr;
     playerptr = &player;
     Level level(playerptr, 40, 40); //x length, y length
@@ -79,12 +80,12 @@ int main () {
 	validKey = false;
 	while(!validKey) {
 	    key = getKey();
-	    if(key == 'z') { //Debugging
-		return 0;
+	    if(key == 'z') {
+            cout << "homo";//Debugging
 	    }
 	    validKey = getUserInput(key, level, display);
 	}
-	//level.cleanUp(); this can be uncommented later on when we have things that need to be removed from the map
+	level.cleanUp();
     }
     return 0;
 }
