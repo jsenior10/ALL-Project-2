@@ -1,6 +1,7 @@
 #include <iostream>
+#include "intro.h"
 using namespace std;
-void intro(){
+void Intro::intro(){
     
 cout<<"/$$      |$$           |$$                                             "<<endl;          
 cout<<"| $$  |$ | $$          | $$                                            "<<endl;           
