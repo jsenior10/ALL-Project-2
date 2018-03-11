@@ -38,14 +38,14 @@ health INTEGER NOT NULL,
 attack INTEGER NOT NULL,
 counterAttack INTEGER NOT NULL
 );
-INSERT INTO "monsters" VALUES(1,'Warrior',80,30,10);
-INSERT INTO "monsters" VALUES(2,'Mage',100,10,20);
-INSERT INTO "monsters" VALUES(3,'Hunter',80,40,5);
-INSERT INTO "monsters" VALUES(4,'Drag Queen',80,25,10);
+INSERT INTO "monsters" VALUES(1,'Warrior',80,60,10);
+INSERT INTO "monsters" VALUES(2,'Mage',100,40,20);
+INSERT INTO "monsters" VALUES(3,'Hunter',80,70,5);
+INSERT INTO "monsters" VALUES(4,'Drag Queen',80,60,10);
 CREATE TABLE weapons_user(
 idWeapon INTEGER NOT NULL,
-idUser INTEGER NOT NULL, 
-duration INTEGER DEFAULT 0);
+idUser INTEGER NOT NULL
+, duration INTEGER DEFAULT 0);
 INSERT INTO "weapons_user" VALUES(2,1,6);
 CREATE TABLE puzzle(
 num integer primary key autoincrement,
@@ -64,7 +64,6 @@ name TEXT NOT NULL,
 effectOnArmor INTEGER NOT NULL,
 effectOnDamage INTEGER NOT NULL,
 effectOnGold INTEGER NOT NULL);
-
 CREATE TABLE armourpotions(
 IDPotion INTEGER PRIMARY KEY AUTOINCREMENT,
 Price INTEGER NOT NULL,
