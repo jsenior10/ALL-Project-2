@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
 #include "libsqlite.hpp"
-#include "logtablefunction.h"
+#include "logTableFunction.h"
 #include "md5.h" //file downloaded from  http://www.zedwood.com/article/cpp-md5-function and md5.cpp as well
 #include "main.h"
+#include "loginForm.h"
 
 using namespace std;
 int globalUserID; //.cpp definition of globalUserID
@@ -99,7 +100,7 @@ class Rogue: public BuildUser{
         }
         
 };  
-bool login(){
+bool loginForm::login(){
     string username;
     string password;
     bool checking = false;
@@ -136,7 +137,7 @@ bool login(){
     }
     return true;
 }
-bool regist(){
+bool loginForm::regist(){
     string username;
     string password = "";
     string password2 = "";
@@ -211,7 +212,7 @@ bool regist(){
     }
     return false; 
 }
-int main(){
+int loginForm::loginOrRegist(){
     int choice;
     bool checking =false;
     while (checking != true){
