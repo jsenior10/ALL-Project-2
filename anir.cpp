@@ -222,7 +222,7 @@ int main(){
         {
             golddecarmourbronze(db);
             armourbronze(db);
-            cout << "Your armour has been increased!!!" << endl;
+            cout << "Your armour has been increased by 20 points!!!" << endl;
         }    
         else
         {
@@ -236,7 +236,7 @@ int main(){
         {
             golddecarmoursilver(db);
             armoursilver(db);
-            cout << "Your armour has been increased!!!" << endl;
+            cout << "Your armour has been increased by 60 points!!!" << endl;
         }    
         else
         {
@@ -250,7 +250,7 @@ int main(){
         {
             golddecarmourgold(db);
             armourgold(db);
-            cout << "Your armour has been increased!!!" << endl;
+            cout << "Your armour has been increased by 100 points!!!" << endl;
         }    
         else
         {
@@ -264,7 +264,7 @@ int main(){
         {
             golddecdurationsmall(db);
             durincsmall(db);
-            cout << "Your weapon duration has increased!!!" << endl;
+            cout << "The duration of all your weapons has been increased by 3 points!!!" << endl;
         }    
         else
         {
@@ -277,7 +277,7 @@ int main(){
         {
             golddecdurationmedium(db);
             durincmedium(db);
-            cout << "Your weapon duration has increased!!!" << endl;
+            cout << "The duration of all your weapons has been increased by 6 points!!!" << endl;
         }    
         else
         {
@@ -291,7 +291,7 @@ int main(){
         {
             golddecdurationlarge(db);
             durinclarge(db);
-            cout << "Your weapon duration has increased!!!" << endl;
+            cout << "The duration of all your weapons has been increased by 20 points!!!" << endl;
         }    
         else
         {
