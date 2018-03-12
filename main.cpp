@@ -10,13 +10,13 @@
 #include "utils.h"
 #include "battles.h"
 #include "intro.h"
+#include "loginForm.h"
+#include "main.h"
 
 using namespace std;
 
-Intro welcome; //declaring welcome of type Intro
-
 int wait(int sec){
-    usleep(sec * 1000000); //the parameter works in micro-seconds
+    usleep(sec * 1000000); //the parameter works in micro-seconds, converts microseconds to seconds
 }
 
 char getKey() { //this be copy and pasted from somewhere i dont understand this
@@ -38,7 +38,7 @@ bool getUserInput(char key, Level &level, Display &display) { //Returns true if 
 	    case 'w': 
 		if(level.playerMove('U')) { return true; }
         else if(level.startBattle('U')) {Battles battle; battle.startBattle();}
-        else if(level.openChest('U')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+        else if(level.openChest('U')) {cout << "fgfds"; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
         else if(level.startPuzzle('U')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
 		break;
         case 68:
@@ -67,8 +67,13 @@ bool getUserInput(char key, Level &level, Display &display) { //Returns true if 
     }
 }
 int main () {
-    welcome.intro();
-    wait(3);
+    Intro intro; //creates object for the intro
+    intro.intro(); // shows the intro screen
+    wait(5); //waits 5 seconds
+    
+    loginForm login;
+    login.loginOrRegist();
+    
     Player player(1, 1, 2);
     Player* playerptr;
     playerptr = &player;
