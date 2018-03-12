@@ -27,7 +27,6 @@ int armourbronze(sqlite::sqlite &db) {
 
 
 
-
 //Gold decrease when silver armour brought
 int golddecarmoursilver(sqlite::sqlite &db) {
     auto cur2 = db.get_statement(); 
