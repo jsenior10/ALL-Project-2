@@ -136,8 +136,6 @@ int durincmedium(sqlite::sqlite &db) {
     return 0;
 }
 
-#
-
 
 
 //Gold decrease when large duration brought
@@ -186,8 +184,11 @@ int goldamountcall(sqlite::sqlite &db){
 
 
 int main(){  
-  
     
+    bool running=false;
+    
+    while(running!=true)
+    {
     sqlite::sqlite db( "dungeonCrawler.db" ); 
     auto cur = db.get_statement();   
     cur->set_sql("SELECT gold FROM users WHERE idUser=?;");
@@ -198,7 +199,7 @@ int main(){
    
     
     
-    int broughtitem;
+    char broughtitem;
     cout << "Your current gold amount is: " << goldamount << endl;
     cout << "+-------------+---------------------------------+------------+----------+" << endl;
     cout << "| Item number |             Item                |    Value   |   Cost   |" << endl;
@@ -215,7 +216,7 @@ int main(){
     cin >> broughtitem;
     
    
-   if (broughtitem==1)
+   if (broughtitem=='1')
    {
         //run armour increase bronze
         if (goldamount>=20) 
@@ -223,13 +224,14 @@ int main(){
             golddecarmourbronze(db);
             armourbronze(db);
             cout << "Your armour has been increased by 20 points!!!" << endl;
+            running=true;
         }    
         else
         {
             cout << "You don't have enough gold" << endl;
         } 
    }
-        else if (broughtitem==2)
+        else if (broughtitem=='2')
     {
             //run armour increase silver
         if (goldamount>=40 )
@@ -237,13 +239,14 @@ int main(){
             golddecarmoursilver(db);
             armoursilver(db);
             cout << "Your armour has been increased by 60 points!!!" << endl;
+            running=true;
         }    
         else
         {
             cout << "You don't have enough gold" << endl;
         }
     }
-    else if (broughtitem==3)
+    else if (broughtitem=='3')
     {
         //run armour increase gold
         if (goldamount>=60) 
@@ -251,13 +254,14 @@ int main(){
             golddecarmourgold(db);
             armourgold(db);
             cout << "Your armour has been increased by 100 points!!!" << endl;
+            running=true;
         }    
         else
         {
             cout << "You don't have enough gold" << endl;
         }
     }
-    else if (broughtitem==4)
+    else if (broughtitem=='4')
     {
         //run weapon duration increase small
         if (goldamount>=10) 
@@ -265,26 +269,28 @@ int main(){
             golddecdurationsmall(db);
             durincsmall(db);
             cout << "The duration of all your weapons has been increased by 3 points!!!" << endl;
+            running=true;
         }    
         else
         {
             cout << "You don't have enough gold" << endl;
         }
     }
-    else if (broughtitem==5)
+    else if (broughtitem=='5')
     {
         if (goldamount>=30) 
         {
             golddecdurationmedium(db);
             durincmedium(db);
             cout << "The duration of all your weapons has been increased by 6 points!!!" << endl;
+            running=true;
         }    
         else
         {
             cout << "You don't have enough gold" << endl;
         }
     }
-    else if (broughtitem==6)
+    else if (broughtitem=='6')
     {
         //run weapon duration increase large
         if (goldamount>=80) 
@@ -292,13 +298,14 @@ int main(){
             golddecdurationlarge(db);
             durinclarge(db);
             cout << "The duration of all your weapons has been increased by 20 points!!!" << endl;
+            running=true;
         }    
         else
         {
             cout << "You don't have enough gold" << endl;
         }
     }
-    else if (broughtitem==7)
+    else if (broughtitem=='7')
     {
             //run level increase
         if (goldamount>=200) 
@@ -306,6 +313,7 @@ int main(){
             leveljump(db);
             golddecleveljump(db);
             cout << "Your level has been increased by one!!!" << endl;
+            running=true;
         }    
         else
         {
@@ -316,7 +324,8 @@ int main(){
     {
         cout << "something is wrong" << endl;
     }
-    
+        
+    }
     
     return 0;
 }
