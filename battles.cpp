@@ -5,12 +5,13 @@
 #include "battleScenario.h"
 #include "battles.h"
 #include <unistd.h> //for usleep stuff
+#include "main.h"
 using namespace std;
 battleScenario battle;
 int waitAbit(int sec){
     usleep(sec * 1000000); //the parameter works in micro-seconds 
 }
-int globalUserID = 2;  //dont forget to remove the assign by 2
+//int globalUserID = 2;  //dont forget to remove the assign by 2
 
 bool weaponExist(int weaponId){
     sqlite::sqlite db("dungeonCrawler.db");//open database
@@ -119,7 +120,6 @@ int Battles::startBattle(){
     //load monster variables about random number
     cur = db.get_statement();//clean the one used before to create query
     Battles var;  // create the object
-    //var.idUser = globalUserID;            //CHANGEEEE, THIS VALUE IS ONLY FOr TESTING REASONS
     var.idMonster = idMonster;
 	
     while(stopGame != true){
