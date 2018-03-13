@@ -5,11 +5,29 @@
 #include "md5.h" //file downloaded from  http://www.zedwood.com/article/cpp-md5-function and md5.cpp as well
 #include "main.h"
 #include "loginForm.h"
-
 using namespace std;
 int globalUserID; //.cpp definition of globalUserID
+
 string haskMd5(string password){ //function to hash the password
     return md5(password);
+}
+bool testPassword(string word){  //function to check if the input is between a-z A-Z 0-9
+	int counter=0;
+    array<char,62> atoz = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+                           'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+                           '0','1','2','3','4','5','6','7','8','9'};
+	for(char i : word){
+		for (char j : atoz){
+			if (i==j){
+				counter = counter +1;
+			}
+		}
+	}
+	if(counter == word.size()){
+		return true;
+	}else{
+		return false;
+	}
 }
 class BuildUser{
     public:
@@ -147,9 +165,17 @@ bool loginForm::regist(){
         sqlite::sqlite db( "dungeonCrawler.db" ); // open database
         cout<< "Type your character's name ?"<< endl;
         cin >> username;
+		while(testPassword(username) == false){
+			cout<< "Type your character's name ?"<< endl; //while to check id the charactrs of the passowrd are aonly between a-z A-Z 0-9
+			cin >> username;
+		}
         while (check){   //will run untill both passwords match 
-            cout << "Set your magic word !" << endl; //receive the password and replace by *
+            cout << "Set your magic word !" << endl; 
             cin >> password;
+            while(testPassword(password) == false){ 
+			    cout << "Set your magic word !" << endl;//while to check id the charactrs of the passowrd are aonly between a-z A-Z 0-9
+                cin >> password;   
+            }
             cout << "Type your magic word again !" << endl;   //receive the password2 and replace by *
             cin >> password2;
             if(password == password2){
@@ -213,7 +239,7 @@ bool loginForm::regist(){
     }
     return false; 
 }
-int main(){
+int loginForm::loginOrRegist(){
     int choice;
     bool checking =false;
     while (checking != true){
