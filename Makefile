@@ -8,3 +8,5 @@ loginForm:
 	g++ --std=c++14 loginForm.cpp md5.cpp -o HAS -lsqlite3 -o loginForm
 shop:
 	g++ --std=c++14 anir.cpp -o anir.o -lsqlite3
+antonioTake:
+	g++ --std=c++14 myTakeNewLogin.cpp md5.cpp -o HAS -lsqlite3 -o mytake

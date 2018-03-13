@@ -7,7 +7,4 @@ class loginForm {
     bool regist();
     int loginOrRegist();
 };
-
-
-
 #endif
