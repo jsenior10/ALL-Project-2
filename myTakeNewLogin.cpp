@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "libsqlite.hpp"
-#include "logtablefunction.h"
+#include "logTableFunction.h"
 #include "md5.h" //file downloaded from  http://www.zedwood.com/article/cpp-md5-function and md5.cpp as well
 #include "main.h"
 #include "loginForm.h"
@@ -15,7 +15,6 @@ class BuildUser{
     public:
         string username, password, type;
         int gold, armor;
-        BuildUser(){};
         int setValues(string username, string password, int gold, int armor, string type){
             sqlite::sqlite db( "dungeonCrawler.db" ); // open database
             auto cur_regist = db.get_statement(); // create query
@@ -117,6 +116,8 @@ bool loginForm::login(){
             cur->bind(1, username); //fill the placeholders
             if(cur->step()){
                 checkUsername = true;
+            }else{
+                cur = db.get_statement(); // create query
             }
         }
         while(checkPass != true){
