@@ -3,7 +3,7 @@
 #include "libsqlite.hpp"
 #include "logTableFunction.h"
 #include "md5.h" //file downloaded from  http://www.zedwood.com/article/cpp-md5-function and md5.cpp as well
-#include "main.h"
+#include "global.h"
 #include "loginForm.h"
 using namespace std;
 int globalUserID; //.cpp definition of globalUserID

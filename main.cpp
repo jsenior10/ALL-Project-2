@@ -11,7 +11,7 @@
 #include "battles.h"
 #include "intro.h"
 #include "loginForm.h"
-#include "main.h"
+#include "global.h"
 
 using namespace std;
 

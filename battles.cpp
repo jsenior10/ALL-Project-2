@@ -5,7 +5,7 @@
 #include "battleScenario.h"
 #include "battles.h"
 #include <unistd.h> //for usleep stuff
-#include "main.h"
+#include "global.h"
 using namespace std;
 battleScenario battle;
 int waitAbit(int sec){
