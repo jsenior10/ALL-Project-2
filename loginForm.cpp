@@ -8,7 +8,8 @@
 
 using namespace std;
 int globalUserID; //.cpp definition of globalUserID
-string haskMd5(string password){ //function to hash the password
+string haskMd5(string password) //function to hash the password
+{
     return md5(password);
 }
 class BuildUser{
@@ -100,29 +101,44 @@ class Rogue: public BuildUser{
         }
         
 };  
-bool loginForm::login(){
+bool loginForm::login()
+{
     string username;
     string password;
+    bool checkUsername = false;
+    bool checkPass = false;
     bool checking = false;
-    while(checking != true){ //the code will run untill the user type the correct passsword
-        sqlite::sqlite db( "dungeonCrawler.db" ); // open database
-        auto cur = db.get_statement(); // create query
-        bool checkUsername = false;
-        bool checkPass = false;
-        while(checkUsername != true){
+    sqlite::sqlite db( "dungeonCrawler.db" ); // open database
+    auto cur = db.get_statement(); // create query
+    
+    while(checking != true)     //the code will run untill the user type the correct passsword
+    {                                                  
+        while(checkUsername != true)
+        {
             cout << "Who are you ?" << endl;
             cin >> username;
             cur->set_sql("SELECT * FROM users WHERE username=? LIMIT 1"); //query
             cur->prepare(); // run query
             cur->bind(1, username); //fill the placeholders
-            if(cur->step()){
+            
+          try
+          {
+            if(cur->step())
+                {
                 checkUsername = true;
-            }
-        }
-        while(checkPass != true){
+                }
+          }
+          catch(...){
+            cout<< "Your username is incorrect. Please check your spelling or if \n you do not have an account please register." << endl;
+                    }
+          }
+    
+        while(checkPass != true)
+        {
             cout << "Please type the magic word !" << endl;
             cin >> password;
-            if (md5(password).compare(cur->get_text(2)) == 0){
+            if (md5(password).compare(cur->get_text(2)) == 0)
+            {
                 cout << "\ndone"<< endl;
                 checkPass = true;
                 checking = true;
@@ -130,7 +146,9 @@ bool loginForm::login(){
                 //global variable here
                 globalUserID = id;
                 insertLogTable(id,"Log in");
-            }else{
+            }
+            else
+            {
                 cout<<"Wrong password !"<< endl;
             }
         }
@@ -142,16 +160,19 @@ bool loginForm::regist(){
     string password = "";
     string password2 = "";
     bool check = true;
-    try {
+    try 
+    {
         sqlite::sqlite db( "dungeonCrawler.db" ); // open database
         cout<< "Type your character's name ?"<< endl;
         cin >> username;
-        while (check){   //will run untill both passwords match 
+        while (check)
+        {   //will run untill both passwords match 
             cout << "Set your magic word !" << endl; //receive the password and replace by *
             cin >> password;
             cout << "Type your magic word again !" << endl;   //receive the password2 and replace by *
             cin >> password2;
-            if(password == password2){
+            if(password == password2)
+            {
                 check = false;
                 cout<<"which type of character do you prefer? "<<endl;
                 cout<<"1-Witch"<<endl;
@@ -160,8 +181,10 @@ bool loginForm::regist(){
                 cout<<"4-Rogue"<<endl;
                 int characterChoice;
                 bool checkCharacter = true;
-                while(checkCharacter){
-                    try{
+                while(checkCharacter)
+                {
+                    try
+                    {
                         cin>>characterChoice;
                         if(characterChoice > 0 && characterChoice < 5){
                             switch(characterChoice){
@@ -206,13 +229,15 @@ bool loginForm::regist(){
                 cout << "password doesn't match. " << endl;
             }
         }
-    }catch (sqlite::exception e){
+    }catch (sqlite::exception e)
+    {
         std::cerr << e.what() << std::endl;
         return true;
     }
     return false; 
 }
-int loginForm::loginOrRegist(){
+int loginForm::loginOrRegist()
+{
     int choice;
     bool checking =false;
     while (checking != true){
@@ -234,5 +259,10 @@ int loginForm::loginOrRegist(){
             checking = false;
         }
     }
+    return 0;
+}
+
+int main()
+{
     return 0;
 }
