@@ -183,7 +183,7 @@ int goldamountcall(sqlite::sqlite &db){
 }
 
 
-int main(){  
+int shopMain(){  
     
     bool running=false;
     

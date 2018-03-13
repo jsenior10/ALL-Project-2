@@ -42,27 +42,24 @@ int shop(){
         }
     }
 }
-void menu(){
+void menu()
+{
     bool checkMenu = false;
-    while(checkMenu != true){
+    while(checkMenu != true)
+    {
         cout<<"*-------------------*"<<endl;
         cout<<"| 1- Start the game |"<<endl;
         cout<<"| 2- Shop           |"<<endl;
         cout<<"*-------------------*"<<endl;
         char menuChoice;
         cin>> menuChoice; 
-        if (menuChoice=='1' || menuChoice =='2'){
+        if (menuChoice=='1' || menuChoice =='2')
+        {
             checkMenu = true;
-            if (menuChoice == '2'){
+            if (menuChoice == '2')
+            {
                 shop();
             }
         }       
-    }
-    
-
-    
-}
-int main(){
-    menu();
-    return 0;
+    }   
 }

@@ -213,7 +213,7 @@ bool loginForm::regist(){
     }
     return false; 
 }
-int main(){
+int loginForm::loginOrRegist(){
     int choice;
     bool checking =false;
     while (checking != true){

@@ -74,7 +74,7 @@ int main () {
     loginForm login;
     login.loginOrRegist();
     
-    Player player(1, 1, 2);
+    Player player(1, 1);
     Player* playerptr;
     playerptr = &player;
     Level level(playerptr, 40, 40); //x length, y length
