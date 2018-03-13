@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "libsqlite.hpp"
-#include "logtablefunction.h"
+#include "logTableFunction.h"
 #include "md5.h" //file downloaded from  http://www.zedwood.com/article/cpp-md5-function and md5.cpp as well
 #include "main.h"
 #include "loginForm.h"
