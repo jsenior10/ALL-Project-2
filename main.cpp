@@ -20,7 +20,7 @@ int wait(int sec){
 }
 
 char getKey() { //this be copy and pasted from somewhere i dont understand this
-    struct termios old_tio, new_tio;
+    struct termios old_tio, new_tio;                 //^its a template^//
     tcgetattr(STDIN_FILENO, &old_tio);
     new_tio = old_tio;
     new_tio.c_lflag &=(~ICANON & ~ECHO);
