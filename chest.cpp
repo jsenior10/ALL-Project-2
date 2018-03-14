@@ -64,7 +64,7 @@ int gold100(sqlite::sqlite &db){
     return 0;
 }
 
-bool Chest::openTheChest(){
+int Chest::openTheChest(){
     sqlite::sqlite db("dungeonCrawler.db"); //opens database connection
     auto cur = db.get_statement();
     int numOfPowerups = 6;
