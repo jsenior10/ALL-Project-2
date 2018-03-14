@@ -7,13 +7,21 @@
 #include <unistd.h> //for usleep stuff
 #include "global.h"
 using namespace std;
+int globalUserID;
 battleScenario battle;
 int waitAbit(int sec){
     usleep(sec * 1000000); //the parameter works in micro-seconds 
 }
-//int globalUserID = 2;  //dont forget to remove the assign by 2
-
-bool weaponExist(int weaponId){
+void increaseGold(int amount, sqlite::sqlite &db){
+    auto curGold = db.get_statement();//create query
+    curGold->set_sql("UPDATE users SET gold=gold+amount WHERE idUser=?");
+    curGold->prepare();
+    curGold->bind(1,globalUserID);
+    if (curGold->step()){
+        cout<<"You won "<<amount<<"coins !"endl;
+    }    
+}
+bool weaponExist(int weaponId){ //function to 
     sqlite::sqlite db("dungeonCrawler.db");//open database
     auto cur = db.get_statement();//create query
     cur->set_sql("SELECT duration FROM weapons_user WHERE idUser=? AND idWeapon=?");
@@ -25,9 +33,9 @@ bool weaponExist(int weaponId){
     }
     else{
         return false;
-    }
-    
+    } 
 }
+
 
     void Battles::printWeapons(){
         //function to print all the weapons the user has
@@ -193,10 +201,12 @@ int Battles::startBattle(){
         cout<<monster_health<<endl;
         if(monster_health <= 0){
             cout<<"You won"<<endl;
+            increaseGold(40,db);
             stopGame = true;
         }
         if(user_health <= 0){
             cout<<"You lost"<<endl;
+            increaseGold(15,db);
             stopGame = true;
         }
     }
