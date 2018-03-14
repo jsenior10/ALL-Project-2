@@ -12,6 +12,7 @@
 #include "intro.h"
 #include "loginForm.h"
 #include "global.h"
+#include "menu.cpp"
 
 using namespace std;
 
@@ -74,25 +75,27 @@ int main () {
     loginForm login;
     login.loginOrRegist();
     
-    Player player(1, 1);
-    Player* playerptr;
-    playerptr = &player;
-    Level level(playerptr, 40, 40); //x length, y length
-    level.generateMap();
-    Display display;
-    char key;
-    bool validKey;
-    while(true) { //runs indefinitely right now can probably easily have conditions added where it ends on death or some shit
-	display.displayLevel(level);
-	validKey = false;
-	while(!validKey) {
-	    key = getKey();
-	    if(key == 'z') {
-            cout << "homo";//Debugging
-	    }
-	    validKey = getUserInput(key, level, display);
-	}
-	level.cleanUp();
+    if (menu() == 1){//to include the menu
+        Player player(1, 1);
+        Player* playerptr;
+        playerptr = &player;
+        Level level(playerptr, 40, 40); //x length, y length
+        level.generateMap();
+        Display display;
+        char key;
+        bool validKey;
+        while(true) { //runs indefinitely right now can probably easily have conditions added where it ends on death or some shit
+        display.displayLevel(level);
+        validKey = false;
+        while(!validKey) {
+            key = getKey();
+            if(key == 'z') {
+                cout << "homo";//Debugging
+            }
+            validKey = getUserInput(key, level, display);
+        }
+        level.cleanUp();
+        }
     }
     return 0;
 }
