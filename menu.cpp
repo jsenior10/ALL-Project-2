@@ -6,15 +6,16 @@
 using namespace std;
 int shop(){
     sqlite::sqlite db( "dungeonCrawler.db" ); // open database
-    bool checkItem = false;
-    cout<<"*-----------------------------------*"<<endl;
-    cout<<"|        Welcome to the Cave        |"<<endl;
-    cout<<"*-----------------------------------*"<<endl;
-    cout<<"*-----------------------------------*"<<endl;
-    cout<<"| 1 - Weapons                       |"<<endl;
-    cout<<"| 2 - Potions or Level jump         |"<<endl;
-    cout<<"*-----------------------------------*"<<endl;
-    while (checkItem != true){
+    while(true){
+        bool checkItem = false;
+        cout<<"*-----------------------------------*"<<endl;
+        cout<<"|        Welcome to the Cave        |"<<endl;
+        cout<<"*-----------------------------------*"<<endl;
+        cout<<"*-----------------------------------*"<<endl;
+        cout<<"| 1 - Weapons                       |"<<endl;
+        cout<<"| 2 - Potions or Level jump         |"<<endl;
+        cout<<"| 3 - Go Back                       |"<<endl;
+        cout<<"*-----------------------------------*"<<endl;
         char item;
         cin>>item;
         if(item =='1' || item=='2'){
@@ -38,9 +39,14 @@ int shop(){
             }
             else if (item=='2'){
                 shopMain(); //anir part of the code
-            }
+            }  
+        }else if (item == '3'){
+            break;
+        }else{
+            cout<<"something wrong"<<endl;
         }
     }
+    return 0;
 }
 int menu()
 {
@@ -55,12 +61,12 @@ int menu()
         cin>> menuChoice; 
         if (menuChoice=='1' || menuChoice =='2')
         {
-            checkMenu = true;
             if (menuChoice == '2')
             {
                 shop();
             }
             if (menuChoice == '1'){
+                checkMenu = true;
                 return 1;
             }
         }       

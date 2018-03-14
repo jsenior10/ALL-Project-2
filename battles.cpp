@@ -128,7 +128,8 @@ int Battles::startBattle(){
     cur = db.get_statement();//clean the one used before to create query
     Battles var;  // create the object
     var.idMonster = idMonster;
-    while(true){
+    bool checkgame = false;
+    while(checkgame !=true){
 		if (idMonster==1)
 			battle.warrior();
 		else if (idMonster==2)
@@ -197,12 +198,14 @@ int Battles::startBattle(){
         cout<<monster_health<<endl;
         if(monster_health <= 0){
             cout<<"You won"<<endl;
-            increaseGold(40,db);
+            //increaseGold(40,db);
+            checkgame = true;
             return 0;
         }
         if(user_health <= 0){
             cout<<"You lost"<<endl;
-            increaseGold(15,db);
+            //increaseGold(15,db);
+            checkgame= true;
             return 1;
         }
     }
