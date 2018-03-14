@@ -12,7 +12,7 @@
 #include "intro.h"
 #include "loginForm.h"
 #include "global.h"
-#include "menu.cpp"
+#include "menu.h"
 
 using namespace std;
 

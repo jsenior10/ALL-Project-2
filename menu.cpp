@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "libsqlite.hpp"
-#include "Shop.cpp"
+#include "shop.h"
 #include "weaponset.h"
 using namespace std;
 int shop(){
