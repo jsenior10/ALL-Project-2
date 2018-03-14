@@ -50,7 +50,10 @@ intro.o: intro.cpp intro.h
 weaponset.o: weaponset.cpp weaponset.h
 	$(CC) -c weaponset.cpp
 
-game: main.o level.o Login.o main.o md5.o menu.o player.o utils.o chest.o entity.o enemy.o battles.o battleScenario.o puzzle.o intro.o weaponset.o display.o
+shop.o: Shop.cpp
+	$(CC) -c Shop.cpp
+
+game: main.o level.o Login.o main.o md5.o menu.o player.o utils.o chest.o entity.o enemy.o battles.o battleScenario.o puzzle.o shop.o intro.o weaponset.o display.o
 	$(CC) $^ -o $@ -lsqlite3
 	
 clean:

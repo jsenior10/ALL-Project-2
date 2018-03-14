@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "libsqlite.hpp"
-#include "shop.h"
+#include "Shop.cpp"
 #include "weaponset.h"
 using namespace std;
 int shop(){
@@ -37,12 +37,12 @@ int shop(){
                 }
             }
             else if (item=='2'){
-                shoppotions(); //anir part of the code
+                shopMain(); //anir part of the code
             }
         }
     }
 }
-void menu()
+int menu()
 {
     bool checkMenu = false;
     while(checkMenu != true)
@@ -59,6 +59,9 @@ void menu()
             if (menuChoice == '2')
             {
                 shop();
+            }
+            if (menuChoice == '1'){
+                return 1;
             }
         }       
     }   
