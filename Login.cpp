@@ -6,7 +6,7 @@
 #include "global.h"
 #include "loginForm.h"
 using namespace std;
-int globalUserID; //.cpp definition of globalUserID
+
 
 string haskMd5(string password){ //function to hash the password
     return md5(password);
