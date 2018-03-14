@@ -20,10 +20,10 @@ main.o: main.cpp
 menu.o: menu.cpp
 	$(CC) -c menu.cpp
 
-player.o: player.cpp
+player.o: player.cpp player.h
 	$(CC) -c player.cpp
 
-utils.o: utils.cpp
+utils.o: utils.cpp utils.h
 	$(CC) -c utils.cpp
 
 chest.o: chest.cpp chest.h
@@ -41,7 +41,7 @@ battles.o: battles.cpp battles.h
 battleScenario.o: battleScenario.cpp battleScenario.h
 	$(CC) -c battleScenario.cpp
 
-puzzle.o: puzzle.cpp
+puzzle.o: puzzle.cpp puzzle.h
 	$(CC) -c puzzle.cpp
 
 intro.o: intro.cpp intro.h
@@ -49,14 +49,11 @@ intro.o: intro.cpp intro.h
 
 weaponset.o: weaponset.cpp weaponset.h
 	$(CC) -c weaponset.cpp
-	
-menu.o: menu.cpp menu.h
-	$(CC) -c menu.cpp
 
-shop.o: Shop.cpp shop.h
-	$(CC) -c Shop.cpp 
+shop.o: shop.cpp shop.h
+	$(CC) -c shop.cpp 
 
-game: main.o level.o Login.o main.o md5.o menu.o player.o utils.o chest.o entity.o enemy.o battles.o battleScenario.o puzzle.o intro.o weaponset.o display.o menu.o Shop.o
+game: main.o level.o Login.o md5.o menu.o player.o utils.o chest.o entity.o enemy.o battles.o battleScenario.o puzzle.o intro.o weaponset.o display.o shop.o
 	$(CC) $^ -o $@ -lsqlite3
 	
 clean:
