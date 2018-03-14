@@ -6,8 +6,9 @@
 using namespace std;
 int shop(){
     sqlite::sqlite db( "dungeonCrawler.db" ); // open database
+    bool checkMenu = false;
     while(true){
-        bool checkItem = false;
+        bool checkItem = true;
         cout<<"*-----------------------------------*"<<endl;
         cout<<"|        Welcome to the Cave        |"<<endl;
         cout<<"*-----------------------------------*"<<endl;
@@ -17,34 +18,38 @@ int shop(){
         cout<<"| 3 - Go Back                       |"<<endl;
         cout<<"*-----------------------------------*"<<endl;
         char item;
-        cin>>item;
-        if(item =='1' || item=='2'){
-            checkItem = true;
-            if (item=='1'){
-                Weapons var; //define the object to print all weapons and assign them to a user
-                var.idUser = 7; // dont forget to assign this to the globalvariable   HERE
-                var.printWeapons(db);  //antonio part of the code
-                bool checkgetWeapon = false;
-                while(checkgetWeapon != true){
-                    int weaponChoice;
-                    cin >> weaponChoice;
-                    if (weaponChoice>0 && weaponChoice<5){
-                        checkgetWeapon = true;
-                        var.assignWeapon(weaponChoice, db);
-                    } 
-                    else{
-                        cout<<"You should type a number between 1 and 4"<<endl;
+        cin>>item; 
+            if(item =='1' || item=='2'){
+                checkMenu = false;
+                if (item=='1'){
+                    Weapons var; //define the object to print all weapons and assign them to a user
+                    var.idUser = 7; // dont forget to assign this to the globalvariable   HERE
+                    var.printWeapons(db);  //antonio part of the code
+                    bool checkgetWeapon = false;
+                    while(checkgetWeapon != true){
+                        int weaponChoice;
+                        cin >> weaponChoice;
+                        if (weaponChoice>0 && weaponChoice<5){
+                            checkgetWeapon = true;
+                            var.assignWeapon(weaponChoice, db);
+                        } 
+                        else{
+                            cout<<"You should type a number between 1 and 4"<<endl;
+                        }
                     }
                 }
+                else if (item=='2'){
+                    shopMain(); //anir part of the code
+                }  
             }
-            else if (item=='2'){
-                shopMain(); //anir part of the code
-            }  
-        }else if (item == '3'){
+            if(item == '3'){
+                checkMenu= false;
+            }
+        
+        if(item=='3'){
             break;
-        }else{
-            cout<<"something wrong"<<endl;
         }
+        
     }
     return 0;
 }

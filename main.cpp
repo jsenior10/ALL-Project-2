@@ -135,7 +135,9 @@ int main () {
     
     loginForm login;
     login.loginOrRegist();
+    if (menu()==1){
+        gameLoop();
+    }
     
     
-    gameLoop();
 }
