@@ -2,13 +2,14 @@
 #define PUZZLE_H
 
 #include <vector>
+#include <unistd.h> 
 #include "entity.h"
 
 class Puzzle : public Entity 
 {
-    private:
+    public:
     Puzzle(int, int, int);
-    question();
+    bool question();
 };
 
 #endif

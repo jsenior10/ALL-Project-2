@@ -1,8 +1,15 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "libsqlite.hpp"
 #include "utils.h"
 #include "puzzle.h"
+#include <unistd.h>
+
+int waitAbit(int sec)
+{
+    usleep(sec * 1000000); //the parameter works in micro-seconds 
+}
 
 Puzzle::Puzzle(int x, int y, int HP) 
 {
@@ -11,7 +18,7 @@ Puzzle::Puzzle(int x, int y, int HP)
     currentHealth = HP;
 }
 
-string Puzzle::question()
+bool Puzzle::question()
 {
     sqlite::sqlite db("dungeonCrawler.db");
     auto cur = db.get_statement();
@@ -26,18 +33,24 @@ string Puzzle::question()
     cur->step();
     
     string Quest = cur->get_text(1);
-    cout << Quest << endl;
+    std::cout << "\033[2J" << std::endl;
+    std::cout << Quest << std::endl;
     
     string userAnswer;
-    cin >> userAnswer;
+    std::cin >> userAnswer;
     
-    string answer = cur->get_text(2);
-    if(userAnswer == answer)
+    string dbAnswer = cur->get_text(2);
+    if(userAnswer == dbAnswer)
     {
+		std::cout << "correct!" << std::endl;
+		waitAbit(1);
         return true;
     }
     else
     {
+		std::cout << "Incorrect!" << std::endl;
+		waitAbit(1);
         return false;
     }
 }
+

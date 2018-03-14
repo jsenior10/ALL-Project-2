@@ -8,8 +8,8 @@ display.o: display.cpp display.h
 level.o: level.cpp level.h
 	$(CC) -c level.cpp
 
-myTakeNewLogin.o: myTakeNewLogin.cpp loginForm.h
-	$(CC) -c myTakeNewLogin.cpp
+Login.o: Login.cpp loginForm.h
+	$(CC) -c Login.cpp
 
 md5.o: md5.cpp md5.h
 	$(CC) -c md5.cpp
@@ -50,7 +50,7 @@ intro.o: intro.cpp intro.h
 weaponset.o: weaponset.cpp weaponset.h
 	$(CC) -c weaponset.cpp
 
-game: main.o level.o myTakeNewLogin.o main.o md5.o menu.o player.o utils.o chest.o entity.o enemy.o battles.o battleScenario.o puzzle.o intro.o weaponset.o display.o
+game: main.o level.o Login.o main.o md5.o menu.o player.o utils.o chest.o entity.o enemy.o battles.o battleScenario.o puzzle.o intro.o weaponset.o display.o
 	$(CC) $^ -o $@ -lsqlite3
 	
 clean:
