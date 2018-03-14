@@ -129,6 +129,10 @@ bool loginForm::login(){
         while(checkUsername != true){
             cout << "Who are you ?" << endl;
             cin >> username;
+            while (testPassword(username) == false){
+                cout << "Who are you ?" << endl;
+                cin >> username;
+            }
             cur->set_sql("SELECT * FROM users WHERE username=? LIMIT 1"); //query
             cur->prepare(); // run query
             cur->bind(1, username); //fill the placeholders
@@ -141,13 +145,16 @@ bool loginForm::login(){
         while(checkPass != true){
             cout << "Please type the magic word !" << endl;
             cin >> password;
+            while(testPassword(password) == false){
+               cout << "Please type the magic word !" << endl;
+               cin >> password; 
+            }
             if (md5(password).compare(cur->get_text(2)) == 0){
                 cout << "\ndone"<< endl;
                 checkPass = true;
                 checking = true;
                 int id = cur->get_int(0); 
-                //global variable here
-                globalUserID = id;
+                globalUserID = id;  //global variable here
                 insertLogTable(id,"Log in");
             }else{
                 cout<<"Wrong password !"<< endl;
