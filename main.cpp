@@ -16,20 +16,42 @@
 
 using namespace std;
 
-bool displayMaze = true;
-
-int displayOption(int mazeOn)
+void question()
 {
-    if(mazeOn == 1)
+    while (true)
+  {
+    sqlite::sqlite db("dungeonCrawler.db");
+    auto cur = db.get_statement();
+    int numOfQuestions = 7;
+    
+    srand(time(0));
+    int qNum = rand() % numOfQuestions + 1 ; //generate a number between 1-7, this decides the question you will recieve
+    
+    cur->set_sql("SELECT * FROM puzzle WHERE num=?");
+    cur->prepare();
+    cur->bind(1,qNum);
+    cur->step();
+    
+    string Quest = cur->get_text(1);
+    std::cout << "\033[2J" << std::endl;
+    std::cout << Quest << std::endl;
+    
+    string userAnswer;
+    std::cin >> userAnswer;
+    
+    string dbAnswer = cur->get_text(2);
+    if(userAnswer == dbAnswer)
     {
-        displayMaze = true;
+		std::cout << "correct!" << std::endl;  
+        break;
     }
-    if(mazeOn == 2)
+    else
     {
-        displayMaze = false;
+		std::cout << "Incorrect!" << std::endl;
+        break;
     }
+  }
 }
-
 int wait(int sec){
     usleep(sec * 1000000); //the parameter works in micro-seconds, converts microseconds to seconds
 }
@@ -54,42 +76,35 @@ bool getUserInput(char key, Level &level, Display &display) { //Returns true if 
 		if(level.playerMove('U')) { return true; }
         else if(level.startBattle('U')) {Battles battle; battle.startBattle();}
         else if(level.openChest('U')) {cout << "fgfds"; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
-        else if(level.startPuzzle('U')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+        else if(level.startPuzzle('U')) {question(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
 		break;
         case 68:
 	    case 'a':
 		if(level.playerMove('L')) { return true; }
         else if(level.startBattle('L')) {Battles battle; battle.startBattle();}
         else if(level.openChest('L')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
-		else if(level.startPuzzle('L')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+		else if(level.startPuzzle('L')) {question(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
         break;
         case 66:
 	    case 's':
 		if(level.playerMove('D')) { return true; }
         else if(level.startBattle('D')) {Battles battle; battle.startBattle();}   
         else if(level.openChest('D')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
-		else if(level.startPuzzle('D')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+		else if(level.startPuzzle('D')) {question(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
         break;
         case 67:
 	    case 'd':
 		if(level.playerMove('R')) { return true; }
         else if(level.startBattle('R')) {Battles battle; battle.startBattle();} 
         else if(level.openChest('R')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
-		else if(level.startPuzzle('R')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+		else if(level.startPuzzle('R')) {question(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
         break;
 	}
 	return false;
     }
 }
-int main () {
-    Intro intro; //creates object for the intro
-    intro.intro(); // shows the intro screen
-    wait(5); //waits 5 seconds
-    
-    loginForm login;
-    login.loginOrRegist();
-    
-    if (menu() == 1){//to include the menu
+
+int gameLoop(){
         Player player(1, 1);
         Player* playerptr;
         playerptr = &player;
@@ -103,13 +118,24 @@ int main () {
         validKey = false;
         while(!validKey) {
             key = getKey();
-            if(key == 'z') {
-                cout << "homo";//Debugging
-            }
+          
             validKey = getUserInput(key, level, display);
         }
         level.cleanUp();
         }
+        return 0;
     }
-    return 0;
+
+
+
+int main () {
+    Intro intro; //creates object for the intro
+    intro.intro(); // shows the intro screen
+    wait(1); //waits 5 seconds
+    
+    loginForm login;
+    login.loginOrRegist();
+    
+    
+    gameLoop();
 }

@@ -7,5 +7,6 @@
 class Chest : public Entity {
     public:
     Chest(int, int, int);
+    int openTheChest();
 };
 #endif
