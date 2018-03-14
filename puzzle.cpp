@@ -30,6 +30,7 @@ bool Puzzle::question()
     cur->step();
     
     string Quest = cur->get_text(1);
+    displayOption(2);
     std::cout << "\033[2J" << std::endl;
     std::cout << Quest << std::endl;
     
@@ -42,12 +43,14 @@ bool Puzzle::question()
 		std::cout << "correct!" << std::endl;  
 		increaseGold(25,db);
 		waitAbit(1);
+        displayOption(1);
         return true;
     }
     else
     {
 		std::cout << "Incorrect!" << std::endl;
 		waitAbit(1);
+        displayOption(1);
         return false;
     }
 }

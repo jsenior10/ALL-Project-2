@@ -15,6 +15,20 @@
 
 using namespace std;
 
+bool displayMaze = true;
+
+int displayOption(int mazeOn)
+{
+    if(mazeOn == 1)
+    {
+        displayMaze = true;
+    }
+    if(mazeOn == 2)
+    {
+        displayMaze = false;
+    }
+}
+
 int wait(int sec){
     usleep(sec * 1000000); //the parameter works in micro-seconds, converts microseconds to seconds
 }
@@ -82,14 +96,20 @@ int main () {
     Display display;
     char key;
     bool validKey;
-    while(true) { //runs indefinitely right now can probably easily have conditions added where it ends on death or some shit
-	display.displayLevel(level);
-	validKey = false;
-	while(!validKey) {
-	    key = getKey();
-	    if(key == 'z') {
-            cout << "homo";//Debugging
-	    }
+    while(displayMaze == true)
+    {
+        display.displayLevel(level);
+        validKey = false;
+        
+        while(!validKey)
+        {
+            key = getKey();
+            
+            if(key == 'z')
+            {
+                cout << "homo";//Debugging
+            }
+            
 	    validKey = getUserInput(key, level, display);
 	}
 	level.cleanUp();
