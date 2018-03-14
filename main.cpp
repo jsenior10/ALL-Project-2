@@ -16,6 +16,20 @@
 
 using namespace std;
 
+bool displayMaze = true;
+
+int displayOption(int mazeOn)
+{
+    if(mazeOn == 1)
+    {
+        displayMaze = true;
+    }
+    if(mazeOn == 2)
+    {
+        displayMaze = false;
+    }
+}
+
 int wait(int sec){
     usleep(sec * 1000000); //the parameter works in micro-seconds, converts microseconds to seconds
 }
