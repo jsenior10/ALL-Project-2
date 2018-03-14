@@ -18,7 +18,7 @@ void increaseGold(int amount, sqlite::sqlite &db){
     curGold->prepare();
     curGold->bind(1,globalUserID);
     if (curGold->step()){
-        cout<<"You won "<<amount<<"coins !"endl;
+        cout << "You won " << amount << "coins !" << endl;
     }    
 }
 bool weaponExist(int weaponId){ //function to 

@@ -1,15 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <unistd.h>
 #include "libsqlite.hpp"
 #include "utils.h"
 #include "puzzle.h"
-#include <unistd.h>
-
-int waitAbit(int sec)
-{
-    usleep(sec * 1000000); //the parameter works in micro-seconds 
-}
+#include "global.h"
+#include "battles.h"
 
 Puzzle::Puzzle(int x, int y, int HP) 
 {
@@ -25,7 +22,7 @@ bool Puzzle::question()
     int numOfQuestions = 7;
     
     srand(time(0));
-    int qNum = rand() % numOfQuestions + 1 ; //generate a number between 1-7 this decides the question you will recieve
+    int qNum = rand() % numOfQuestions + 1 ; //generate a number between 1-7, this decides the question you will recieve
     
     cur->set_sql("SELECT * FROM puzzle WHERE num=?");
     cur->prepare();
@@ -42,7 +39,8 @@ bool Puzzle::question()
     string dbAnswer = cur->get_text(2);
     if(userAnswer == dbAnswer)
     {
-		std::cout << "correct!" << std::endl;
+		std::cout << "correct!" << std::endl;  
+		increaseGold(25,db);
 		waitAbit(1);
         return true;
     }
@@ -53,4 +51,3 @@ bool Puzzle::question()
         return false;
     }
 }
-

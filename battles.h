@@ -17,4 +17,8 @@ class Battles{
     int setUserVariables();
     int monsterAttack();
 };
+
+void increaseGold(int amount, sqlite::sqlite &db);
+int waitAbit(int sec);
+
 #endif
