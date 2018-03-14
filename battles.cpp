@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <unistd.h> //for usleep stuff
 #include "libsqlite.hpp"
 #include "battleScenario.h"
 #include "battles.h"
-#include <unistd.h> //for usleep stuff
 #include "global.h"
 using namespace std;
 int globalUserID;
@@ -17,9 +17,8 @@ void increaseGold(int amount, sqlite::sqlite &db){
     curGold->set_sql("UPDATE users SET gold=gold+amount WHERE idUser=?");
     curGold->prepare();
     curGold->bind(1,globalUserID);
-    if (curGold->step()){
-        cout << "You won " << amount << "coins !" << endl;
-    }    
+    curGold->step();
+       
 }
 bool weaponExist(int weaponId){ //function to 
     sqlite::sqlite db("dungeonCrawler.db");//open database
@@ -46,13 +45,13 @@ bool weaponExist(int weaponId){ //function to
         cur->set_sql("SELECT w.idWeapon, w.type, w.damage, w.attack, wu.duration FROM weapon w, weapons_user wu  WHERE (idUser=? AND w.idWeapon = wu.idWeapon)"); 
         //0-id weapon . 1-type. 2-damage. 3-attack. 4-duration from weapons_user. 
         cur->prepare();
-        cur->bind(1,idUser);
+        cur->bind(1,globalUserID);
         cout<<"Your weapons:"<<endl;
         cout<<"0 = Punch"<<"   "<<"10"<<endl;
         while(cur->step()){
             int totalDamage = cur->get_int(2)*cur->get_int(3);
             //example output weapon(duration) attack%
-            cout<<cur->get_int(0)<<"- "<<cur->get_text(1)<<"("<<cur->get_int(4)<<") "<<totalDamage<<"&"<<endl;
+            cout<<cur->get_int(0)<<" = "<<cur->get_text(1)<<"("<<cur->get_int(4)<<") "<<totalDamage<<"%"<<endl;
             counter = counter +1;
         }
 
@@ -125,13 +124,11 @@ int Battles::startBattle(){
     int monster_health = cur_battle->get_int(3);
     int monster_attack = cur_battle->get_int(4);
     int monster_counterattack = cur_battle->get_int(5);
-    //load monster variables about random number
+    //loaded monster variables about random number
     cur = db.get_statement();//clean the one used before to create query
     Battles var;  // create the object
     var.idMonster = idMonster;
-	
-    while(stopGame != true){
-		
+    while(true){
 		if (idMonster==1)
 			battle.warrior();
 		else if (idMonster==2)
@@ -140,7 +137,6 @@ int Battles::startBattle(){
 			battle.hunter();
 		else if (idMonster==4)
 			battle.dragQueen();
-		
 		cout << "                                " << endl;
         var.printMonsterStatus(user_level);//print the monster status
 		cout << "                                " << endl;
@@ -193,7 +189,7 @@ int Battles::startBattle(){
         int totalMonsterDamage = monster_attack * user_level;
         if (user_armor > 0){
             user_armor = user_armor-(0.75*totalMonsterDamage);
-            user_health = user_armor-(0.25*totalMonsterDamage);
+            user_health = user_health-(0.25*totalMonsterDamage);
         }else{
             user_health =user_health - totalMonsterDamage;
         }
@@ -202,14 +198,14 @@ int Battles::startBattle(){
         if(monster_health <= 0){
             cout<<"You won"<<endl;
             increaseGold(40,db);
-            stopGame = true;
+            return 0;
         }
         if(user_health <= 0){
             cout<<"You lost"<<endl;
             increaseGold(15,db);
-            stopGame = true;
+            return 1;
         }
     }
 
-    return 0;
+    
 }

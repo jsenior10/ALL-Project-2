@@ -61,8 +61,8 @@ class Witch : public BuildUser{
     public:
         Witch()
         {
-            armor = 0;
-            gold = 120;
+            armor = 200;
+            gold = 60;
             type = "Witch";
         }
         //string username;
@@ -77,9 +77,9 @@ class Soldier: public BuildUser{
     public:
         Soldier()
         {
-            armor = 100;
-            gold=100;
-            type="Soldier";
+            armor = 150;
+            gold = 80;
+            type = "Soldier";
         }
         //string usernameSoldier;
         //string passwordSoldier;
@@ -93,7 +93,7 @@ class Fighter: public BuildUser{
     public:
         Fighter()
         {
-            armor = 0;
+            armor = 60;
             gold = 100;
             type = "Fighter";
         }
@@ -107,8 +107,8 @@ class Rogue: public BuildUser{
     public:
         Rogue()
         {
-            armor = 0;
-            gold = 100;
+            armor = 50;
+            gold = 120;
             type = "Rogue";
         }
         void set()
