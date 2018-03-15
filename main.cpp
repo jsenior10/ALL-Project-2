@@ -16,6 +16,89 @@
 
 using namespace std;
 
+int openTheChest(){
+    sqlite::sqlite db("dungeonCrawler.db"); //opens database connection
+    auto cur = db.get_statement();
+    int numOfPowerups = 6;
+    
+    srand(time(0));
+    int randPowerup = rand() % numOfPowerups + 1;
+    
+    cur-> set_sql("SELECT * FROM powerups WHERE num=?");
+    cur-> prepare();
+    cur->bind(1,randPowerup);
+    cur->step();
+    
+    if (randPowerup == 1){
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET maxHealth=maxHealth+5 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->step();
+    return 0;
+    cout << "You found a small health upgrade! Health increased by 5.";
+    cur2 = db.get_statement();
+    }
+    
+    if (randPowerup == 2){
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET maxHealth=maxHealth+10 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->step();
+    cout << "You found a health upgrade! Health increased by 10.";
+
+    cur2 = db.get_statement();
+    }
+    
+    if (randPowerup == 3){
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold+20 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->step();
+    cout << "You found 20 gold";
+        
+    cur2 = db.get_statement();
+    }
+    
+    if (randPowerup == 4){
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold+40 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->step();
+    cout << "You found 40 gold";
+
+    cur2 = db.get_statement();
+    }
+    
+    if (randPowerup == 5){
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold+70 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->step();
+    std::cout << "You found 70 gold";
+
+    cur2 = db.get_statement();
+    }
+    
+    if (randPowerup == 6){
+    auto cur2 = db.get_statement(); 
+    cur2->set_sql("UPDATE users SET gold=gold+100 WHERE idUser =?");
+    cur2->prepare();
+    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->step();
+    cout << "You found 100 gold";
+
+    cur2 = db.get_statement();
+    }
+    return 0;
+}
+
+
+
 void question()
 {
     while (true)
@@ -75,7 +158,7 @@ bool getUserInput(char key, Level &level, Display &display) { //Returns true if 
 	    case 'w': 
 		if(level.playerMove('U')) { return true; }
         else if(level.startBattle('U')) {Battles battle; battle.startBattle();}
-        else if(level.openChest('U')) {cout << "fgfds"; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+        else if(level.openChest('U')) {openTheChest(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
         else if(level.startPuzzle('U')) {question(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
 		break;
         case 68:
