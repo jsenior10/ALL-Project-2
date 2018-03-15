@@ -3,12 +3,15 @@
 #include "libsqlite.hpp"
 #include "utils.h"
 #include "chest.h"
+#include "global.h"
 
 Chest::Chest(int x, int y, int HP) {
     xPos = x;
     yPos = y;
     currentHealth = HP;
 }
+
+
 
 int smallHealthUpgrade(sqlite::sqlite &db){
     auto cur2 = db.get_statement(); 
@@ -70,7 +73,7 @@ int gold100(sqlite::sqlite &db){
     std::cout << "You found 100 gold";
 }
 
-int Chest::openTheChest(){
+int main(){
     sqlite::sqlite db("dungeonCrawler.db"); //opens database connection
     auto cur = db.get_statement();
     int numOfPowerups = 6;
@@ -87,31 +90,27 @@ int Chest::openTheChest(){
 
     
     if (randPowerup == 1){
-        smallHealthUpgrade(db);
+        
     }
     
     if (randPowerup == 2){
-        healthUpgrade(db);
+        
     }
     
     if (randPowerup == 3){
-        gold20(db);
+
     }
     
     if (randPowerup == 4){
-        gold40(db);
+
     }
     
     if (randPowerup == 5){
-        gold70(db);
+
     }
     
     if (randPowerup == 6){
-        gold100(db);
-    }
-}
 
-int main(){
-    Chest chest;
-    chest.openTheChest();
+    }
+    return 0;
 }
