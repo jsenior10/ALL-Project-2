@@ -46,9 +46,9 @@ void Level::generateMap() {
     int maxRoomWidth = round((2 - roomSizeVariation) * avgRoomWidth);
     int minRoomHeight = round(roomSizeVariation * avgRoomHeight);
     int maxRoomHeight = round((2 - roomSizeVariation) * avgRoomHeight);
-    float enemyProbability = 0.5f;
-    float chestProbability = 0.25f;
-    float puzzleProbability = 0.3f;
+    float enemyProbability = 0.18f;
+    float chestProbability = 0.10f;
+    float puzzleProbability = 0.10f;
     
     vector< vector<int> > rooms;
     vector< vector<int> > openings;

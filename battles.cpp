@@ -170,7 +170,7 @@ int Battles::startBattle(){
                 }else{
                     checkWeapon = true;
                     //when the user choose to punch
-                    attackW = 10;
+                    attackW = 50;
                     damageW = 1;
 					cout << "\033[2J";
                 }
@@ -187,8 +187,8 @@ int Battles::startBattle(){
         cout<<"Enemy's turn"<<endl;
         float totalMonsterDamage = monster_attack * user_level;
         if (user_armor > 0){
-            user_armor = user_armor-(0.75*totalMonsterDamage);
-            user_health = user_health-(0.25*totalMonsterDamage);
+            user_armor = user_armor-(0.25*totalMonsterDamage);
+            user_health = user_health-(0.15*totalMonsterDamage);
         }else{
             user_health = user_health - totalMonsterDamage;
         }
