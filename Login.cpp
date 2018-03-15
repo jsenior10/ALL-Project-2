@@ -179,7 +179,7 @@ bool loginForm::regist(){
         while (check){   //will run untill both passwords match 
             cout << "Set your magic word !" << endl; 
             cin >> password;
-            while(testPtestinputassword(password) == false){ 
+            while(testinput(password) == false){ 
 			    cout << "Set your magic word !" << endl;//while to check id the charactrs of the passowrd are aonly between a-z A-Z 0-9
                 cin >> password;   
             }
