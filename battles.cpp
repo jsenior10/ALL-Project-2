@@ -193,8 +193,8 @@ int Battles::startBattle(){
         }else{
             user_health = user_health - totalMonsterDamage;
         }
-        cout<<user_health<< "Your Health"<<endl;
-        cout<<monster_health<<"Monster's Health"<<<endl;
+        cout << user_health << "Your Health" << endl;
+        cout << monster_health << "Monster's Health" << endl;
         if(monster_health <= 0){
             cout<<"You won"<<endl;
             //increaseGold(40,db);
