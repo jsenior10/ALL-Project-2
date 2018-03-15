@@ -62,7 +62,17 @@ name TEXT NOT NULL,
 effectOnArmor INTEGER NOT NULL,
 effectOnDamage INTEGER NOT NULL,
 effectOnGold INTEGER NOT NULL);
-
+CREATE TABLE powerups(
+idPowerUp INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT NOT NULL,
+effectOnHealth INTEGER NOT NULL,
+effectOnGold INTEGER NOT NULL);
+INSERT INTO "powerups" VALUES(1, "Small health upgrade", 5, 0);
+insert into "powerups" values(2, "Health upgrade", 10, 0);
+insert into "powerups" values(3, "20 Gold", 0, 20);
+insert into "powerups" values(4, "40 Gold", 0, 40);
+insert into "powerups" values(5, "70 Gold", 0, 70);
+insert into "powerups" values(6, "100 Gold", 0, 100);
 CREATE TABLE armourpotions(
 IDPotion INTEGER PRIMARY KEY AUTOINCREMENT,
 Price INTEGER NOT NULL,
