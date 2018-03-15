@@ -11,7 +11,7 @@ using namespace std;
 string haskMd5(string password){ //function to hash the password
     return md5(password);
 }
-bool testPassword(string word){  //function to check if the input is between a-z A-Z 0-9
+bool testinput(string word){  //function to check if the input is between a-z A-Z 0-9
 	int counter=0;
     array<char,62> atoz = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
                            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
@@ -129,7 +129,7 @@ bool loginForm::login(){
         while(checkUsername != true){
             cout << "Who are you ?" << endl;
             cin >> username;
-            while (testPassword(username) == false){
+            while (testinput(username) == false){
                 cout << "Who are you ?" << endl;
                 cin >> username;
             }
@@ -145,7 +145,7 @@ bool loginForm::login(){
         while(checkPass != true){
             cout << "Please type the magic word !" << endl;
             cin >> password;
-            while(testPassword(password) == false){
+            while(testinput(password) == false){
                cout << "Please type the magic word !" << endl;
                cin >> password; 
             }
@@ -172,14 +172,14 @@ bool loginForm::regist(){
         sqlite::sqlite db( "dungeonCrawler.db" ); // open database
         cout<< "Type your character's name ?"<< endl;
         cin >> username;
-		while(testPassword(username) == false){
+		while(testinput(username) == false){
 			cout<< "Type your character's name ?"<< endl; //while to check id the charactrs of the passowrd are aonly between a-z A-Z 0-9
 			cin >> username;
 		}
         while (check){   //will run untill both passwords match 
             cout << "Set your magic word !" << endl; 
             cin >> password;
-            while(testPassword(password) == false){ 
+            while(testPtestinputassword(password) == false){ 
 			    cout << "Set your magic word !" << endl;//while to check id the charactrs of the passowrd are aonly between a-z A-Z 0-9
                 cin >> password;   
             }
