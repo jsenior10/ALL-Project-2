@@ -4,22 +4,22 @@
 #include "libsqlite.hpp"
 #include "global.h"
 using namespace std;
-//int globalUserID;
+
 //Gold decrease when bronze armour brought
-int golddecarmourbronze(sqlite::sqlite &db) { 
+int golddecarmourbronze(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET gold=gold-20 WHERE idUser =?");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
 //Armour bronze - 20 points
-int armourbronze(sqlite::sqlite &db) {
+int armourbronze(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET armor=armor+20 WHERE idUser =?;");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
@@ -27,20 +27,20 @@ int armourbronze(sqlite::sqlite &db) {
 
 
 //Gold decrease when silver armour brought
-int golddecarmoursilver(sqlite::sqlite &db) {
+int golddecarmoursilver(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET gold=gold-40 WHERE idUser =?");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
 //Armour silver - 60 points
-int armoursilver(sqlite::sqlite &db) {
+int armoursilver(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET armor=armor+60 WHERE idUser =?;");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
@@ -49,20 +49,20 @@ int armoursilver(sqlite::sqlite &db) {
 
 
 //Gold decrease when gold armour brought
-int golddecarmourgold(sqlite::sqlite &db) {
+int golddecarmourgold(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET gold=gold-60 WHERE idUser =?");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
 //Armour gold - 100 points
-int armourgold(sqlite::sqlite &db) {
+int armourgold(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET armor=armor+100 WHERE idUser =?;");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
@@ -72,20 +72,20 @@ int armourgold(sqlite::sqlite &db) {
 
 
 //Gold decrease when large duration brought
-int golddecleveljump(sqlite::sqlite &db) {
+int golddecleveljump(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET gold=gold-200 WHERE idUser =?");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
 //Level jump - 1 level
-int leveljump(sqlite::sqlite &db) {
+int leveljump(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET level=level+1 WHERE idUser=?;");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
@@ -95,20 +95,20 @@ int leveljump(sqlite::sqlite &db) {
 
 
 //Gold decrease when small duration brought
-int golddecdurationsmall(sqlite::sqlite &db) {
+int golddecdurationsmall(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET gold=gold-10 WHERE idUser =?");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
 //Duration increase - up 3
-int durincsmall(sqlite::sqlite &db) {
+int durincsmall(sqlite::sqlite &db) {//Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE weapons_user SET duration=duration+3 WHERE idUser =?");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
@@ -118,20 +118,20 @@ int durincsmall(sqlite::sqlite &db) {
 
 
 //Gold decrease when medium duration brought
-int golddecdurationmedium(sqlite::sqlite &db) {
+int golddecdurationmedium(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET gold=gold-30 WHERE idUser =?");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
 //Duration increase - up 6 - medium
-int durincmedium(sqlite::sqlite &db) {
+int durincmedium(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE weapons_user SET duration=duration+6 WHERE idUser =?");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
@@ -139,31 +139,31 @@ int durincmedium(sqlite::sqlite &db) {
 
 
 //Gold decrease when large duration brought
-int golddecdurationlarge(sqlite::sqlite &db) {
+int golddecdurationlarge(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE users SET gold=gold-80 WHERE idUser =?");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
 //Duration increase - up 20 - large
-int durinclarge(sqlite::sqlite &db) {
+int durinclarge(sqlite::sqlite &db) { //Uses the already opened database connection
     auto cur2 = db.get_statement(); 
     cur2->set_sql("UPDATE weapons_user SET duration=duration+20 WHERE idUser =?");
     cur2->prepare();
-    cur2->bind(1,globalUserID); //change by global variable here
+    cur2->bind(1,globalUserID); //global user id is used to find the users id
     cur2->step();
     return 0;
 }
 
 
-
-int armourcall(sqlite::sqlite &db){ 
+//Calls the users amount of armour
+int armourcall(sqlite::sqlite &db){ //Uses the already opened database connection
     auto cur = db.get_statement();   
     cur->set_sql("SELECT armor, username FROM users WHERE idUser=?");
     cur->prepare();
-    cur->bind(1,globalUserID); //change by global variable here
+    cur->bind(1,globalUserID); //global user id is used to find the users id
     cur->step();
     int armouruser = cur->get_int(0);
     cout << armouruser << endl;
@@ -171,12 +171,12 @@ int armourcall(sqlite::sqlite &db){
 
 
 
-
-int goldamountcall(sqlite::sqlite &db){
+//Calls the users amount of gold
+int goldamountcall(sqlite::sqlite &db){ //Uses the already opened database connection
     auto cur = db.get_statement();   
     cur->set_sql("SELECT gold FROM users WHERE idUser=?;");
     cur->prepare();
-    cur->bind(1,globalUserID); //change by global variable here
+    cur->bind(1,globalUserID); //global user id is used to find the users id
     cur->step();
     int goldamount = cur->get_int(0);
     cout << goldamount << endl;
@@ -189,17 +189,18 @@ int shopMain(){
     
     while(running!=true)
     {
-    sqlite::sqlite db( "dungeonCrawler.db" ); 
+    sqlite::sqlite db( "dungeonCrawler.db" ); //Opens the connection to the database that will be used througout the program
     auto cur = db.get_statement();   
     cur->set_sql("SELECT gold FROM users WHERE idUser=?;");
     cur->prepare();
-    cur->bind(1,globalUserID); //change by global variable here
+    cur->bind(1,globalUserID); //global user id is used to find the users id
     cur->step();
     int goldamount = cur->get_int(0);
    
     
     
     char broughtitem;
+    //List of items in the shop
     cout << "Your current gold amount is: " << goldamount << endl;
     cout << "+-------------+---------------------------------+------------+----------+" << endl;
     cout << "| Item number |             Item                |    Value   |   Cost   |" << endl;
@@ -211,11 +212,12 @@ int shopMain(){
     cout << "|           5 | Medium weapon duration increase | 6 points   | 30 gold  |" << endl;
     cout << "|           6 | Large weapon duration increase  | 20 points  | 80 gold  |" << endl;
     cout << "|           7 | Level Jump                      | 1 level    | 200 gold |" << endl;
+    cout << "|           8 | Go back to menu                 | None       | None     |" << endl;
     cout << "+-------------+---------------------------------+------------+----------+" << endl;
     cout << "Please enter your choice: " << endl;
     cin >> broughtitem;
     
-   
+   //If statement to run the functions of the item the user has chosen to buy
    if (broughtitem=='1')
    {
         //run armour increase bronze
@@ -319,6 +321,10 @@ int shopMain(){
         {
             cout << "You don't have enough gold" << endl;
         }
+    }
+        else if (broughtitem=='8')
+    {
+            break;
     }
     else
     {

@@ -3,9 +3,18 @@
 #include "libsqlite.hpp"
 #include "shop.h"
 #include "weaponset.h"
+#include "global.h"
 using namespace std;
 int shop(){
-    sqlite::sqlite db( "dungeonCrawler.db" ); // open database
+    sqlite::sqlite db( "dungeonCrawler.db" );
+        
+    auto cur = db.get_statement();   
+    cur->set_sql("SELECT gold FROM users WHERE idUser=?;");
+    cur->prepare();
+    cur->bind(1,globalUserID); //global user id is used to find the users id
+    cur->step();
+    int goldamount = cur->get_int(0);
+    // open database
     bool checkMenu = false;
     while(true){
         bool checkItem = true;
@@ -39,7 +48,15 @@ int shop(){
                     }
                 }
                 else if (item=='2'){
-                    shopMain(); //anir part of the code
+                    if (goldamount>=10)
+                    {
+                        shopMain(); //anir part of the code
+                    }
+                    else
+                    {
+                        cout << "You can't afford anything" << endl;
+                    }    
+                    
                 }  
             }
             if(item == '3'){
