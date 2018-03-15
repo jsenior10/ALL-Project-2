@@ -73,7 +73,7 @@ int gold100(sqlite::sqlite &db){
     std::cout << "You found 100 gold";
 }
 
-int main(){
+int Chest::openTheChest(){
     sqlite::sqlite db("dungeonCrawler.db"); //opens database connection
     auto cur = db.get_statement();
     int numOfPowerups = 6;
