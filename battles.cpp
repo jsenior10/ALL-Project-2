@@ -23,11 +23,13 @@ void increaseGold(int amount, sqlite::sqlite &db){
 bool weaponExist(int weaponId){ //function to 
     sqlite::sqlite db("dungeonCrawler.db");//open database
     auto cur = db.get_statement();//create query
-    cur->set_sql("SELECT duration FROM weapons_user WHERE idUser=? AND idWeapon=?");
+    cur->set_sql("SELECT duration FROM weapons_user WHERE (idUser=? AND idWeapon=?)");
     cur->prepare();
     cur->bind(1,globalUserID);
     cur->bind(2,weaponId);
-    if(cur->step()==1){
+    int step = cur->step();
+    cout<<step<<endl;
+    if(step){
         return true;
     }
     else{
@@ -123,7 +125,7 @@ int Battles::startBattle(){
     float monster_attack = cur_battle->get_int(4);
     int monster_counterattack = cur_battle->get_int(5);
     //loaded monster variables about random number
-    cur = db.get_statement();//clean the one used before to create query
+    //cur = db.get_statement();//clean the one used before to create query
     Battles var;  // create the object
     var.idMonster = idMonster;
     bool checkgame = false;
