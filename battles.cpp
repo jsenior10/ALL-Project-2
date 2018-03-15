@@ -125,7 +125,6 @@ int Battles::startBattle(){
     float monster_attack = cur_battle->get_int(4);
     int monster_counterattack = cur_battle->get_int(5);
     //loaded monster variables about random number
-    //cur = db.get_statement();//clean the one used before to create query
     Battles var;  // create the object
     var.idMonster = idMonster;
     bool checkgame = false;
@@ -194,8 +193,8 @@ int Battles::startBattle(){
         }else{
             user_health = user_health - totalMonsterDamage;
         }
-        cout<<user_health<<endl;
-        cout<<monster_health<<endl;
+        cout<<user_health<< "Your Health"<<endl;
+        cout<<monster_health<<"Monster's Health"<<<endl;
         if(monster_health <= 0){
             cout<<"You won"<<endl;
             //increaseGold(40,db);
