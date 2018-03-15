@@ -165,21 +165,21 @@ bool getUserInput(char key, Level &level, Display &display) { //Returns true if 
 	    case 'a':
 		if(level.playerMove('L')) { return true; }
         else if(level.startBattle('L')) {Battles battle; battle.startBattle();}
-        else if(level.openChest('L')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+        else if(level.openChest('L')) {openTheChest(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
 		else if(level.startPuzzle('L')) {question(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
         break;
         case 66:
 	    case 's':
 		if(level.playerMove('D')) { return true; }
         else if(level.startBattle('D')) {Battles battle; battle.startBattle();}   
-        else if(level.openChest('D')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+        else if(level.openChest('D')) {openTheChest(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
 		else if(level.startPuzzle('D')) {question(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
         break;
         case 67:
 	    case 'd':
 		if(level.playerMove('R')) { return true; }
         else if(level.startBattle('R')) {Battles battle; battle.startBattle();} 
-        else if(level.openChest('R')) {return true; /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
+        else if(level.openChest('R')) {openTheChest(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
 		else if(level.startPuzzle('R')) {question(); /*CALL THE FUCNTION TO RUN WHEN INTERACTING HERE*/}
         break;
 	}
