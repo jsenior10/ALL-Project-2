@@ -17,6 +17,7 @@ int smallHealthUpgrade(sqlite::sqlite &db){
     cur2->bind(1,2); //change by global variable here
     cur2->step();
     return 0;
+    std::cout << "You found a small health upgrade! Health increased by 5.";
 }
 
 int healthUpgrade(sqlite::sqlite &db){
@@ -26,6 +27,7 @@ int healthUpgrade(sqlite::sqlite &db){
     cur2->bind(1,2); //change by global variable here
     cur2->step();
     return 0;
+        std::cout << "You found a health upgrade! Health increased by 10.";
 }
 
 int gold20(sqlite::sqlite &db){
@@ -35,6 +37,7 @@ int gold20(sqlite::sqlite &db){
     cur2->bind(1,2); //change by global variable here
     cur2->step();
     return 0;
+    std::cout << "You found 20 gold";
 }
 
 int gold40(sqlite::sqlite &db){
@@ -44,6 +47,7 @@ int gold40(sqlite::sqlite &db){
     cur2->bind(1,2); //change by global variable here
     cur2->step();
     return 0;
+    std::cout << "You found 40 gold";
 }
 
 int gold70(sqlite::sqlite &db){
@@ -53,6 +57,7 @@ int gold70(sqlite::sqlite &db){
     cur2->bind(1,2); //change by global variable here
     cur2->step();
     return 0;
+    std::cout << "You found 70 gold";
 }
 
 int gold100(sqlite::sqlite &db){
@@ -62,6 +67,7 @@ int gold100(sqlite::sqlite &db){
     cur2->bind(1,2); //change by global variable here
     cur2->step();
     return 0;
+    std::cout << "You found 100 gold";
 }
 
 int Chest::openTheChest(){
@@ -78,5 +84,34 @@ int Chest::openTheChest(){
     cur->step();
     
     string powerupName = cur->get_text(1);
-    std::cout << "You found " << powerupName;
+
+    
+    if (randPowerup == 1){
+        smallHealthUpgrade(db);
+    }
+    
+    if (randPowerup == 2){
+        healthUpgrade(db);
+    }
+    
+    if (randPowerup == 3){
+        gold20(db);
+    }
+    
+    if (randPowerup == 4){
+        gold40(db);
+    }
+    
+    if (randPowerup == 5){
+        gold70(db);
+    }
+    
+    if (randPowerup == 6){
+        gold100(db);
+    }
+}
+
+int main(){
+    Chest chest;
+    chest.openTheChest();
 }
