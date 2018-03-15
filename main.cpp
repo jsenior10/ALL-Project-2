@@ -24,7 +24,7 @@ int openTheChest(){
     srand(time(0));
     int randPowerup = rand() % numOfPowerups + 1;
     
-    cur-> set_sql("SELECT * FROM powerups WHERE num=?");
+    cur-> set_sql("SELECT * FROM powerups WHERE idPowerup=?");
     cur-> prepare();
     cur->bind(1,randPowerup);
     cur->step();
