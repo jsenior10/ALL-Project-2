@@ -6,15 +6,15 @@
 #include "global.h"
 using namespace std;
 int shop(){
-    sqlite::sqlite db( "dungeonCrawler.db" );
+    sqlite::sqlite db( "dungeonCrawler.db" ); // open database
         
     auto cur = db.get_statement();   
     cur->set_sql("SELECT gold FROM users WHERE idUser=?;");
     cur->prepare();
     cur->bind(1,globalUserID); //global user id is used to find the users id
     cur->step();
-    int goldamount = cur->get_int(0);
-    // open database
+    int goldamount = cur->get_int(0); //Sets the gold amount of the user
+    
     bool checkMenu = false;
     while(true){
         bool checkItem = true;
@@ -47,8 +47,8 @@ int shop(){
                         }
                     }
                 }
-                else if (item=='2'){
-                    if (goldamount>=10)
+                else if (item=='2'){ 
+                    if (goldamount>=10) //Makes sure that you have above 10 gold to enter the armour, duration and level jump shop
                     {
                         shopMain(); //anir part of the code
                     }
