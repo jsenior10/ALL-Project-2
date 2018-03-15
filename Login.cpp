@@ -247,7 +247,7 @@ bool loginForm::regist(){
     return false; 
 }
 int loginForm::loginOrRegist(){
-    int choice;
+    char choice;
     bool checking =false;
     while (checking != true){
         cout<<"*----------*"<<endl;
@@ -255,12 +255,12 @@ int loginForm::loginOrRegist(){
         cout<<"| 2-regist |"<< endl; 
         cout<<"*----------*"<<endl;
         cin >> choice;
-        if (choice == 1){
+        if (choice == '1'){
             checking = true;
             loginForm variables;
             variables.login();
         }
-        else if(choice == 2){
+        else if(choice == '2'){
             checking = true;
             loginForm variables;
             variables.regist();

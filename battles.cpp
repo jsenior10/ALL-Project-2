@@ -36,49 +36,47 @@ bool weaponExist(int weaponId){ //function to
 }
 
 
-    void Battles::printWeapons(){
-        //function to print all the weapons the user has
-        int counter = 2;
-        sqlite::sqlite db( "dungeonCrawler.db" ); // open database
-        auto cur = db.get_statement(); // create query
-        //join query between weapon and weaponds_user
-        cur->set_sql("SELECT w.idWeapon, w.type, w.damage, w.attack, wu.duration FROM weapon w, weapons_user wu  WHERE (idUser=? AND w.idWeapon = wu.idWeapon)"); 
-        //0-id weapon . 1-type. 2-damage. 3-attack. 4-duration from weapons_user. 
-        cur->prepare();
-        cur->bind(1,globalUserID);
-        cout<<"Your weapons:"<<endl;
-        cout<<"0 = Punch"<<"   "<<"10"<<endl;
-        while(cur->step()){
-            int totalDamage = cur->get_int(2)*cur->get_int(3);
-            //example output weapon(duration) attack%
-            cout<<cur->get_int(0)<<" = "<<cur->get_text(1)<<"("<<cur->get_int(4)<<") "<<totalDamage<<"%"<<endl;
-            counter = counter +1;
-        }
-
+void Battles::printWeapons(){
+    //function to print all the weapons the user has
+    int counter = 2;
+    sqlite::sqlite db( "dungeonCrawler.db" ); // open database
+    auto cur = db.get_statement(); // create query
+    //join query between weapon and weaponds_user
+    cur->set_sql("SELECT w.idWeapon, w.type, w.damage, w.attack, wu.duration FROM weapon w, weapons_user wu  WHERE (idUser=? AND w.idWeapon = wu.idWeapon)"); 
+    //0-id weapon . 1-type. 2-damage. 3-attack. 4-duration from weapons_user. 
+    cur->prepare();
+    cur->bind(1,globalUserID);
+    cout<<"Your weapons:"<<endl;
+    cout<<"0 = Punch"<<"   "<<"10"<<endl;
+    while(cur->step()){
+        int totalDamage = cur->get_int(2)*cur->get_int(3);
+        //example output weapon(duration) attack%
+        cout<<cur->get_int(0)<<" = "<<cur->get_text(1)<<"("<<cur->get_int(4)<<") "<<totalDamage<<"%"<<endl;
+        counter = counter +1;
     }
 
-    void Battles::printMonsterStatus(int levelUser){
-        sqlite::sqlite db( "dungeonCrawler.db" ); // open database
-        auto cur_monster = db.get_statement(); // create query
-        cur_monster->set_sql("SELECT * FROM monsters WHERE idMonster=?");
-        //0-id monster(int) . 1-name(text) . 2-health(int) . 3-attack(int) . 4-counter attack(int)
-        cur_monster->prepare();
-        cur_monster->bind(1,idMonster);
-        cur_monster->step();
-        cout<<"Health("<<cur_monster->get_int(2)<<") "<<"Attack("<<cur_monster->get_int(3)+(3*levelUser)<<") Counter Attack("<<cur_monster->get_int(4)<<")"<<endl;
-        cout<<"---------------------------------------------------------"<<endl;
-    }
+}
 
-    int Battles::setUserVariables(){
-        
-        //function to set user status between turns
-        
-        return 0;
-    }
+void Battles::printMonsterStatus(int levelUser){
+    sqlite::sqlite db( "dungeonCrawler.db" ); // open database
+    auto cur_monster = db.get_statement(); // create query
+    cur_monster->set_sql("SELECT * FROM monsters WHERE idMonster=?");
+    //0-id monster(int) . 1-name(text) . 2-health(int) . 3-attack(int) . 4-counter attack(int)
+    cur_monster->prepare();
+    cur_monster->bind(1,idMonster);
+    cur_monster->step();
+    cout<<"Health("<<cur_monster->get_int(2)<<") "<<"Attack("<<cur_monster->get_int(3)+(3*levelUser)<<") Counter Attack("<<cur_monster->get_int(4)<<")"<<endl;
+    cout<<"---------------------------------------------------------"<<endl;
+}
 
-    int Battles::monsterAttack(){
-        return 0;
-    }
+//int Battles::setUserVariables(){
+//    //function to set user status between turns
+//    return 0;
+//}
+//
+//int Battles::monsterAttack(){
+//    return 0;
+//}
 
 
 int Battles::startBattle(){
@@ -86,12 +84,12 @@ int Battles::startBattle(){
     int damageW;
 	sqlite::sqlite db("dungeonCrawler.db");//open database
 	auto cur = db.get_statement();//create query
-    auto cur2 = db.get_statement();
+    
     
     cout<<"Your opponent is getting ready..."<<endl;
     waitAbit(1);
     cout <<"."<<endl;
-    waitAbit(2);
+    waitAbit(1);
 	cout<<"Let's get started!"<<endl;
     waitAbit(1);
 	cout << "\033[2J";
@@ -102,14 +100,14 @@ int Battles::startBattle(){
     int numOfMonsters = cur->get_int(0);
     srand(time(0));
     int idMonster = rand() % numOfMonsters + 1; //generate a number between 1-4
+    
+    auto cur2 = db.get_statement();
     cur2->set_sql("SELECT * FROM monsters WHERE idMonster=?"); 
     // 0-idOnster . 1-name . 2-health . 3-attack . 4-counterattack   
     cur2->prepare();
     cur2->bind(1,idMonster);
     cur2->step();
     cout<<"You will fight a: "<< cur2->get_text(1)<<endl;
-    bool stopGame = false;
-	
     auto cur_battle = db.get_statement();//create query
     //query to load user and monster variables
     cur_battle->set_sql("SELECT u.maxHealth, u.armor, u.level, m.health, m.attack, m.counterAttack FROM users u, monsters m WHERE u.idUser==? AND m.idMonster=?");
@@ -118,18 +116,18 @@ int Battles::startBattle(){
     cur_battle->bind(1,globalUserID);  
     cur_battle->bind(2,idMonster);
     cur_battle->step();
-    int user_health = cur_battle->get_int(0);
-    int user_armor = cur_battle->get_int(1);
+    float user_health = cur_battle->get_int(0);
+    float user_armor = cur_battle->get_int(1);
     int user_level = cur_battle->get_int(2);
-    int monster_health = cur_battle->get_int(3);
-    int monster_attack = cur_battle->get_int(4);
+    float monster_health = cur_battle->get_int(3);
+    float monster_attack = cur_battle->get_int(4);
     int monster_counterattack = cur_battle->get_int(5);
     //loaded monster variables about random number
     cur = db.get_statement();//clean the one used before to create query
     Battles var;  // create the object
     var.idMonster = idMonster;
     bool checkgame = false;
-    while(checkgame !=true){
+    while(checkgame != true){
 		if (idMonster==1)
 			battle.warrior();
 		else if (idMonster==2)
@@ -187,12 +185,12 @@ int Battles::startBattle(){
         //--------------
         //------monster turn
         cout<<"Enemy's turn"<<endl;
-        int totalMonsterDamage = monster_attack * user_level;
+        float totalMonsterDamage = monster_attack * user_level;
         if (user_armor > 0){
             user_armor = user_armor-(0.75*totalMonsterDamage);
             user_health = user_health-(0.25*totalMonsterDamage);
         }else{
-            user_health =user_health - totalMonsterDamage;
+            user_health = user_health - totalMonsterDamage;
         }
         cout<<user_health<<endl;
         cout<<monster_health<<endl;
@@ -200,15 +198,15 @@ int Battles::startBattle(){
             cout<<"You won"<<endl;
             //increaseGold(40,db);
             checkgame = true;
-            return 0;
+           
         }
         if(user_health <= 0){
             cout<<"You lost"<<endl;
             //increaseGold(15,db);
             checkgame= true;
-            return 1;
+            
         }
     }
-
+    return 0;
     
 }
