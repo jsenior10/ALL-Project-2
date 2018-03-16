@@ -153,8 +153,7 @@ char getKey() { //this be copy and pasted from somewhere i dont understand this
 }
 
 bool getUserInput(char key, Level &level, Display &display) { //Returns true if handled succsesfully
-    string currentFocus = display.getFocus(); // player movement is handled in level.cpp
-    if(currentFocus == "level") {
+    // player movement is handled in level.cpp
 	switch(key) {
         case 65:
 	    case 'w': 
@@ -187,7 +186,6 @@ bool getUserInput(char key, Level &level, Display &display) { //Returns true if 
 	}
 	return false;
     }
-}
 
 int gameLoop(){
         Player player(1, 1);
