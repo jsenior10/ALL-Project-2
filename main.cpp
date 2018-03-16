@@ -7,7 +7,6 @@
 #include "level.h"
 #include "entity.h"
 #include "display.h"
-#include "utils.h"
 #include "battles.h"
 #include "intro.h"
 #include "loginForm.h"
