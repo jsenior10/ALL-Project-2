@@ -1,12 +1,15 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <cmath>
 #include "level.h"
-#include "utils.h"
+
 // i chose an approach that generates smaller rooms and then put them into  a larger map becausewith the maze
 // it seemed like people would just try trace their way to the exit and with this approach we could set up
 // conditions where the player may only be able to complete the level once all enemies are dead or something
 // it just seemed like a better idea
+// http://www.roguebasin.com/ and http://pcg.wikidot.com/ were used as resources and guidelines as they contain
+//  many approaches to procedural generation and were very useful in putting this together
 using namespace std;
 
 Level::Level(Player* p, int width, int height) {
@@ -55,10 +58,10 @@ void Level::generateMap() {
     vector<int> room(4);
     
     while(true) { //Initial seed room
-	room[0] = Utility::randomNumber(0, mapWidth-1);
-	room[1] = Utility::randomNumber(0, mapHeight-1);
-	room[2] = Utility::randomNumber(minRoomWidth, maxRoomWidth);
-	room[3] = Utility::randomNumber(minRoomHeight, maxRoomHeight);
+	room[0] = randomNumber(0, mapWidth-1);
+	room[1] = randomNumber(0, mapHeight-1);
+	room[2] = randomNumber(minRoomWidth, maxRoomWidth);
+	room[3] = randomNumber(minRoomHeight, maxRoomHeight);
 	if(room[0] + room[2] < mapWidth && room[1] + room[3] < mapHeight) { //Not outside map
 	    rooms.push_back(room);
 	    break;
@@ -67,8 +70,8 @@ void Level::generateMap() {
     int x, y;
     for(int i=0; i<numRooms; i++) {
 	while(true) {
-	    x = Utility::randomNumber(0, mapWidth-1);
-	    y = Utility::randomNumber(0, mapHeight-1);
+	    x = randomNumber(0, mapWidth-1);
+	    y = randomNumber(0, mapHeight-1);
 	    char side = ' ';
 	    for(int j=0; j<rooms.size(); j++) {
 		if(x == rooms[j][0] && y > rooms[j][1] && y < rooms[j][1] + rooms[j][3]) {
@@ -92,24 +95,24 @@ void Level::generateMap() {
 		//makes what is placed here rnadom
 
 		//Generate the room location and size
-		room[2] = Utility::randomNumber(minRoomWidth, maxRoomWidth);
-		room[3] = Utility::randomNumber(minRoomHeight, maxRoomHeight);
+		room[2] = randomNumber(minRoomWidth, maxRoomWidth);
+		room[3] = randomNumber(minRoomHeight, maxRoomHeight);
 		switch(side) {
 		    case 'T':
 			room[1] = y - room[3];
-			room[0] = x - Utility::randomNumber(1, room[2]-1); //Randomise where the opening appears on the new room, 1 and room[2]-1 to remove corner connections
+			room[0] = x - randomNumber(1, room[2]-1); //Randomise where the opening appears on the new room, 1 and room[2]-1 to remove corner connections
 			break;
 		    case 'B':
 			room[1] = y;
-			room[0] = x - Utility::randomNumber(1, room[2]-1);
+			room[0] = x - randomNumber(1, room[2]-1);
 			break;
 		    case 'L':
 			room[0] = x - room[2];
-			room[1] = y - Utility::randomNumber(1, room[3]-1);
+			room[1] = y - randomNumber(1, room[3]-1);
 			break;
 		    case 'R':
 			room[0] = x;
-			room[1] = y - Utility::randomNumber(1, room[3]-1);
+			room[1] = y - randomNumber(1, room[3]-1);
 			break;
 		}
 		//Check if the room is valid
@@ -120,22 +123,22 @@ void Level::generateMap() {
 		    isValid = false;
 	       	}
 	        for(int j=0; j<rooms.size(); j++) {
-		    if((Utility::isFieldOverlapping({room[0], room[0] + room[2] - 1}, {rooms[j][0], rooms[j][0] + rooms[j][2] - 1})) && (Utility::isFieldOverlapping({room[1], room[1] + room[3] - 1}, {rooms[j][1], rooms[j][1] + rooms[j][3] - 1}))) { //Uses -1 so room edges touching does not count
+		    if((isFieldOverlapping({room[0], room[0] + room[2] - 1}, {rooms[j][0], rooms[j][0] + rooms[j][2] - 1})) && (isFieldOverlapping({room[1], room[1] + room[3] - 1}, {rooms[j][1], rooms[j][1] + rooms[j][3] - 1}))) { //Uses -1 so room edges touching does not count
 			isValid = false;
 			break;
 		    }
 		}
 		if(isValid) {
 		    //Add stuff
-		    if(Utility::randomProbability() < chestProbability) {
+		    if(randomProbability() < chestProbability) {
             Chest chest(room[0] + 3, room[1] + 1, 2);
 			chests.push_back(chest);
 		    }
-            if(Utility::randomProbability() < enemyProbability) {
+            if(randomProbability() < enemyProbability) {
             Enemy enemy(room[0] + 1, room[1] + 1, 2);
 			enemies.push_back(enemy);
 		    }
-            if(Utility::randomProbability() < puzzleProbability) {
+            if(randomProbability() < puzzleProbability) {
             Puzzle puzzle(room[0] + 2, room[1] + 2, 1);
 			puzzles.push_back(puzzle);
 		    }
@@ -401,7 +404,7 @@ bool Level::startPuzzle(char direction) {
 }
 
 void Level::cleanUp() { 
-//////this function is just for later on when shit dies we can have them be removed in here
+//////this function is just for later on when things need to be removed from the map
 for(int i=0; i<chests.size(); i++){
     if(chests[i].isDead){
         chests.erase(chests.begin()+i);
@@ -417,5 +420,54 @@ for(int i=0; i<puzzles.size(); i++){
         puzzles.erase(puzzles.begin()+i);
     }
 }
+}
+
+void Level::printMap(vector< vector<int> > map) { //prints the map ALONE, doesnt include any enemies, chests etc
+    for(int i=0; i<map.size(); i++) {
+	for(int j=0; j<map[i].size(); j++) {
+	    cout << map[i][j] << " ";
+	}
+    
+	cout << endl;
+    }
+}
+
+int Level::randomNumber(int min, int max) {
+    if(!isRandomInitialised) {
+	srand(time(NULL));
+	isRandomInitialised = true;
+    }
+    return (rand() % (max-min+1)) + min;
+}
+
+float Level::randomProbability() {
+    if(!isRandomInitialised) {
+	srand(time(NULL));
+	isRandomInitialised = true;
+    }
+    return rand() / (RAND_MAX + 1.0);
+}
+
+bool Level::isFieldOverlapping(vector<int> field1, vector<int> field2) { //checks to make sure that the rooms are not overlapping which could cause problems for the player such as impossible levels
+    sort(field1.begin(), field1.end()); sort(field2.begin(), field2.end());
+    if(field1[0] == field2[0]) {
+	return true;
+    }
+    else if(field1[0] < field2[0]) {
+	if(field1[1] >= field2[0]) { //Max of field 1 is greater than min of field 2
+	    return true;
+	}
+	else {
+	    return false; //Max and min of field 1 are lower than min field 2
+	}
+    }
+    else {
+	if(field2[1] >= field1[0]) {
+	    return true;
+	}
+	else {
+	    return false;
+	}
+    }
 }
 
