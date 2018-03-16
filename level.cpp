@@ -8,6 +8,8 @@
 // it seemed like people would just try trace their way to the exit and with this approach we could set up
 // conditions where the player may only be able to complete the level once all enemies are dead or something
 // it just seemed like a better idea
+// http://www.roguebasin.com/ and http://pcg.wikidot.com/ were used as resources and guidelines as they contain
+//  many approaches to procedural generation and were very useful in putting this together
 using namespace std;
 
 Level::Level(Player* p, int width, int height) {
