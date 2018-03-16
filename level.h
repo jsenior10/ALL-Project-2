@@ -20,8 +20,10 @@ private:
        (space) - open ground
        # - wall
        P - player
-       C - chest
-    */
+       1 - chest
+       2 - enemy
+       3 - puzzle
+       */
     vector<Chest> chests;
     vector<Enemy> enemies;
     vector<Puzzle> puzzles;
