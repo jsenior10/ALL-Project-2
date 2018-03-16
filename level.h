@@ -23,7 +23,7 @@ private:
        1 - chest
        2 - enemy
        3 - puzzle
-       */
+    */
     vector<Chest> chests;
     vector<Enemy> enemies;
     vector<Puzzle> puzzles;
@@ -37,20 +37,18 @@ public:
     vector< vector<char> > getMapWithEntities(); //Returns the map with all entities
     void generateMap(); //Creates the map
     vector< vector<int> > getDistanceMap(int, int, int); //Gets the map but shows the distances from a single space
-    bool hasLOS(int, int, int, int); //Checks if two positions have line of sight between each other this is essential to making sure the rooms dont overlap otherwise it fucks up and thres loads of retarded maps that trap you in the spawn
     bool playerMove(char); //Moves the player in a specified direction
-    bool isEntity(int, int); //Checks if there is an entity at the specified location
     Entity* getEntityAtPosition(int, int); //Gets a pointer to the entity at a given location
-    void cleanUp(); //Removes all dead shit and items from the map when picked up etc
-    bool isChest(int, int);
-    bool openChest(char);
-    bool isEnemy(int, int);
-    bool startBattle(char);
-    bool isPuzzle(int, int);
-    bool startPuzzle(char);
+    void cleanUp(); //Removes all things interacted with after interacting
+    bool isChest(int, int); //checks if theres a chest in the direction the player is moving
+    bool openChest(char); // doesnt actually open the chest, but reduces it's 'health' to 0 so it disappears when interacted with
+    bool isEnemy(int, int); //checks if theres an enemy in the direction the player is moving
+    bool startBattle(char); //doesnt actually start the battle, but reduces it's 'health' to 0 so it disappears when interacted with
+    bool isPuzzle(int, int); //checks if theres a puzzle in the direction the player is moving
+    bool startPuzzle(char); //doesnt actually start  the puzzle, but reduces it's 'health' to 0 so it disappears when interacted with
     void printMap(vector< vector<int> >);
-    int randomNumber(int, int);
-    bool isFieldOverlapping(vector<int>, vector<int>);
-    float randomProbability();
+    int randomNumber(int, int); // this is used in the generation of the map
+    bool isFieldOverlapping(vector<int>, vector<int>); // checks if rooms overlaps and prevents it
+    float randomProbability(); // this is used in placing things on the map
 };
 #endif
