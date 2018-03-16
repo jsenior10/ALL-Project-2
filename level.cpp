@@ -8,8 +8,6 @@
 // it seemed like people would just try trace their way to the exit and with this approach we could set up
 // conditions where the player may only be able to complete the level once all enemies are dead or something
 // it just seemed like a better idea
-// http://www.roguebasin.com/ and http://pcg.wikidot.com/ were used as resources and guidelines as they contain
-//  many approaches to procedural generation and were very useful in putting this together
 using namespace std;
 
 Level::Level(Player* p, int width, int height) {
@@ -129,13 +127,13 @@ void Level::generateMap() {
 		    }
 		}
 		if(isValid) {
-		    //Add stuff
+		    //Add puzzles, enemies, chests to the map
 		    if(randomProbability() < chestProbability) {
-            Chest chest(room[0] + 3, room[1] + 1, 2);
+            Chest chest(room[0] + 1, room[1] + 1, 1);
 			chests.push_back(chest);
 		    }
             if(randomProbability() < enemyProbability) {
-            Enemy enemy(room[0] + 1, room[1] + 1, 2);
+            Enemy enemy(room[0] + 1, room[1] + 1, 1);
 			enemies.push_back(enemy);
 		    }
             if(randomProbability() < puzzleProbability) {
