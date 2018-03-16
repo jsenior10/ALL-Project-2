@@ -130,16 +130,16 @@ void Level::generateMap() {
 		}
 		if(isValid) {
 		    //Add puzzles, enemies, chests to the map
-		    if(randomProbability() < chestProbability) {
-            Chest chest(room[0] + 1, room[1] + 1, 1);
+		    if(randomProbability() < chestProbability) { // works by: if number generated in randomProbability is less than chestProbability, place a chest until randomProbability > chestProbability, same for the other objects
+            Chest chest(room[0] + 1, room[1] + 1, 1); // adds 
 			chests.push_back(chest);
 		    }
             if(randomProbability() < enemyProbability) {
-            Enemy enemy(room[0] + 1, room[1] + 1, 1);
+            Enemy enemy(room[0] + 2, room[1] + 1, 1);
 			enemies.push_back(enemy);
 		    }
             if(randomProbability() < puzzleProbability) {
-            Puzzle puzzle(room[0] + 2, room[1] + 2, 1);
+            Puzzle puzzle(room[0] + 3, room[1] + 2, 1);
 			puzzles.push_back(puzzle);
 		    }
 		    rooms.push_back(room);
@@ -166,69 +166,7 @@ void Level::generateMap() {
     player->yPos = rooms[0][1] + 1;
 }
 
-vector< vector<int> > Level::getDistanceMap(int x, int y, int distance) { //distance = -1 means no limit on distance
-    vector< vector<int> > distanceMap(map.size(), vector<int>(map[0].size(), -1));
-    for(int i=0; i<map.size(); i++) {
-	for(int j=0; j<map[i].size(); j++) {
-	    if(map[i][j] == '#' || isChest(j, i)) { //Blocked if wall or entity
-		distanceMap[i][j] = -2;
-	    }
-	    else if(map[i][j] = ' ') {
-		distanceMap[i][j] = -1;
-	    }
-	}
-    }
-    distanceMap[y][x] = 0; //Current position, 0 turns to reach it
-    vector< vector<int> > newDistanceMap = distanceMap;
-    int up, left, down, right;
-    if(distance == -1) {
-	int i=0;
-	bool isLastMove; //Used to stop once no more moves can be found
-	while(true) {
-	    i++;
-	    isLastMove = true;
-	    for(int j=0; j<distanceMap.size(); j++) { //Height
-		for(int k=0; k<distanceMap[0].size(); k++) { //Width
-		    if(distanceMap[j][k] == -1) { //Empty space, can be passed through
-			up = (j==0) ? -2 : distanceMap[j-1][k]; //Value of -2 if outside, real value if not, used to prevent segfaults
-			left = (k==0) ? -2 : distanceMap[j][k-1];
-			down = (j==distanceMap.size()-1) ? -2: distanceMap[j+1][k];
-			right = (k==distanceMap[0].size()-1) ? -2 : distanceMap[j][k+1];
-			if(up >= 0 || left >= 0 || down >= 0 || right >= 0) { //If anything next to this tile is accessible, so is this tile
-			    newDistanceMap[j][k] = i;
-			    isLastMove = false; //We found a move, keep going
-			}
-		    }
-		}
-	    }
-	    distanceMap = newDistanceMap;
-	    if(isLastMove) {
-		break; //No more moves
-	    }
-	}
-    }
-    else {
-	for(int i=1; i<=distance; i++) {
-	    for(int j=0; j<distanceMap.size(); j++) { //Height
-		for(int k=0; k<distanceMap[0].size(); k++) { //Width
-		    if(distanceMap[j][k] == -1) { 
-		        up = (j==0) ? -2 : distanceMap[j-1][k];
-			left = (k==0) ? -2 : distanceMap[j][k-1];
-			down = (j==distanceMap.size()-1) ? -2: distanceMap[j+1][k];
-			right = (k==distanceMap[0].size()-1) ? -2 : distanceMap[j][k+1];
-			if(up >= 0 || left >= 0 || down >= 0 || right >= 0) { 
-			    newDistanceMap[j][k] = i;
-			}
-		    }
-		}
-	    }
-	    distanceMap = newDistanceMap;
-	}
-        
-        
-    }
-    return distanceMap;
-}
+
 
 void Level::movePlayerTo(int x, int y) {
     player->xPos = x;

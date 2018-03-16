@@ -7,7 +7,6 @@
 #include "level.h"
 #include "entity.h"
 #include "display.h"
-#include "utils.h"
 #include "battles.h"
 #include "intro.h"
 #include "loginForm.h"
@@ -18,7 +17,7 @@ using namespace std;
 
 //#200!commits!200#//
 
-int openTheChest(){
+bool openTheChest(){
     sqlite::sqlite db("dungeonCrawler.db"); //opens database connection
     auto cur = db.get_statement();
     int numOfPowerups = 6;
@@ -40,6 +39,7 @@ int openTheChest(){
     return 0;
     cout << "You found a small health upgrade! Health increased by 5.";
     cur2 = db.get_statement();
+    return true;
     }
     
     if (randPowerup == 2){
@@ -51,6 +51,7 @@ int openTheChest(){
     cout << "You found a health upgrade! Health increased by 10.";
 
     cur2 = db.get_statement();
+    return true;
     }
     
     if (randPowerup == 3){
@@ -62,6 +63,7 @@ int openTheChest(){
     cout << "You found 20 gold";
         
     cur2 = db.get_statement();
+    return true;
     }
     
     if (randPowerup == 4){
@@ -73,6 +75,7 @@ int openTheChest(){
     cout << "You found 40 gold";
 
     cur2 = db.get_statement();
+    return true;
     }
     
     if (randPowerup == 5){
@@ -84,6 +87,7 @@ int openTheChest(){
     std::cout << "You found 70 gold";
 
     cur2 = db.get_statement();
+    return true;
     }
     
     if (randPowerup == 6){
@@ -95,6 +99,7 @@ int openTheChest(){
     cout << "You found 100 gold";
 
     cur2 = db.get_statement();
+    return true;
     }
     return 0;
 }

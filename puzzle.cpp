@@ -3,7 +3,6 @@
 #include <string>
 #include <unistd.h>
 #include "libsqlite.hpp"
-#include "utils.h"
 #include "puzzle.h"
 #include "global.h"
 #include "battles.h"
