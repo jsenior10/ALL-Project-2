@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include "libsqlite.hpp"
-#include "utils.h"
 #include "chest.h"
 #include "global.h"
 
