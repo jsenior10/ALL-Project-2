@@ -8,6 +8,8 @@ using namespace std;
 #include "enemy.h"
 #include "puzzle.h"
 
+static bool isRandomInitialised = false;
+
 class Level {
 
 private:
@@ -44,5 +46,9 @@ public:
     bool startBattle(char);
     bool isPuzzle(int, int);
     bool startPuzzle(char);
+    void printMap(vector< vector<int> >);
+    int randomNumber(int, int);
+    bool isFieldOverlapping(vector<int>, vector<int>);
+    float randomProbability();
 };
 #endif
