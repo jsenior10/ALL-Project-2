@@ -201,7 +201,7 @@ int gameLoop(){
         Display display;
         char key;
         bool validKey;
-        while(true) { //runs indefinitely right now can probably easily have conditions added where it ends on death or some shit
+        while(true) { //runs indefinitely right now can probably easily have conditions added where it ends on death or something
         display.displayLevel(level);
         validKey = false;
         while(!validKey) {
